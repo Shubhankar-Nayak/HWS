@@ -4,7 +4,7 @@ import connectDB from './config/db';
 import cors from 'cors';
 
 import userRoutes from './routes/userRoutes';
-import fileRoutes from "./routes/bookingRoutes";
+import bookingRoutes from "./routes/bookingRoutes";
 
 import path from 'path';
 
@@ -14,7 +14,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:5173'],
+  origin: ['http://localhost:8080'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/user', userRoutes);
-app.use("/api/files", fileRoutes);
+app.use("/api/booking", bookingRoutes);
 
 const PORT = process.env.PORT || 5000;
 

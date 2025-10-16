@@ -8,7 +8,7 @@ import bookingSlice from './slices/bookingSlice';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'transactions', 'investments', 'budget', 'ui'],
+  whitelist: ['auth', 'booking'],
 };
 
 const rootReducer = combineReducers({

@@ -7,8 +7,12 @@ import BookingFormStep2 from '@/components/booking/BookingFormStep2';
 import BookingFormStep3 from '@/components/booking/BookingFormStep3';
 import BookingFormStep4 from '@/components/booking/BookingFormStep4';
 import BookingFormStep5 from '@/components/booking/BookingFormStep5';
+import { useAppDispatch, useAppSelector } from '../hooks/useAppSelector'; 
+import { createBooking } from '../store/slices/bookingSlice';
 
 const Booking = () => {
+  const dispatch = useAppDispatch();
+  const { status, error } = useAppSelector((state) => state.booking);
   const { toast } = useToast();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
@@ -27,12 +31,32 @@ const Booking = () => {
     setFormData((prev) => ({ ...prev, ...data }));
   };
 
-  const handleSubmit = () => {
-    toast({
-      title: 'Booking Confirmed! 🎉',
-      description: 'We\'ll send a confirmation email shortly.',
-    });
-    setTimeout(() => navigate('/'), 2000);
+  const handleSubmit = async () => {
+    try {
+      const result = await dispatch(createBooking({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        programme: formData.programme,
+        date: formData.date?.toISOString() || '',
+        time: formData.time,
+        message: formData.additionalInfo,
+      })).unwrap(); // unwrap gives you success/error directly
+
+      toast({
+        title: 'Booking Confirmed! 🎉',
+        description: 'We\'ll send a confirmation email shortly.',
+      });
+
+      setTimeout(() => navigate('/'), 2000);
+    } catch (err: any) {
+      toast({
+        title: 'Booking Failed',
+        description: err || 'Something went wrong. Please try again.',
+        variant: 'destructive',
+      });
+    }
   };
 
   const steps = [
