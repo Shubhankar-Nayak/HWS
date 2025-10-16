@@ -4,7 +4,7 @@ import connectDB from './config/db';
 import cors from 'cors';
 
 import userRoutes from './routes/userRoutes';
-import fileRoutes from "./routes/fileRoutes";
+import fileRoutes from "./routes/bookingRoutes";
 
 import path from 'path';
 
