@@ -17,7 +17,7 @@ const generateToken = (id: string) => {
 };
 
 export const registerUser = async (req: AuthenticatedRequest, res: Response) => {
-  const { name, email, password, otp, hash, phone, userType } = req.body;
+  const { name, email, password, otp, hash } = req.body;
 
   try {
     const [hashedOtp, expiresAt] = hash.split('.');
@@ -35,7 +35,7 @@ export const registerUser = async (req: AuthenticatedRequest, res: Response) => 
     const userExists = await User.findOne({ email });
     if (userExists) return res.status(400).json({ message: 'User already exists' });
 
-    const createdUser = await User.create({ name, email, password, phone, userType });
+    const createdUser = await User.create({ name, email, password });
 
     const user = createdUser.toObject() as UserDocument & { _id: string };
 

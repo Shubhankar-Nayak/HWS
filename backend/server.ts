@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/user', userRoutes);
+app.use('/api/auth', userRoutes);
 app.use("/api/booking", bookingRoutes);
 
 const PORT = process.env.PORT || 5000;

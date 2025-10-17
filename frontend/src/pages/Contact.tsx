@@ -16,9 +16,63 @@ const Contact = () => {
     subject: '',
     message: '',
   });
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+    if (!formData.firstName.trim()) newErrors.firstName = "First Name is required";
+    if (!formData.lastName.trim()) newErrors.lastName = "Last Name is required";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Enter a valid email";
+    }
+    if (!formData.subject.trim()) newErrors.subject = "Subject is required";
+    if (!formData.message.trim()) newErrors.message = "Message cannot be empty";
+    return newErrors;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const newErrors = validate();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    setErrors({});
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xjkodjyq", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormData({ firstName: "", lastName: "", email: "", subject: "", message: "" }); // reset form
+      } else {
+        alert("Something went wrong. Please try again!");
+      }
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      alert("Something went wrong. Please try again!");
+    } finally {
+      setIsSubmitting(false);
+    }
     toast({
       title: 'Message Sent!',
       description: 'We\'ll get back to you within 24 hours.',
