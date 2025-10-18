@@ -6,7 +6,9 @@ import {
   setPassword,
   changePassword,
   googleLogin,
-  sendOtpToEmail
+  sendOtpToEmail,
+  verifyUser,
+  logoutUser
 } from '../controllers/userController';
 import { protect } from '../middleware/authMiddleware';
 
@@ -17,9 +19,11 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/google', googleLogin);
 router.post('/send-otp', sendOtpToEmail);
+router.get('/verify', verifyUser);
+router.post('/logout', logoutUser);
 
 // Protected Routes
-router.get('/me', getMe);
+router.get('/me', protect, getMe);
 
 router.post('/set-password', protect, setPassword);
 router.post('/change-password', protect, changePassword);

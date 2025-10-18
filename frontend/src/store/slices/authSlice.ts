@@ -11,14 +11,12 @@ interface User {
 
 interface AuthState {
   user: User | null;
-  token: string | null;
   isAuthenticated: boolean;
   loading: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
-  token: null,
   isAuthenticated: false,
   loading: false,
 };
@@ -27,14 +25,14 @@ const API = import.meta.env.VITE_API_URL;
 
 export const setPassword = createAsyncThunk<
   void,
-  { newPassword: string },
-  { state: RootState }
->('auth/setPassword', async ({ newPassword }, { getState, rejectWithValue }) => {
+  { newPassword: string }
+>('auth/setPassword', async ({ newPassword }, { rejectWithValue }) => {
   try {
-    const token = getState().auth.token;
-    await axios.post(`${API}/user/set-password`, { newPassword }, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    await axios.post(
+      `${API}/user/set-password`,
+      { newPassword },
+      { withCredentials: true } // <-- send cookies automatically
+    );
   } catch (error: any) {
     return rejectWithValue(error.response?.data?.message || 'Failed to set password');
   }
@@ -42,18 +40,31 @@ export const setPassword = createAsyncThunk<
 
 export const changePassword = createAsyncThunk<
   void,
-  { currentPassword: string; newPassword: string },
-  { state: RootState }
->('auth/changePassword', async ({ currentPassword, newPassword }, { getState, rejectWithValue }) => {
+  { currentPassword: string; newPassword: string }
+>('auth/changePassword', async ({ currentPassword, newPassword }, { rejectWithValue }) => {
   try {
-    const token = getState().auth.token;
-    await axios.post(`${API}/user/change-password`, { currentPassword, newPassword }, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    await axios.post(
+      `${API}/user/change-password`,
+      { currentPassword, newPassword },
+      { withCredentials: true } // <-- send cookies automatically
+    );
   } catch (error: any) {
     return rejectWithValue(error.response?.data?.message || 'Failed to change password');
   }
 });
+
+export const verifyUser = createAsyncThunk(
+  'auth/verifyUser',
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(`${API}/user/verify`, { withCredentials: true });
+      return res.data.user;
+    } catch (error: any) {
+      return rejectWithValue('Not authenticated');
+    }
+  }
+);
+
 
 const authSlice = createSlice({
   name: 'auth',
@@ -62,35 +73,21 @@ const authSlice = createSlice({
     loginStart: (state) => {
       state.loading = true;
     },
-    loginSuccess: (state, action: PayloadAction<{ user: User; token: string }>) => {
-      state.user = {
-        id: action.payload.user.id,
-        email: action.payload.user.email,
-        name: action.payload.user.name,
-        hasPassword: action.payload.user.hasPassword ?? false,
-      };
-      state.token = action.payload.token;
+    loginSuccess: (state, action: PayloadAction<{ user: User }>) => {
+      state.user = action.payload.user;
       state.isAuthenticated = true;
       state.loading = false;
     },
     loginFailure: (state) => {
       state.loading = false;
       state.user = null;
-      state.token = null;
     },
     logout: (state) => {
       state.user = null;
-      state.token = null;
       state.isAuthenticated = false;
     },
-    register: (state, action: PayloadAction<{ user: User; token: string }>) => {
-      state.user = {
-        id: action.payload.user.id,
-        email: action.payload.user.email,
-        name: action.payload.user.name,
-        hasPassword: action.payload.user.hasPassword ?? false, 
-      };
-      state.token = action.payload.token;
+    register: (state, action: PayloadAction<{ user: User }>) => {
+      state.user = action.payload.user;
       state.isAuthenticated = true;
       state.loading = false;
     },

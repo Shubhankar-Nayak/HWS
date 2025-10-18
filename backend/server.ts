@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import userRoutes from './routes/userRoutes';
 import bookingRoutes from "./routes/bookingRoutes";
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use('/api/auth', userRoutes);
 app.use("/api/booking", bookingRoutes);

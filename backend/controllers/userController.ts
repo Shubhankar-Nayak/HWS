@@ -16,6 +16,43 @@ const generateToken = (id: string) => {
   return jwt.sign({ id }, process.env.JWT_SECRET as string, { expiresIn: '30d' });
 };
 
+const sendTokenAsCookie = (res: Response, token: string) => {
+  res.cookie('token', token, {
+    httpOnly: true,              // not accessible via JS
+    secure: process.env.NODE_ENV === 'production', // only HTTPS in prod
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+  });
+};
+
+export const verifyUser = async (req: Request, res: Response) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ message: 'Not authenticated' });
+    }
+
+    const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        hasPassword: !!user.password,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(401).json({ message: 'Invalid token' });
+  }
+};
+
 export const registerUser = async (req: AuthenticatedRequest, res: Response) => {
   const { name, email, password, otp, hash } = req.body;
 
@@ -37,19 +74,19 @@ export const registerUser = async (req: AuthenticatedRequest, res: Response) => 
 
     const createdUser = await User.create({ name, email, password });
 
-    const user = createdUser.toObject() as UserDocument & { _id: string };
-
+    const token = generateToken(String(createdUser._id));
+    sendTokenAsCookie(res, token);
 
     res.status(201).json({
       user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        hasPassword: !!user.password,
+        id: createdUser._id,
+        name: createdUser.name,
+        email: createdUser.email,
+        hasPassword: !!createdUser.password,
       },
-      token: generateToken(user._id.toString()),
     });
   } catch (err) {
+    console.error(err);
     res.status(400).json({ message: 'Invalid user data' });
   }
 };
@@ -82,6 +119,13 @@ export const googleLogin = async (req: AuthenticatedRequest, res: Response) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, { expiresIn: '30d' });
 
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax', // or 'none' if cross-domain
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    });
+
     res.json({
       ...user.toObject(),
       token,
@@ -94,11 +138,10 @@ export const googleLogin = async (req: AuthenticatedRequest, res: Response) => {
 };
 
 export const loginUser = async (req: AuthenticatedRequest, res: Response) => {
-
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).select('+password');
-    
+
     if (!user || !user.password) {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
@@ -109,8 +152,16 @@ export const loginUser = async (req: AuthenticatedRequest, res: Response) => {
     }
 
     const token = generateToken(String(user._id));
-    res.json({
-      token,
+    sendTokenAsCookie(res, token); // sends httpOnly cookie
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax', // or 'none' if cross-domain
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    });
+
+    res.status(200).json({
       user: {
         id: user._id,
         name: user.name,
@@ -119,16 +170,32 @@ export const loginUser = async (req: AuthenticatedRequest, res: Response) => {
       },
     });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 };
 
+
+export const logoutUser = (req: Request, res: Response) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+  });
+  res.status(200).json({ message: 'Logged out successfully' });
+};
+
 export const getMe = async (req: AuthenticatedRequest, res: Response) => {
-  if (!req.user) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
-  const user = await User.findById(req.user._id).select('-password');
-  res.json(user);
+  if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
+
+  res.status(200).json({
+    user: {
+      id: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
+      hasPassword: !!req.user.password,
+    },
+  });
 };
 
 export const setPassword = async (req: AuthenticatedRequest, res: Response) => {

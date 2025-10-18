@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Provider } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { Provider, useDispatch } from "react-redux";
 import { store } from "./store/store";
 import { useAppSelector } from "./hooks/useAppSelector";
-
+import { fetchCurrentUser } from "./utils/auth";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -24,8 +24,27 @@ import RegisterForm from "./pages/RegisterForm";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
-  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { isAuthenticated, loading } = useAppSelector((state) => state.auth);
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  // Fetch current user on app load
+  useEffect(() => {
+    const checkUser = async () => {
+      await fetchCurrentUser(dispatch);
+      setCheckingAuth(false);
+    };
+    checkUser();
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (

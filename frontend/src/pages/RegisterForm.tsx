@@ -38,17 +38,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
 
   const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-  const registerUser = async (formData: {
-    name: string;
-    email: string;
-    password: string;
-    otp: string;
-    hash: string;
-  }) => {
-    const response = await axios.post(`${API_BASE_URL}/auth/register`, formData);
-    return response.data; 
-  };
-
   const onSubmit = async (data: RegisterFormData) => {
     try {
       const response = await axios.post(`${API}/auth/send-otp`, {
@@ -68,14 +57,22 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
 
   const handleVerifyOtp = async () => {
     try {
-      const { user, token } = await registerUser({
+      // send OTP + user data to register endpoint
+      await axios.post(`${API_BASE_URL}/auth/register`, {
         name: userName,
         email: userEmail,
         password: userPassword,
         otp,
         hash,
-      });
-      dispatch(registerAction({ user, token }));
+      }, { withCredentials: true }); // IMPORTANT: allow cookies to be set
+
+      // now fetch the user from backend (verify endpoint)
+      const { data } = await axios.get(`${API_BASE_URL}/auth/verify`, { withCredentials: true });
+      
+      // store in redux
+      dispatch(registerAction({ user: data.user }));
+
+      // optionally, move to dashboard or home
     } catch (error: any) {
       alert(error.response?.data?.message || 'OTP verification failed');
     }
@@ -247,7 +244,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
 
                   dispatch(registerAction({
                     user: data,
-                    token: data.token,
                   }));
                 } catch (err) {
                   console.error('Google login failed', err);

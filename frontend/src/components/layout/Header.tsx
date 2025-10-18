@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAppDispatch, useAppSelector } from '../../hooks/useAppSelector';
+import { logout } from '../../store/slices/authSlice';
+import axios from 'axios';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAppSelector(state => state.auth);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +29,17 @@ const Header = () => {
     { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' },
   ];
+
+  const handleLogout = async () => {
+    try {
+      // Call backend to clear cookie
+      await axios.post(`${import.meta.env.VITE_API_URL}/auth/logout`, {}, { withCredentials: true });
+      // Update redux state
+      dispatch(logout());
+    } catch (err) {
+      console.error('Logout failed', err);
+    }
+  };
 
   return (
     <header
@@ -54,6 +70,15 @@ const Header = () => {
                 {link.name}
               </Link>
             ))}
+
+            {isAuthenticated && (
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-1 text-sm font-medium text-red-600 hover:text-red-500 transition-colors duration-200"
+              >
+                <LogOut className="w-4 h-4" /> Logout
+              </button>
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -84,6 +109,15 @@ const Header = () => {
                 {link.name}
               </Link>
             ))}
+
+            {isAuthenticated && (
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-1 text-sm font-medium text-red-600 hover:text-red-500 transition-colors duration-200"
+              >
+                <LogOut className="w-4 h-4" /> Logout
+              </button>
+            )}
           </nav>
         )}
       </div>

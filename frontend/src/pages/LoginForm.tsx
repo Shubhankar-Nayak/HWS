@@ -33,16 +33,30 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
     try {
       dispatch(loginStart());
 
-      const response = await axios.post(`${API}/auth/login`, data);
+      // Include credentials to send cookie automatically
+      const response = await axios.post(`${API}/auth/login`, data, { withCredentials: true });
 
-      const { user, token } = response.data;
+      const { user } = response.data; // backend only returns user, not token
 
-      dispatch(loginSuccess({ user, token }));
+      dispatch(loginSuccess({ user })); // update store with user only
     } catch (error: any) {
       console.error('Login failed:', error);
       dispatch(loginFailure());
     }
   };
+
+  useEffect(() => {
+    const initializeUser = async () => {
+      try {
+        const res = await axios.get(`${API}/auth/me`, { withCredentials: true });
+        dispatch(loginSuccess({ user: res.data }));
+      } catch {
+        console.log("not logged in");
+      }
+    };
+    initializeUser();
+  }, [dispatch]);
+
 
   useEffect(() => {
     if (window.google) {
@@ -51,18 +65,21 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
         callback: async (response: any) => {
           try {
             dispatch(loginStart());
-            const res = await axios.post(`${API}/auth/google`, {
-              credential: response.credential,
-            });
 
-            const { token, _id, name, email } = res.data;
+            const res = await axios.post(`${API}/auth/google`, 
+              { credential: response.credential },
+              { withCredentials: true } // send cookie automatically
+            );
+
+            const { _id, name, email } = res.data;
             const user = { id: _id, name, email };
-            dispatch(loginSuccess({ user, token }));
+
+            dispatch(loginSuccess({ user }));
           } catch (err) {
             console.error('Google login failed', err);
             dispatch(loginFailure());
           }
-        },
+        }
       });
 
       window.google.accounts.id.renderButton(
