@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node --max-old-space-size=4096 node_modules/.bin/nodemon --exec ts-node ./server.ts",
+    "dev": "nodemon --exec node --loader @swc/core ./server.ts",
     "build": "tsc",
-    "start": "node --max-old-space-size=4096 dist/server.js"
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@swc/core": "^1.13.5",
+    "@swc/helpers": "^0.5.17",
     "@types/bson": "^4.2.4",
     "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
@@ -21,6 +23,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/node": "^24.3.0",
     "@types/nodemailer": "^7.0.1",
+    "regenerator-runtime": "^0.14.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
