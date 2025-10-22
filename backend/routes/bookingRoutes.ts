@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-  getBookings,
+  getBookingById,
   addBooking,
   deleteBooking
 } from '../controllers/bookingController';
@@ -9,7 +9,7 @@ import { protect } from '../middleware/authMiddleware';
 const router = express.Router();
 
 router.route('/')
-  .get(protect, getBookings)
+  .get(protect, getBookingById)
   .post(addBooking);
 
 router

@@ -244,40 +244,44 @@ export const changePassword = async (req: AuthenticatedRequest, res: Response) =
   }
 };
 
-const otpStore = new Map(); 
+const otpStore = new Map();
 
 export const sendOtpToEmail = async (req: Request, res: Response) => {
-  const { email } = req.body;
-  if (!email) return res.status(400).json({ message: 'Email is required' });
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ message: 'Email is required' });
 
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  const expiresAt = Date.now() + 5 * 60 * 1000; // 5 min expiry
-  const data = `${email}.${otp}.${expiresAt}`;
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = Date.now() + 5 * 60 * 1000;
+    const data = `${email}.${otp}.${expiresAt}`;
 
-  const hash = crypto
-    .createHmac('sha256', process.env.OTP_SECRET || 'secure-secret')
-    .update(data)
-    .digest('hex');
+    const hash = crypto
+      .createHmac('sha256', process.env.OTP_SECRET || 'secure-secret')
+      .update(data)
+      .digest('hex');
 
-  const fullHash = `${hash}.${expiresAt}`;
+    const fullHash = `${hash}.${expiresAt}`;
 
-  // Send OTP using nodemailer
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_FROM,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_FROM,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
 
-  const mailOptions = {
-    from: process.env.EMAIL_FROM,
-    to: email,
-    subject: 'OTP for Registration',
-    text: `Your OTP is ${otp}. It is valid for 5 minutes.`,
-  };
+    const mailOptions = {
+      from: process.env.EMAIL_FROM,
+      to: email,
+      subject: 'OTP for Registration',
+      text: `Your OTP is ${otp}. It is valid for 5 minutes.`,
+    };
 
-  await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
 
-  res.status(200).json({ message: 'OTP sent successfully', hash: fullHash });
+    res.status(200).json({ message: 'OTP sent successfully', hash: fullHash });
+  } catch (error: any) {
+    console.error('Error sending OTP:', error);
+    res.status(500).json({ message: 'Failed to send OTP', error: error.message });
+  }
 };

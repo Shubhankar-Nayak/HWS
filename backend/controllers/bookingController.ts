@@ -1,45 +1,145 @@
 import { Request, Response } from 'express';
 import { Booking } from '../models/Booking';
+import mailchimp from '@mailchimp/mailchimp_marketing';
+import md5 from 'md5';
+import dotenv from 'dotenv';
+dotenv.config();
+
+mailchimp.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY,
+  server: process.env.MAILCHIMP_SERVER_PREFIX,
+});
 
 // Add a new booking
 export const addBooking = async (req: Request, res: Response) => {
   try {
     const { firstName, lastName, email, phone, programme, date, time, message } = req.body;
 
+    console.log('Received booking request:', { firstName, email, programme, date, time });
+
+    // Validation
     if (!firstName || !lastName || !email || !phone || !programme || !date || !time) {
-      return res.status(400).json({ message: 'All required fields must be provided' });
+      return res.status(400).json({ 
+        message: 'All required fields must be provided',
+        missing: {
+          firstName: !firstName,
+          lastName: !lastName,
+          email: !email,
+          phone: !phone,
+          programme: !programme,
+          date: !date,
+          time: !time
+        }
+      });
     }
 
+    // Step 1: Check for existing booking with same email AND programme
+    try {
+      const existingBooking = await Booking.findOne({
+        email: email.toLowerCase(),
+        programme: programme
+      });
+
+      console.log('Duplicate check result:', existingBooking);
+
+      if (existingBooking) {
+        return res.status(400).json({ 
+          message: `You have already booked the ${programme} programme. Please choose a different programme or contact us.` 
+        });
+      }
+    } catch (findError: any) {
+      console.error('Error checking for existing booking:', findError);
+    }
+
+    // Step 2: Save booking to DB
     const booking = await Booking.create({
       firstName,
       lastName,
-      email,
+      email: email.toLowerCase(),
       phone,
       programme,
       date,
       time,
-      message
+      message,
     });
+
+    console.log('Booking saved to DB:', booking._id);
+
+    // Step 3: Add user to Mailchimp list
+    const listId = process.env.MAILCHIMP_LIST_ID;
+    if (!listId) {
+      console.error('MAILCHIMP_LIST_ID is not defined');
+    } else {
+      try {
+        const subscriberHash = md5(email.toLowerCase());
+
+        // Add user to the list
+        await mailchimp.lists.setListMember(listId, subscriberHash, {
+          email_address: email,
+          status_if_new: 'subscribed',
+          merge_fields: {
+            FNAME: firstName,
+            LNAME: lastName,
+          },
+        });
+
+        // Add programme-based tag
+        const tagsMap: Record<string, string> = {
+          mindfulness: 'Mindfulness & Meditation',
+          yoga: 'Yoga & Movement',
+          nutrition: 'Nutrition & Wellness',
+          breathwork: 'Breath & Energy Work',
+          complete: 'Complete Wellness Package',
+        };
+
+        const tagName = tagsMap[programme] || 'General Clients';
+
+        await mailchimp.lists.updateListMemberTags(listId, subscriberHash, {
+          tags: [{ name: tagName, status: 'active' }],
+        });
+
+        console.log(`Added ${email} to Mailchimp under tag "${tagName}"`);
+      } catch (mailchimpError: any) {
+        console.error('Mailchimp error:', mailchimpError.response?.body || mailchimpError.message);
+      }
+    }
 
     res.status(201).json({
       message: 'Booking created successfully',
-      booking: { ...booking.toObject(), id: booking._id }
+      booking: { ...booking.toObject(), id: booking._id },
     });
-  } catch (err: any) {
-    if (err.code === 11000 && err.keyPattern?.email) {
-      return res.status(400).json({ message: 'A booking with this email already exists' });
-    }
-    res.status(500).json({ message: 'Failed to create booking', error: err.message });
-  }
-};
 
-// Get all bookings
-export const getBookings = async (req: Request, res: Response) => {
-  try {
-    const bookings = await Booking.find().sort({ createdAt: -1 });
-    res.status(200).json(bookings);
   } catch (err: any) {
-    res.status(500).json({ message: 'Failed to fetch bookings', error: err.message });
+    console.error('Booking creation error details:', {
+      name: err.name,
+      message: err.message,
+      code: err.code,
+      keyPattern: err.keyPattern,
+      stack: err.stack
+    });
+
+    // Handle specific MongoDB errors
+    if (err.code === 11000) {
+      const duplicateField = Object.keys(err.keyPattern || {})[0];
+      return res.status(400).json({ 
+        message: `Booking already exists with this ${duplicateField}`,
+        error: 'DUPLICATE_ENTRY'
+      });
+    }
+
+    // Handle validation errors
+    if (err.name === 'ValidationError') {
+      return res.status(400).json({
+        message: 'Invalid booking data',
+        error: err.message
+      });
+    }
+
+    // Generic server error
+    res.status(500).json({ 
+      message: 'Failed to create booking',
+      error: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
+    });
   }
 };
 

@@ -30,24 +30,29 @@ const initialState: BookingState = {
 
 const API = import.meta.env.VITE_API_URL;
 
-// 📦 Create a new booking
+// 📦 Create a new booking - FIXED VERSION
 export const createBooking = createAsyncThunk<
   Booking,
-  Omit<Booking, 'id' | '_id'>,
+  Omit<Booking, 'id' | '_id' | 'createdAt'>, // Fix: Remove id, _id, and createdAt from input
   { state: RootState }
 >(
   'booking/create',
   async (formData, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${API}/booking`, formData);
+      const res = await axios.post(`${API}/booking`, formData); 
       const data = res.data.booking || res.data;
 
       return {
         ...data,
-        id: data._id,
+        id: data._id || data.id, // Handle both _id and id
       };
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || 'Booking creation failed');
+      console.error('Booking creation error:', error.response?.data); // Better error logging
+      return rejectWithValue(
+        error.response?.data?.message || 
+        error.response?.data?.error || 
+        'Booking creation failed'
+      );
     }
   }
 );
@@ -98,7 +103,12 @@ export const deleteBooking = createAsyncThunk<
 const bookingSlice = createSlice({
   name: 'booking',
   initialState,
-  reducers: {},
+  reducers: {
+    // Add a reducer to clear errors
+    clearError: (state) => {
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // createBooking
@@ -136,4 +146,5 @@ const bookingSlice = createSlice({
   },
 });
 
+export const { clearError } = bookingSlice.actions;
 export default bookingSlice.reducer;
