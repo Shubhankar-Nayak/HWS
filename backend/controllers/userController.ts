@@ -265,9 +265,25 @@ export const sendOtpToEmail = async (req: Request, res: Response) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_FROM,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD, // Use App Password, not regular password
       },
+      // Add these settings for production
+      pool: true,
+      maxConnections: 5,
+      maxMessages: 100,
+      rateDelta: 1000,
+      rateLimit: 5,
+      // Timeout settings
+      connectionTimeout: 10000, // 10 seconds
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
+      // Secure connection
+      secure: false, // Use TLS
+      requireTLS: true,
+      tls: {
+        rejectUnauthorized: false // Might be needed in some environments
+      }
     });
 
     const mailOptions = {
