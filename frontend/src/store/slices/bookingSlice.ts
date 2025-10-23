@@ -6,7 +6,7 @@ export interface Booking {
   _id?: string;
   id: string;
   firstName: string;
-  lastName: string;
+  lastName?: string;
   email: string;
   phone: string;
   programme: string;

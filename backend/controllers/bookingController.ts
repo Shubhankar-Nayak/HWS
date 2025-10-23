@@ -18,12 +18,12 @@ export const addBooking = async (req: Request, res: Response) => {
     console.log('Received booking request:', { firstName, email, programme, date, time });
 
     // Validation
-    if (!firstName || !lastName || !email || !phone || !programme || !date || !time) {
+    if (!firstName || !email || !phone || !programme || !date || !time) {
       return res.status(400).json({ 
         message: 'All required fields must be provided',
         missing: {
           firstName: !firstName,
-          lastName: !lastName,
+          lastName: !lastName || '',
           email: !email,
           phone: !phone,
           programme: !programme,

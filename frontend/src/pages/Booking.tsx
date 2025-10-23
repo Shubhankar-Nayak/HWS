@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { createBooking } from '../store/slices/bookingSlice';
 const Booking = () => {
   const dispatch = useAppDispatch();
   const { status, error } = useAppSelector((state) => state.booking);
+  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
   const { toast } = useToast();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
@@ -26,10 +27,6 @@ const Booking = () => {
     time: '',
     additionalInfo: '',
   });
-
-  const updateFormData = (data: Partial<typeof formData>) => {
-    setFormData((prev) => ({ ...prev, ...data }));
-  };
 
   const handleSubmit = async () => {
     try {
@@ -66,6 +63,21 @@ const Booking = () => {
     { number: 4, title: 'Additional Info' },
     { number: 5, title: 'Review' },
   ];
+
+  useEffect(() => {
+    if (user && isAuthenticated) {
+      setFormData(prev => ({
+        ...prev,
+        email: user.email || '', 
+        firstName: user.name?.split(' ')[0] || '', 
+        lastName: user.name?.split(' ').slice(1).join(' ') || '', 
+      }));
+    }
+  }, [user, isAuthenticated]);
+
+  const updateFormData = (data: Partial<typeof formData>) => {
+    setFormData((prev) => ({ ...prev, ...data }));
+  };
 
   return (
     <div className="container mx-auto px-4 py-12">

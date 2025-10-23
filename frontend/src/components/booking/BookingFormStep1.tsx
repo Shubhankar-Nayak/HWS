@@ -14,9 +14,12 @@ interface Step1Props {
 }
 
 const BookingFormStep1 = ({ formData, onUpdate, onNext }: Step1Props) => {
+  const isEmailPrefilled = formData.email && formData.email !== '';
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.firstName && formData.lastName && formData.email && formData.phone) {
+    // Only require firstName, email, and phone - lastName is optional
+    if (formData.firstName && formData.email && formData.phone) {
       onNext();
     }
   };
@@ -24,7 +27,13 @@ const BookingFormStep1 = ({ formData, onUpdate, onNext }: Step1Props) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <h3 className="text-2xl font-semibold mb-6">Personal Information</h3>
+        <h3 className="text-2xl font-semibold mb-2">Personal Information</h3>
+        <p className="text-muted-foreground">
+          {isEmailPrefilled 
+            ? "We've pre-filled your account details" 
+            : "Enter your personal details to continue"
+          }
+        </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -40,27 +49,35 @@ const BookingFormStep1 = ({ formData, onUpdate, onNext }: Step1Props) => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="lastName">Last Name *</Label>
+          <Label htmlFor="lastName">Last Name</Label>
           <Input
             id="lastName"
-            required
             value={formData.lastName}
             onChange={(e) => onUpdate({ lastName: e.target.value })}
-            placeholder="Enter your last name"
+            placeholder="Enter your last name (optional)"
           />
+          <p className="text-xs text-muted-foreground">Optional</p>
         </div>
       </div>
 
+      {/* Email Section */}
       <div className="space-y-2">
-        <Label htmlFor="email">Email *</Label>
+        <Label htmlFor="email">Email Address *</Label>
         <Input
           id="email"
           type="email"
           required
           value={formData.email}
           onChange={(e) => onUpdate({ email: e.target.value })}
+          readOnly={isEmailPrefilled}
+          className={isEmailPrefilled ? "bg-muted/50 cursor-not-allowed" : ""}
           placeholder="your.email@example.com"
         />
+        {isEmailPrefilled && (
+          <p className="text-xs text-muted-foreground">
+            Using your account email. This field cannot be changed here.
+          </p>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -75,7 +92,13 @@ const BookingFormStep1 = ({ formData, onUpdate, onNext }: Step1Props) => {
         />
       </div>
 
-      <Button type="submit" className="w-full" size="lg">
+      <Button 
+        type="submit" 
+        className="w-full" 
+        size="lg"
+        // Only check firstName, email, and phone - lastName is optional
+        disabled={!formData.firstName || !formData.email || !formData.phone}
+      >
         Continue
       </Button>
     </form>
