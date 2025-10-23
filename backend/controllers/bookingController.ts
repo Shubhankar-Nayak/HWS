@@ -202,13 +202,79 @@ export const getMyBookings = async (req: AuthenticatedRequest, res: Response) =>
   }
 };
 
-// Delete a booking
+// Delete a booking and remove Mailchimp tag
 export const deleteBooking = async (req: Request, res: Response) => {
   try {
-    const booking = await Booking.findByIdAndDelete(req.params.id);
-    if (!booking) return res.status(404).json({ message: 'Booking not found' });
-    res.status(200).json({ message: 'Booking deleted successfully' });
+    const booking = await Booking.findById(req.params.id);
+    
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    // Store booking info before deletion for Mailchimp operations
+    const { email, programme, firstName, lastName } = booking;
+
+    // Delete the booking from database
+    await Booking.findByIdAndDelete(req.params.id);
+
+    // Remove Mailchimp tag
+    const listId = process.env.MAILCHIMP_LIST_ID;
+    if (!listId) {
+      console.error('MAILCHIMP_LIST_ID is not defined');
+    } else {
+      try {
+        const subscriberHash = md5(email.toLowerCase());
+
+        // Map programme to tag name (same as in addBooking)
+        const tagsMap: Record<string, string> = {
+          mindfulness: 'Mindfulness & Meditation',
+          yoga: 'Yoga & Movement',
+          nutrition: 'Nutrition & Wellness',
+          breathwork: 'Breath & Energy Work',
+          complete: 'Complete Wellness Package',
+        };
+
+        const tagName = tagsMap[programme] || 'General Clients';
+
+        // Remove the programme-specific tag
+        await mailchimp.lists.updateListMemberTags(listId, subscriberHash, {
+          tags: [{ name: tagName, status: 'inactive' }],
+        });
+
+        console.log(`Removed tag "${tagName}" from ${email} in Mailchimp`);
+
+        // Optional: Check if user has any other bookings
+        // If no other bookings exist, you might want to unsubscribe or archive them
+        const remainingBookings = await Booking.find({ email: email.toLowerCase() });
+        
+        if (remainingBookings.length === 0) {
+          console.log(`No remaining bookings for ${email}. Consider updating Mailchimp status if needed.`);
+          // Optional: Unsubscribe if no bookings remain
+          // await mailchimp.lists.updateListMember(listId, subscriberHash, {
+          //   status: 'unsubscribed'
+          // });
+        }
+
+      } catch (mailchimpError: any) {
+        console.error('Mailchimp tag removal error:', mailchimpError.response?.body || mailchimpError.message);
+        // Don't fail the deletion if Mailchimp fails - just log it
+      }
+    }
+
+    res.status(200).json({ 
+      message: 'Booking deleted successfully',
+      deletedBooking: {
+        id: booking._id,
+        programme: booking.programme,
+        email: booking.email
+      }
+    });
+
   } catch (err: any) {
-    res.status(500).json({ message: 'Failed to delete booking', error: err.message });
+    console.error('Delete booking error:', err);
+    res.status(500).json({ 
+      message: 'Failed to delete booking', 
+      error: err.message 
+    });
   }
 };

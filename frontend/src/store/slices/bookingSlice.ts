@@ -104,17 +104,25 @@ export const fetchBookings = createAsyncThunk<Booking[], void, { state: RootStat
 
 // ❌ Delete a booking
 export const deleteBooking = createAsyncThunk<
-  string,
-  string,
+  string, // Return type: the deleted booking ID
+  string, // Argument type: bookingId
   { state: RootState }
 >(
   'booking/delete',
   async (bookingId, { rejectWithValue }) => {
     try {
-      await axios.delete(`${API}/booking/${bookingId}`);
+      const res = await axios.delete(`${API}/booking/${bookingId}`, {
+        withCredentials: true,
+      });
+      
+      // Return the deleted booking ID to remove it from state
       return bookingId;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || 'Booking deletion failed');
+      return rejectWithValue(
+        error.response?.data?.message || 
+        error.response?.data?.error || 
+        'Booking deletion failed'
+      );
     }
   }
 );
