@@ -26,6 +26,7 @@ const Header = () => {
     { name: 'Programmes', path: '/programmes' },
     { name: 'Exclusive Access', path: '/exclusive-access' },
     { name: 'Booking', path: '/booking' },
+    { name: 'MyBookings', path: '/mybookings' },
     { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' },
   ];

@@ -15,6 +15,7 @@ import Home from "./pages/Home";
 import Programmes from "./pages/Programmes";
 import ExclusiveAccess from "./pages/ExclusiveAccess";
 import Booking from "./pages/Booking";
+import MyBookings from "./pages/MyBookings";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -66,6 +67,7 @@ const AppContent = () => {
           <Route path="/programmes" element={<Programmes />} />
           <Route path="/exclusive-access" element={<ExclusiveAccess />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/mybookings" element={<MyBookings />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />

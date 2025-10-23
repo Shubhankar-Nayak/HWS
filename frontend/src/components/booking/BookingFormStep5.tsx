@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { format } from 'date-fns';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Loader2 } from 'lucide-react';
 
 interface Step5Props {
   formData: {
@@ -16,6 +16,7 @@ interface Step5Props {
   };
   onBack: () => void;
   onSubmit: () => void;
+  isSubmitting?: boolean;
 }
 
 const programmeNames: Record<string, string> = {
@@ -26,7 +27,7 @@ const programmeNames: Record<string, string> = {
   complete: 'Complete Wellness Package',
 };
 
-const BookingFormStep5 = ({ formData, onBack, onSubmit }: Step5Props) => {
+const BookingFormStep5 = ({ formData, onBack, onSubmit, isSubmitting = false }: Step5Props) => {
   return (
     <div className="space-y-6">
       <div>
@@ -69,15 +70,55 @@ const BookingFormStep5 = ({ formData, onBack, onSubmit }: Step5Props) => {
         </CardContent>
       </Card>
 
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="flex items-start gap-3">
+          <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+          <div>
+            <h4 className="font-semibold text-blue-900 text-sm mb-1">Ready to Confirm</h4>
+            <p className="text-blue-700 text-sm">
+              By confirming, you agree to our booking terms. You'll receive a confirmation email shortly.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="flex gap-4">
-        <Button type="button" variant="outline" onClick={onBack} className="flex-1">
+        <Button 
+          type="button" 
+          variant="outline" 
+          onClick={onBack} 
+          className="flex-1"
+          disabled={isSubmitting}
+        >
           Back
         </Button>
-        <Button type="button" onClick={onSubmit} className="flex-1">
-          <CheckCircle className="mr-2 h-5 w-5" />
-          Confirm Booking
+        <Button 
+          type="button" 
+          onClick={onSubmit} 
+          className="flex-1"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              Confirming...
+            </>
+          ) : (
+            <>
+              <CheckCircle className="mr-2 h-5 w-5" />
+              Confirm Booking
+            </>
+          )}
         </Button>
       </div>
+
+      {isSubmitting && (
+        <div className="text-center">
+          <p className="text-sm text-muted-foreground">
+            Please wait while we process your booking...
+          </p>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,9 +1,14 @@
 import { Request, Response } from 'express';
 import { Booking } from '../models/Booking';
+import { User } from '../models/User';
 import mailchimp from '@mailchimp/mailchimp_marketing';
 import md5 from 'md5';
 import dotenv from 'dotenv';
 dotenv.config();
+
+export interface AuthenticatedRequest extends Request {
+  user?: any; 
+}
 
 mailchimp.setConfig({
   apiKey: process.env.MAILCHIMP_API_KEY,
@@ -143,14 +148,57 @@ export const addBooking = async (req: Request, res: Response) => {
   }
 };
 
-// Get a single booking by ID
-export const getBookingById = async (req: Request, res: Response) => {
+// Get bookings by email
+export const getBookingsByEmail = async (req: Request, res: Response) => {
   try {
-    const booking = await Booking.findById(req.params.id);
-    if (!booking) return res.status(404).json({ message: 'Booking not found' });
-    res.status(200).json(booking);
+    const { email } = req.params;
+    
+    if (!email) {
+      return res.status(400).json({ message: 'Email parameter is required' });
+    }
+
+    const bookings = await Booking.find({ email: email.toLowerCase() }).sort({ createdAt: -1 });
+    
+    if (!bookings || bookings.length === 0) {
+      return res.status(404).json({ message: 'No bookings found for this email' });
+    }
+    
+    res.status(200).json({
+      message: 'Bookings retrieved successfully',
+      count: bookings.length,
+      bookings
+    });
   } catch (err: any) {
-    res.status(500).json({ message: 'Error fetching booking', error: err.message });
+    console.error('Error fetching bookings by email:', err);
+    res.status(500).json({ message: 'Error fetching bookings', error: err.message });
+  }
+};
+
+// Get bookings for the authenticated user
+export const getMyBookings = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    // Get email from the authenticated user (from protect middleware)
+    const userEmail = req.user?.email;
+    
+    console.log('🔍 getMyBookings: Looking for bookings for authenticated user:', userEmail);
+    
+    if (!userEmail) {
+      return res.status(400).json({ message: 'User email not found in authentication' });
+    }
+
+    const bookings = await Booking.find({ email: userEmail.toLowerCase() })
+                                 .sort({ createdAt: -1 });
+
+    console.log('✅ getMyBookings: Found', bookings.length, 'bookings for', userEmail);
+
+    res.status(200).json({
+      message: 'Bookings retrieved successfully',
+      count: bookings.length,
+      bookings
+    });
+  } catch (err: any) {
+    console.error('❌ getMyBookings error:', err);
+    res.status(500).json({ message: 'Error fetching bookings', error: err.message });
   }
 };
 

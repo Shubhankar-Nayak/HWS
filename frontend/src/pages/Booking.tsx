@@ -13,7 +13,7 @@ import { createBooking } from '../store/slices/bookingSlice';
 const Booking = () => {
   const dispatch = useAppDispatch();
   const { status, error } = useAppSelector((state) => state.booking);
-  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+  const { user, isAuthenticated, loading: authLoading } = useAppSelector((state) => state.auth);
   const { toast } = useToast();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
@@ -28,7 +28,46 @@ const Booking = () => {
     additionalInfo: '',
   });
 
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (!authLoading && !isAuthenticated) {
+      toast({
+        title: 'Authentication Required',
+        description: 'Please log in to book a session.',
+        variant: 'destructive',
+      });
+      navigate('/login');
+    }
+  }, [isAuthenticated, authLoading, navigate, toast]);
+
+  // Auto-populate user data when authenticated
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      setFormData(prev => ({
+        ...prev,
+        email: user.email || '',
+        firstName: user.name?.split(' ')[0] || '',
+        lastName: user.name?.split(' ').slice(1).join(' ') || '',
+      }));
+    }
+  }, [isAuthenticated, user]);
+
+  const updateFormData = (data: Partial<typeof formData>) => {
+    setFormData((prev) => ({ ...prev, ...data }));
+  };
+
   const handleSubmit = async () => {
+    // Double-check authentication before submitting
+    if (!isAuthenticated || !user) {
+      toast({
+        title: 'Authentication Error',
+        description: 'Please log in again to continue.',
+        variant: 'destructive',
+      });
+      navigate('/login');
+      return;
+    }
+
     try {
       const result = await dispatch(createBooking({
         firstName: formData.firstName,
@@ -39,20 +78,30 @@ const Booking = () => {
         date: formData.date?.toISOString() || '',
         time: formData.time,
         message: formData.additionalInfo,
-      })).unwrap(); // unwrap gives you success/error directly
+      })).unwrap();
 
       toast({
         title: 'Booking Confirmed! 🎉',
         description: 'We\'ll send a confirmation email shortly.',
       });
 
-      setTimeout(() => navigate('/'), 2000);
+      setTimeout(() => navigate('/mybookings'), 2000);
     } catch (err: any) {
-      toast({
-        title: 'Booking Failed',
-        description: err || 'Something went wrong. Please try again.',
-        variant: 'destructive',
-      });
+      // Check if it's an authentication error
+      if (err?.includes('authenticated') || err?.includes('auth') || err?.includes('login')) {
+        toast({
+          title: 'Session Expired',
+          description: 'Please log in again to continue.',
+          variant: 'destructive',
+        });
+        navigate('/login');
+      } else {
+        toast({
+          title: 'Booking Failed',
+          description: err || 'Something went wrong. Please try again.',
+          variant: 'destructive',
+        });
+      }
     }
   };
 
@@ -64,20 +113,29 @@ const Booking = () => {
     { number: 5, title: 'Review' },
   ];
 
-  useEffect(() => {
-    if (user && isAuthenticated) {
-      setFormData(prev => ({
-        ...prev,
-        email: user.email || '', 
-        firstName: user.name?.split(' ')[0] || '', 
-        lastName: user.name?.split(' ').slice(1).join(' ') || '', 
-      }));
-    }
-  }, [user, isAuthenticated]);
+  // Show loading while checking authentication
+  if (authLoading) {
+    return (
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <h2 className="text-2xl font-semibold">Checking authentication...</h2>
+        </div>
+      </div>
+    );
+  }
 
-  const updateFormData = (data: Partial<typeof formData>) => {
-    setFormData((prev) => ({ ...prev, ...data }));
-  };
+  // Don't render the form if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <h2 className="text-2xl font-semibold">Redirecting to login...</h2>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -156,6 +214,7 @@ const Booking = () => {
               formData={formData}
               onBack={() => setCurrentStep(4)}
               onSubmit={handleSubmit}
+              isSubmitting={status === 'loading'}
             />
           )}
         </Card>
