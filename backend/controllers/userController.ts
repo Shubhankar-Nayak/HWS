@@ -53,41 +53,46 @@ export const verifyUser = async (req: Request, res: Response) => {
   }
 };
 
-export const registerUser = async (req: AuthenticatedRequest, res: Response) => {
-  const { name, email, password, otp, hash } = req.body;
-
+export const registerUser = async (req: Request, res: Response) => {
   try {
-    const [hashedOtp, expiresAt] = hash.split('.');
-    if (Date.now() > parseInt(expiresAt)) {
-      return res.status(400).json({ message: 'OTP expired' });
-    }
+    const { name, email, password } = req.body;
 
-    const data = `${email}.${otp}.${expiresAt}`;
-    const newHash = crypto.createHmac('sha256', process.env.OTP_SECRET || 'secure-secret').update(data).digest('hex');
-
-    if (newHash !== hashedOtp) {
-      return res.status(401).json({ message: 'Invalid OTP' });
-    }
-
+    // Check if user already exists
     const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json({ message: 'User already exists' });
+    if (userExists) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
 
-    const createdUser = await User.create({ name, email, password });
+    // Create user directly (no OTP verification)
+    const user = await User.create({
+      name,
+      email,
+      password, // Make sure to hash this in your User model
+    });
 
-    const token = generateToken(String(createdUser._id));
-    sendTokenAsCookie(res, token);
+    // Generate token
+    const token = generateToken(String(user._id));
+
+    // Set cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    });
 
     res.status(201).json({
       user: {
-        id: createdUser._id,
-        name: createdUser.name,
-        email: createdUser.email,
-        hasPassword: !!createdUser.password,
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        hasPassword: !!user.password,
       },
+      message: 'Registration successful',
     });
-  } catch (err) {
-    console.error(err);
-    res.status(400).json({ message: 'Invalid user data' });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(400).json({ message: 'Registration failed' });
   }
 };
 

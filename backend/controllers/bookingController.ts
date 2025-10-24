@@ -68,7 +68,7 @@ export const addBooking = async (req: Request, res: Response) => {
       message,
     });
 
-    console.log('Booking saved to DB:', booking._id);
+    // console.log('Booking saved to DB:', booking._id);
 
     // Step 3: Add user to Mailchimp list
     const listId = process.env.MAILCHIMP_LIST_ID;

@@ -3,10 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../hooks/useAppSelector';
 import { register as registerAction } from '../store/slices/authSlice';
 import { Eye, EyeOff, Mail, Lock, User, TrendingUp } from 'lucide-react'; 
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
-import axios from 'axios'
-
+import { GoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 interface RegisterFormData {
   name: string;
@@ -25,56 +23,32 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const dispatch = useAppDispatch();
   const { loading } = useAppSelector(state => state.auth);
-  const [step, setStep] = useState<'register' | 'verify'>('register');
-  const [emailForVerification, setEmailForVerification] = useState('');
-  const [otp, setOtp] = useState('');
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [hash, setHash] = useState('');
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterFormData>();
   const password = watch('password');
 
-  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-
   const onSubmit = async (data: RegisterFormData) => {
     try {
-      const response = await axios.post(`${API}/auth/send-otp`, {
+      // Register user directly without OTP
+      const response = await axios.post(`${API}/auth/register`, {
+        name: data.name,
         email: data.email,
+        password: data.password,
+      }, { 
+        withCredentials: true 
       });
-      setUserName(data.name);
-      setUserEmail(data.email);
-      setUserPassword(data.password);
-      setHash(response.data.hash);
-      setEmailForVerification(data.email);
-      setStep('verify');
+
+      // Dispatch to Redux store
+      dispatch(registerAction({ 
+        user: response.data.user 
+      }));
+
+      // Optional: Show success message or redirect
+      console.log('Registration successful:', response.data);
+
     } catch (error: any) {
       console.error('Registration error:', error.response?.data?.message || error.message);
       alert(error.response?.data?.message || 'Registration failed');
-    }
-  };
-
-  const handleVerifyOtp = async () => {
-    try {
-      // send OTP + user data to register endpoint
-      await axios.post(`${API_BASE_URL}/auth/register`, {
-        name: userName,
-        email: userEmail,
-        password: userPassword,
-        otp,
-        hash,
-      }, { withCredentials: true }); // IMPORTANT: allow cookies to be set
-
-      // now fetch the user from backend (verify endpoint)
-      const { data } = await axios.get(`${API_BASE_URL}/auth/verify`, { withCredentials: true });
-      
-      // store in redux
-      dispatch(registerAction({ user: data.user }));
-
-      // optionally, move to dashboard or home
-    } catch (error: any) {
-      alert(error.response?.data?.message || 'OTP verification failed');
     }
   };
 
@@ -89,12 +63,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
             Create your account
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Join us to start tracking your finances
+            Join us to start your wellness journey
           </p>
         </div>
 
-        {step === 'register' ? (
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
             <div>
               <label htmlFor="name" className="sr-only">Full name</label>
@@ -240,6 +213,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
                 try {
                   const { data } = await axios.post(`${API}/auth/google`, {
                     credential: credentialResponse.credential,
+                  }, { 
+                    withCredentials: true 
                   });
 
                   dispatch(registerAction({
@@ -270,28 +245,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
             </p>
           </div>
         </form>
-        ) : (
-          <div className="mt-8 space-y-4">
-            <p className="text-center text-gray-800">
-              Enter the OTP sent to <strong>{emailForVerification}</strong>
-            </p>
-            <input
-              type="text"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value.trim())}
-              className="block w-full p-3 rounded-lg border bg-white text-gray-900 border-gray-300"
-              placeholder="Enter OTP"
-            />
-            <button
-              type="button"
-              onClick={handleVerifyOtp}
-              className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            >
-              Verify OTP
-            </button>
-          </div>
-        )}
-        
       </div>
     </div>
   );
