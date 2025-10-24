@@ -270,10 +270,10 @@ export const sendOtpToEmail = async (req: Request, res: Response) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD, // Use App Password, not regular password
+        user: process.env.EMAIL_FROM,
+        pass: process.env.EMAIL_PASS, 
       },
-      // Add these settings for production
+      // settings for production
       pool: true,
       maxConnections: 5,
       maxMessages: 100,
