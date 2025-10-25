@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../hooks/useAppSelector';
 import { fetchBookings, deleteBooking } from '../store/slices/bookingSlice';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,6 +10,7 @@ import { Loader2, Trash2, Calendar, Clock, User, RefreshCw } from 'lucide-react'
 
 const MyBookings = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { bookings, status, error } = useAppSelector((state) => state.booking);
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
   const { toast } = useToast();
@@ -46,6 +48,10 @@ const MyBookings = () => {
 
   const handleRefresh = () => {
     dispatch(fetchBookings());
+  };
+
+  const handleBookSession = () => {
+    navigate('/booking');
   };
 
   const formatDate = (dateString: string) => {
@@ -106,7 +112,7 @@ const MyBookings = () => {
           <p className="text-muted-foreground mb-4">
             Please log in to view your bookings.
           </p>
-          <Button onClick={() => window.location.href = '/login'}>
+          <Button onClick={() => navigate('/login')}>
             Go to Login
           </Button>
         </div>
@@ -132,7 +138,7 @@ const MyBookings = () => {
               <p className="text-muted-foreground mb-6">
                 You haven't made any bookings yet. Start your wellness journey today!
               </p>
-              <Button onClick={() => window.location.href = '/booking'}>
+              <Button onClick={handleBookSession}>
                 Book a Session
               </Button>
             </CardContent>
@@ -157,7 +163,7 @@ const MyBookings = () => {
                   )}
                   <span className="ml-2">Refresh</span>
                 </Button>
-                <Button onClick={() => window.location.href = '/booking'}>
+                <Button onClick={handleBookSession}>
                   New Booking
                 </Button>
               </div>
