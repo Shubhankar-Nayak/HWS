@@ -56,15 +56,15 @@ const Header = () => {
   }, [query]);
 
   const navLinksLeft = [
-    { name: "Care Pathway", path: "/carepathway" },
     { name: "Programmes", path: "/programmes" },
     { name: "Assessments", path: "/assessment" },
+    { name: "Care Pathway", path: "/carepathway" },
   ];
 
   const navLinksRight = [
-    { name: "Booking", path: "/booking" },
+    { name: "About", path: "/about" },
     { name: "Levels of Engagement", path: "/levels-of-engagement" },
-    { name: "FAQs", path: "/faq" },
+    { name: "Contact", path: "/contact" },
   ];
 
   const allNavLinks = [

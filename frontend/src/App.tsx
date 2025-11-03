@@ -16,11 +16,12 @@ import Programmes from "./pages/Programmes";
 import ExclusiveAccess from "./pages/ExclusiveAccess";
 import Booking from "./pages/Booking";
 import MyBookings from "./pages/MyBookings";
-import CarePathway from "./pages/carepathway";
+import CarePathway from "./pages/Carepathway";
 import LevelsOfEngagement from "./pages/Levelofengagement";
 import Assessment from "./pages/Assessments";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
+import About from "./pages/About"
 import NotFound from "./pages/NotFound";
 import LoginForm from "./pages/LoginForm";
 import RegisterForm from "./pages/RegisterForm";
@@ -78,6 +79,7 @@ const AppContent = () => {
           {/* <Route path="/mybookings" element={<MyBookings />} /> */}
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>

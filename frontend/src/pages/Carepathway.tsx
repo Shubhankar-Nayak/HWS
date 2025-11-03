@@ -82,11 +82,11 @@ const CarePathway = () => {
           <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-[#C8A97E]/40 to-transparent"></div>
           <div className="relative flex justify-between">
             {[   //array to change text below numbers
-              "Personal Info",
-              "Programme",
-              "Date & Time",
-              "Notes",
-              "Review",
+              "Private Consultation",
+              "Curated Assessments",
+              "Personalised Care Pathway",
+              "Targeted Intervention & Support",
+              "Ongoing Review & Evolution",
             ].map((title, i) => (
               <motion.div
                 key={i}
@@ -168,8 +168,8 @@ const CarePathway = () => {
                         }}
                       >
                         <div>
-                            <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Personal Information</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ab! Aliquid quasi a aut cum, voluptate dolores ipsam, vitae quia rem, explicabo mollitia adipisci placeat! Corrupti commodi minima repudiandae reprehenderit.</p>
+                            <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Private Consultation</h2>
+                            <p>We begin with a confidential, in-depth dialogue to understand individual goals, needs, and context. This forms the foundation for truly personalised care.</p>
                         </div>
                         <div className="flex justify-end mt-6">
                           <button className="bg-[#3F2A1D] text-white w-full px-6 py-2 rounded-md hover:bg-[#4B2E16] transition">
@@ -183,8 +183,8 @@ const CarePathway = () => {
                     {currentStep === 2 && (
                       <div>
                         <div>
-                            <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Personal Information</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ab! Aliquid quasi a aut cum, voluptate dolores ipsam, vitae quia rem, explicabo mollitia adipisci placeat! Corrupti commodi minima repudiandae reprehenderit.</p>
+                            <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Curated Assessments</h2>
+                            <p>From our three wellbeing pillars, we select a suite of advanced diagnostics to capture a complete picture of each client’s psychological, physical, and emotional profile.</p>
                         </div>
                         <div className="flex gap-5 mt-8">
                           <button
@@ -209,8 +209,8 @@ const CarePathway = () => {
                     {currentStep === 3 && (
                       <div>
                       <div>
-                            <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Personal Information</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ab! Aliquid quasi a aut cum, voluptate dolores ipsam, vitae quia rem, explicabo mollitia adipisci placeat! Corrupti commodi minima repudiandae reprehenderit.</p>
+                            <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Personalised Care Pathway</h2>
+                            <p>We design a tailored roadmap integrating the most relevant modalities, therapies, and experts. Each element is aligned toward lasting balance and measurable outcomes.</p>
                         </div>
                         <div className="flex gap-5  mt-8">
                           <button
@@ -235,8 +235,8 @@ const CarePathway = () => {
                     {currentStep === 4 && (
                       <div className="flex flex-col h-full min-h-[400px]">
                        <div>
-                            <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Personal Information</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ab! Aliquid quasi a aut cum, voluptate dolores ipsam, vitae quia rem, explicabo mollitia adipisci placeat! Corrupti commodi minima repudiandae reprehenderit.</p>
+                            <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Targeted Intervention & Support</h2>
+                            <p>Our multidisciplinary team delivers care with precision and compassion through a trusted network of clinicians, therapists, and specialists.</p>
                         </div>
 
                         {/* Buttons fixed at bottom */}
@@ -263,8 +263,8 @@ const CarePathway = () => {
                     {currentStep === 5 && (
                       <div>
                         <div>
-                            <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Personal Information</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ab! Aliquid quasi a aut cum, voluptate dolores ipsam, vitae quia rem, explicabo mollitia adipisci placeat! Corrupti commodi minima repudiandae reprehenderit.</p>
+                            <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Ongoing Review & Evolution</h2>
+                            <p>We maintain regular follow-ups to refine and adapt each programme, ensuring progress remains aligned with evolving goals and lifestyle demands.</p>
                         </div>
                         <div className="flex gap-5 mt-8">
                           <button
@@ -295,6 +295,9 @@ const CarePathway = () => {
           )}
         </div>
         {/* Footer */}
+        <p className="mt-12 mx-auto max-w-md text-center text-base text-[#6B5B35]/70">
+          At any stage of this pathway, if new needs arise or priorities shift, we adapt accordingly, refining or reshaping the plan to address those wellbeing requirements swiftly. We recognise that life seldom presents challenges one at a time, our approach therefore remains responsive, designed to support the individual as a whole.
+        </p>
         <p className="mt-12 text-center text-xs text-[#6B5B35]/70">
           Secure • Private • Confirmation within 24 hours
         </p>

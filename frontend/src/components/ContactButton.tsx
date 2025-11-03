@@ -60,7 +60,7 @@ const ContactButton = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://formspree.io/f/xjkodjyq', {
+      const response = await fetch('https://formspree.io/f/xpwogjpv', {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -287,6 +287,7 @@ const ContactButton = () => {
                     <Button
                       type="submit"
                       disabled={isSubmitting}
+                      onClick={handleSubmit}
                       className="w-full h-12 bg-[#3F2A1D] hover:bg-[#4B2E16] text-white font-medium rounded shadow-lg shadow-[#C8A97E]/20 hover:shadow-[#C8A97E]/40 transition-all"
                     >
                       {isSubmitting ? 'Sending…' : 'Submit'}

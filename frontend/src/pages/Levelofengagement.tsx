@@ -1,8 +1,20 @@
-import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-import logo from "../assets/landingbg1.jpg";
+const contents = [
+  {
+    header: "Private Wellbeing Programmes",
+    para: "Our Private Wellbeing Programmes offer one-to-one sessions designed around the individual. These programmes are ideal for leaders, creatives, and professionals navigating high-performance environments who wish to focus on specific goals within any of our pillars. \nEach engagement begins with a confidential consultation, followed by tailored assessments and therapy sessions delivered in person or virtually. Programmes can range from focused short-term interventions to ongoing support for long-term wellbeing.",
+  },
+  {
+    header: "Executive-Level Engagements",
+    para: "Our Executive-Level Engagements are comprehensive wellbeing journeys integrating advanced assessments, multidisciplinary therapies, and continuous monitoring. \nClients receive a dedicated wellbeing advisor who coordinates their care, liaising with clinicians, therapists, and lifestyle experts to ensure coherence. This level is suited to those seeking measurable outcomes and long-term change.",
+  },
+  {
+    header: "Concierge Wellbeing Service and Retreats",
+    para: "Our Concierge Service is an invitation-only offering that provides seamless, on-call access to HWS specialists anywhere in the world. From private residence visits to international travel accompaniment, our concierge team ensures uninterrupted care with absolute discretion. \nTo learn more about which pathway best suits your needs, or to book a confidential consultation, please reach out to our team. Every HWS journey begins with a conversation.",
+  },
+];
 
 // Animation variants
 const fadeUpVariant = {
@@ -14,8 +26,14 @@ const fadeUpVariant = {
   },
 };
 
+// Define proper TypeScript interfaces for props
+interface ValuesSectionProps {
+  heading: string;
+  para: string;
+}
+
 // Reversed Card
-function ValuesSectionReverse() {
+function ValuesSectionReverse({ heading, para }: ValuesSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -51,10 +69,10 @@ function ValuesSectionReverse() {
           className="max-w-lg text-white"
         >
           <h2 className="text-3xl md:text-4xl text-[#3F2A1D] font-bold mb-6 font-serif tracking-tight">
-            Ready to Transform Your Life?
+            {heading}
           </h2>
-          <p className="text-sm md:text-base text-[#8B6F47] leading-relaxed mb-4">
-            Join thousands who have discovered the power of holistic wellness
+          <p className="text-sm md:text-base text-[#8B6F47] leading-relaxed mb-4 whitespace-pre-line">
+            {para}
           </p>
         </motion.div>
       </div>
@@ -62,9 +80,8 @@ function ValuesSectionReverse() {
   );
 }
 
-
 // Normal Card
-function ValuesSection() {
+function ValuesSection({ heading, para }: ValuesSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -102,10 +119,10 @@ function ValuesSection() {
           className="max-w-lg text-white"
         >
           <h2 className="text-3xl md:text-4xl text-[#3F2A1D] font-bold mb-6 font-serif tracking-tight">
-            Ready to Transform Your Life?
+            {heading}
           </h2>
-          <p className="text-sm md:text-base text-[#8B6F47] leading-relaxed mb-4">
-            Join thousands who have discovered the power of holistic wellness
+          <p className="text-sm md:text-base text-[#8B6F47] leading-relaxed mb-4 whitespace-pre-line">
+            {para}
           </p>
         </motion.div>
       </div>
@@ -114,20 +131,19 @@ function ValuesSection() {
 }
 
 const Levelofengagement = () => {
-
   return (
     <div className="min-h-screen w-full pt-20 md:pt-24 px-4 md:px-0 overflow-hidden">
       <div className="text-center mb-8 md:mb-12">
-        <h1 className="text-3xl md:text-5xl font-bold mb-4">Our Programmes</h1>
+        <h1 className="text-3xl md:text-5xl font-bold mb-4">Three Ways to Engage</h1>
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-          Choose the path that resonates with your wellness goals
+          For clients seeking flexibility in how they engage with us, HWS offers three distinct pathways. Each reflects a different level of intensity, access, and integration, ensuring that our approach adapts to every client's unique lifestyle and goals.
         </p>
       </div>
 
-      <div className=" space-y-8 md:space-y-12">
-        <ValuesSection />
-        <ValuesSectionReverse />
-        <ValuesSection />
+      <div className="space-y-8 md:space-y-12">
+        <ValuesSection heading={contents[0].header} para={contents[0].para} />
+        <ValuesSectionReverse heading={contents[1].header} para={contents[1].para} />
+        <ValuesSection heading={contents[2].header} para={contents[2].para} />
       </div>
     </div>
   );

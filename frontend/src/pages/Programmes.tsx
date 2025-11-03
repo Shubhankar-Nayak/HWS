@@ -51,7 +51,7 @@ const CardComponentReverse = ({ image, title, duration, description, benefits }:
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="bg-[#3F2A1D] text-white py-3 px-6 rounded mt-4 md:mt-5 shadow-md hover:bg-[#4B2E16] transition w-full md:w-auto"
-          onClick={() => navigate("/programme")}
+          onClick={() => navigate("/booking")}
         >
           Book This Programme
         </motion.button>
@@ -99,7 +99,7 @@ const CardComponent = ({ image, title, duration, description, benefits }: any) =
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="bg-[#3F2A1D] text-white py-3 px-6 rounded mt-4 md:mt-5 shadow-md hover:bg-[#4B2E16] transition w-full md:w-auto"
-          onClick={() => navigate("/programme")}
+          onClick={() => navigate("/booking")}
         >
           Book This Programme
         </motion.button>
