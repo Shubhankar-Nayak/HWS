@@ -16,11 +16,15 @@ import Programmes from "./pages/Programmes";
 import ExclusiveAccess from "./pages/ExclusiveAccess";
 import Booking from "./pages/Booking";
 import MyBookings from "./pages/MyBookings";
+import CarePathway from "./pages/carepathway";
+import LevelsOfEngagement from "./pages/Levelofengagement";
+import Assessment from "./pages/Assessments";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import LoginForm from "./pages/LoginForm";
 import RegisterForm from "./pages/RegisterForm";
+import ContactButton from "@/components/ContactButton";
 
 const queryClient = new QueryClient();
 
@@ -62,18 +66,22 @@ const AppContent = () => {
   return (
     <BrowserRouter>
       <Layout>
+        <ContactButton />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/programmes" element={<Programmes />} />
-          <Route path="/exclusive-access" element={<ExclusiveAccess />} />
+          {/* <Route path="/exclusive-access" element={<ExclusiveAccess />} /> */}
           <Route path="/booking" element={<Booking />} />
-          <Route path="/mybookings" element={<MyBookings />} />
+          <Route path="/carepathway" element={<CarePathway />} />
+          <Route path="/assessment" element={<Assessment />} />
+          <Route path="/levels-of-engagement" element={<LevelsOfEngagement />} />
+          {/* <Route path="/mybookings" element={<MyBookings />} /> */}
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
-    </BrowserRouter>
+    </BrowserRouter>  
   );
 };
 

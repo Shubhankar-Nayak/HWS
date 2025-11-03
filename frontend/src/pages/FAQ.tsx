@@ -1,9 +1,13 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { ChevronDown } from 'lucide-react';
 
 const FAQ = () => {
   const faqs = [
@@ -25,7 +29,7 @@ const FAQ = () => {
     {
       question: 'Can I switch programmes?',
       answer:
-        'Yes, you can switch between programmes. We understand that your wellness journey may evolve, and we\'re here to support you. Contact our team to discuss programme changes and we\'ll help you transition smoothly.',
+        "Yes, you can switch between programmes. We understand that your wellness journey may evolve, and we're here to support you. Contact our team to discuss programme changes and we'll help you transition smoothly.",
     },
     {
       question: 'What should I bring to sessions?',
@@ -50,7 +54,7 @@ const FAQ = () => {
     {
       question: 'How do I track my progress?',
       answer:
-        'Members receive access to our wellness portal where you can track your sessions, set goals, and monitor your progress. You\'ll also have regular check-ins with your instructor to discuss your journey and adjust your programme as needed.',
+        'Members receive access to our wellness portal where you can track your sessions, set goals, and monitor your progress. You’ll also have regular check-ins with your instructor to discuss your journey and adjust your programme as needed.',
     },
     {
       question: 'What makes your approach different?',
@@ -60,46 +64,62 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold mb-4">Frequently Asked Questions</h1>
-          <p className="text-xl text-muted-foreground">
-            Find answers to common questions about our programmes and services
+    <section
+      className="py-20 md:py-28 bg-[#E8D7BA] overflow-hidden"
+      style={{ fontFamily: 'Merriweather, serif' }}
+    >
+      <div className="container mx-auto px-6 md:px-12 max-w-3xl">
+        
+        {/* === Header === */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-[#3F2A1D] dark:text-foreground tracking-tight mb-3">
+            Frequently Asked Questions
+          </h1>
+          <div className="w-20 h-px bg-gradient-to-r from-transparent via-[#C8A97E] to-transparent mx-auto mb-5" />
+          <p className="text-lg text-[#8B6F47] dark:text-[#A67C52] leading-relaxed max-w-xl mx-auto">
+            Everything you need to know about your journey with us
           </p>
-        </div>
+        </motion.div>
 
-        <Accordion type="single" collapsible className="space-y-4">
+        {/* === Accordion === */}
+        <Accordion type="single" collapsible className="space-y-3">
           {faqs.map((faq, index) => (
-            <AccordionItem
+            <motion.div
               key={index}
-              value={`item-${index}`}
-              className="border rounded-lg px-6 shadow-soft gradient-card"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.06 }}
+              viewport={{ once: true }}
             >
-              <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="font-semibold text-lg">{faq.question}</span>
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-6">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
+              <AccordionItem
+                value={`item-${index}`}
+                className="bg-white rounded-2xl overflow-hidden border border-transparent hover:border-[#C8A97E]/30 transition-all duration-300 shadow-sm hover:shadow-md"
+              >
+                <AccordionTrigger className="px-7 py-5 text-left hover:no-underline group">
+                  <div className="flex items-center justify-between w-full pr-2">
+                    <span className="font-medium text-lg text-[#3F2A1D] dark:text-foreground leading-snug">
+                      {faq.question}
+                    </span>
+                    <ChevronDown className="w-5 h-5 text-[#C8A97E] transition-transform duration-300 group-data-[state=open]:rotate-180" />
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-7 pb-6 pt-1 text-[#6B5B35] dark:text-[#8B6F47] text-base leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            </motion.div>
           ))}
         </Accordion>
 
-        <div className="mt-12 text-center gradient-hero rounded-xl p-8 shadow-elevated">
-          <h3 className="text-2xl font-bold mb-2">Still have questions?</h3>
-          <p className="text-muted-foreground mb-4">
-            We're here to help! Reach out to our team for personalized assistance.
-          </p>
-          <a
-            href="/contact"
-            className="text-primary font-semibold hover:underline"
-          >
-            Contact Us →
-          </a>
-        </div>
+        
       </div>
-    </div>
+    </section>
   );
 };
 
