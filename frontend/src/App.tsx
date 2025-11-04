@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Provider, useDispatch } from "react-redux";
+import React from "react";
+import { Provider } from "react-redux";
 import { store } from "./store/store";
-import { useAppSelector } from "./hooks/useAppSelector";
-import { fetchCurrentUser } from "./utils/auth";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -23,47 +21,11 @@ import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import About from "./pages/About"
 import NotFound from "./pages/NotFound";
-import LoginForm from "./pages/LoginForm";
-import RegisterForm from "./pages/RegisterForm";
 import ContactButton from "@/components/ContactButton";
 
 const queryClient = new QueryClient();
 
 const AppContent = () => {
-  const dispatch = useDispatch();
-  const { isAuthenticated, loading } = useAppSelector((state) => state.auth);
-  const [authMode, setAuthMode] = useState<"login" | "register">("login");
-  const [checkingAuth, setCheckingAuth] = useState(true);
-
-  // Fetch current user on app load
-  useEffect(() => {
-    const checkUser = async () => {
-      await fetchCurrentUser(dispatch);
-      setCheckingAuth(false);
-    };
-    checkUser();
-  }, [dispatch]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        {authMode === "login" ? (
-          <LoginForm onSwitchToRegister={() => setAuthMode("register")} />
-        ) : (
-          <RegisterForm onSwitchToLogin={() => setAuthMode("login")} />
-        )}
-      </div>
-    );
-  }
-
   return (
     <BrowserRouter>
       <Layout>

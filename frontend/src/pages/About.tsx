@@ -184,7 +184,7 @@ const ContentSection = ({ title, content, additionalContent, finalContent, image
 
 const About = () => {
   return (
-    <div className="min-h-screen w-full pt-20 md:pt-24 overflow-hidden">
+    <div className="min-h-screen w-full pt-20 md:pt-24 overflow-hidden -mt-14">
       {/* Hero Section */}
       <motion.div 
         className="relative h-96 md:h-[500px] flex items-center justify-center overflow-hidden"
@@ -217,26 +217,6 @@ const About = () => {
         <ContentSection {...aboutSections[2]} />
         <ContentSection {...aboutSections[3]} />
       </div>
-
-      {/* Closing Statement */}
-      <motion.div 
-        className="bg-[#F8F4EC] py-20 px-4"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeUpVariant}
-      >
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl text-[#3F2A1D] font-bold mb-8 font-serif">
-            A New Standard in Holistic Care
-          </h2>
-          <p className="text-xl text-[#8B6F47] leading-relaxed">
-            At Holistic Wellbeing Solutions, we redefine what it means to achieve and maintain optimal wellbeing. 
-            Through our unique PCS Paradigm and unwavering commitment to excellence, we partner with you to create 
-            meaningful, lasting transformation that honors your unique journey and aspirations.
-          </p>
-        </div>
-      </motion.div>
     </div>
   );
 };

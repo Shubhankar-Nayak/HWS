@@ -119,7 +119,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen w-full pt-20 md:pt-24 bg-[#FAF7F2]">
+    <div className="min-h-screen w-full pt-20 md:pt-24 bg-[#FAF7F2] -mt-14">
       {/* Hero Section */}
       <motion.div 
         className="relative h-96 md:h-[500px] flex items-center justify-center overflow-hidden"

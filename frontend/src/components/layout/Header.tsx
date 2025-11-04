@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, LogOut, Phone, Search } from "lucide-react";
+import { Menu, X, Phone, Search } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
-import { logout } from "../../store/slices/authSlice";
 import axios from "axios";
 import logo from "../../assets/logo.png";
 import { AnimatePresence, motion } from "framer-motion";
@@ -20,7 +19,6 @@ const Header = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -71,20 +69,6 @@ const Header = () => {
     ...navLinksLeft,
     ...navLinksRight,
   ];
-
-  const handleLogout = async () => {
-    try {
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/logout`,
-        {},
-        { withCredentials: true }
-      );
-      dispatch(logout());
-      setIsSearchOpen(false);
-    } catch (err) {
-      console.error("Logout failed", err);
-    }
-  };
 
   const className = `fixed top-0 left-0 right-0 z-50`;
 
@@ -198,15 +182,6 @@ const Header = () => {
                     {link.name}
                   </Link>
                 ))}
-
-                {isAuthenticated && (
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center gap-2 text-sm font-medium transition-colors duration-200"
-                  >
-                    <LogOut className="w-4 h-4" /> Logout
-                  </button>
-                )}
 
                 <button
                   onClick={() => setIsSearchOpen(true)}
@@ -368,20 +343,6 @@ const Header = () => {
                 </Link>
               </motion.div>
             ))}
-
-            {isAuthenticated && (
-              <motion.div {...fadeSlide}>
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="flex items-center gap-1 text-sm font-medium text-red-600 hover:text-red-500 transition-colors duration-200"
-                >
-                  <LogOut className="w-4 h-4" /> Logout
-                </button>
-              </motion.div>
-            )}
           </motion.nav>
         )}
       </AnimatePresence>

@@ -73,28 +73,18 @@ const Booking = () => {
   ];
 
   // Redirect if not authenticated
-  useEffect(() => {
-    if (!authLoading && !isAuthenticated) {
-      toast({
-        title: "Authentication Required",
-        description: "Please log in to book a session.",
-        variant: "destructive",
-      });
-      navigate("/login");
-    }
-  }, [isAuthenticated, authLoading, navigate, toast]);
+useEffect(() => {
+  if (!authLoading && !isAuthenticated) {
+    toast({
+      title: "Authentication Required",
+      description: "Please log in to book a session.",
+      variant: "destructive",
+    });
+    navigate("/login");
+  }
+}, [isAuthenticated, authLoading, navigate, toast]);
 
-  // Auto-fill user info
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      setFormData((prev) => ({
-        ...prev,
-        email: user.email || "",
-        firstName: user.name?.split(" ")[0] || "",
-        lastName: user.name?.split(" ").slice(1).join(" ") || "",
-      }));
-    }
-  }, [isAuthenticated, user]);
+  // REMOVED: Auto-fill user info useEffect - users must type manually
 
   const updateFormData = (data: Partial<typeof formData>) => {
     setFormData((prev) => ({ ...prev, ...data }));
@@ -284,7 +274,7 @@ const Booking = () => {
                         <div className="flex flex-col flex-wrap  gap-6">
                           <div>
                             <label className="block text-sm font-medium text-[#4E3B23] mb-1">
-                              First Name
+                              First Name *
                             </label>
                             <input
                               type="text"
@@ -294,11 +284,12 @@ const Booking = () => {
                               }
                               required
                               className="w-full border border-[#C8A97E]/50 rounded-md px-3 py-2 focus:ring-2 focus:ring-[#C8A97E] focus:outline-none"
+                              placeholder="Enter your first name"
                             />
                           </div>
                           <div>
                             <label className="block text-sm font-medium text-[#4E3B23] mb-1">
-                              Last Name
+                              Last Name *
                             </label>
                             <input
                               type="text"
@@ -308,11 +299,12 @@ const Booking = () => {
                               }
                               required
                               className="w-full border border-[#C8A97E]/50 rounded-md px-3 py-2 focus:ring-2 focus:ring-[#C8A97E] focus:outline-none"
+                              placeholder="Enter your last name"
                             />
                           </div>
                           <div>
                             <label className="block text-sm font-medium text-[#4E3B23] mb-1">
-                              Email
+                              Email *
                             </label>
                             <input
                               type="email"
@@ -322,6 +314,7 @@ const Booking = () => {
                               }
                               required
                               className="w-full border border-[#C8A97E]/50 rounded-md px-3 py-2 focus:ring-2 focus:ring-[#C8A97E] focus:outline-none"
+                              placeholder="your.email@example.com"
                             />
                           </div>
                           <div>
@@ -334,13 +327,16 @@ const Booking = () => {
                               onChange={(e) =>
                                 updateFormData({ phone: e.target.value })
                               }
-                              placeholder="+44 ..."
+                              placeholder="+44 ... (optional)"
                               className="w-full border border-[#C8A97E]/50 rounded-md px-3 py-2 focus:ring-2 focus:ring-[#C8A97E] focus:outline-none"
                             />
                           </div>
                         </div>
                         <div className="flex justify-end mt-6">
-                          <button className="bg-[#3F2A1D] text-white w-full px-6 py-2 rounded-md hover:bg-[#4B2E16] transition">
+                          <button 
+                            className="bg-[#3F2A1D] text-white w-full px-6 py-2 rounded-md hover:bg-[#4B2E16] transition disabled:bg-[#8B6F47]/40 disabled:cursor-not-allowed"
+                            disabled={!formData.firstName || !formData.lastName || !formData.email}
+                          >
                             Next
                           </button>
                         </div>

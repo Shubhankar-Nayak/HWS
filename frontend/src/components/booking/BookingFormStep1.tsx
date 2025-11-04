@@ -14,8 +14,6 @@ interface Step1Props {
 }
 
 const BookingFormStep1 = ({ formData, onUpdate, onNext }: Step1Props) => {
-  const isEmailPrefilled = formData.email && formData.email !== '';
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Only require firstName, email, and phone - lastName is optional
@@ -29,10 +27,7 @@ const BookingFormStep1 = ({ formData, onUpdate, onNext }: Step1Props) => {
       <div>
         <h3 className="text-2xl font-semibold mb-2">Personal Information</h3>
         <p className="text-muted-foreground">
-          {isEmailPrefilled 
-            ? "We've pre-filled your account details" 
-            : "Enter your personal details to continue"
-          }
+          Enter your personal details to continue with your booking
         </p>
       </div>
 
@@ -60,7 +55,7 @@ const BookingFormStep1 = ({ formData, onUpdate, onNext }: Step1Props) => {
         </div>
       </div>
 
-      {/* Email Section */}
+      {/* Email Section - Always editable */}
       <div className="space-y-2">
         <Label htmlFor="email">Email Address *</Label>
         <Input
@@ -69,15 +64,8 @@ const BookingFormStep1 = ({ formData, onUpdate, onNext }: Step1Props) => {
           required
           value={formData.email}
           onChange={(e) => onUpdate({ email: e.target.value })}
-          readOnly={isEmailPrefilled}
-          className={isEmailPrefilled ? "bg-muted/50 cursor-not-allowed" : ""}
           placeholder="your.email@example.com"
         />
-        {isEmailPrefilled && (
-          <p className="text-xs text-muted-foreground">
-            Using your account email. This field cannot be changed here.
-          </p>
-        )}
       </div>
 
       <div className="space-y-2">
