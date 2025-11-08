@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAppDispatch, useAppSelector } from "../hooks/useAppSelector";
+import { useAppDispatch } from "../hooks/useAppSelector";
 import { createBooking } from "../store/slices/bookingSlice";
 
 // Import wellness images
@@ -32,12 +32,6 @@ const rowVariants = {
 
 const Booking = () => {
   const dispatch = useAppDispatch();
-  const { status, error } = useAppSelector((state) => state.booking);
-  const {
-    user,
-    isAuthenticated,
-    loading: authLoading,
-  } = useAppSelector((state) => state.auth);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -52,13 +46,13 @@ const Booking = () => {
     time: "",
     additionalInfo: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const programmes = [
-    { name: "Mindfulness & Meditation", desc: "Peace and clarity" },
-    { name: "Yoga & Movement", desc: "Balance body and mind" },
-    { name: "Nutrition & Wellness", desc: "Eat and live consciously" },
-    { name: "Breath & Energy Work", desc: "Unlock calm and vitality" },
-    { name: "Complete Wellness Package", desc: "Holistic transformation" },
+    { name: "Mental Health", desc: "Optimise Psychological Wellbeing" },
+    { name: "Wellness & Longevity", desc: "Balance body and mind" },
+    { name: "Holistic Wellbeing", desc: "Eat and live consciously" },
   ];
 
   const timeslots = [
@@ -72,34 +66,13 @@ const Booking = () => {
     "07:00 PM",
   ];
 
-  // Redirect if not authenticated
-useEffect(() => {
-  if (!authLoading && !isAuthenticated) {
-    toast({
-      title: "Authentication Required",
-      description: "Please log in to book a session.",
-      variant: "destructive",
-    });
-    navigate("/login");
-  }
-}, [isAuthenticated, authLoading, navigate, toast]);
-
-  // REMOVED: Auto-fill user info useEffect - users must type manually
-
   const updateFormData = (data: Partial<typeof formData>) => {
     setFormData((prev) => ({ ...prev, ...data }));
   };
 
   const handleSubmit = async () => {
-    if (!isAuthenticated || !user) {
-      toast({
-        title: "Authentication Error",
-        description: "Please log in again.",
-        variant: "destructive",
-      });
-      navigate("/login");
-      return;
-    }
+    setIsSubmitting(true);
+    setSubmitError("");
 
     try {
       await dispatch(
@@ -119,22 +92,17 @@ useEffect(() => {
         title: "Booking Confirmed!",
         description: "We'll send a confirmation email shortly.",
       });
-      setTimeout(() => navigate("/mybookings"), 2000);
+      setTimeout(() => navigate("/"), 2000);
     } catch (err: any) {
-      if (err?.includes("auth") || err?.includes("login")) {
-        toast({
-          title: "Session Expired",
-          description: "Please log in again.",
-          variant: "destructive",
-        });
-        navigate("/login");
-      } else {
-        toast({
-          title: "Booking Failed",
-          description: err || "Try again.",
-          variant: "destructive",
-        });
-      }
+      const errorMessage = err?.message || "Please try again.";
+      setSubmitError(errorMessage);
+      toast({
+        title: "Booking Failed",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -145,21 +113,8 @@ useEffect(() => {
     return d;
   });
 
-  if (authLoading || !isAuthenticated) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FFF9E9] via-[#F7F0DD] to-[#E8D7BA]">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-14 w-14 border-4 border-[#C8A97E] border-t-transparent mb-4"></div>
-          <p className="text-[#3F2A1D] font-medium">
-            Preparing your journey...
-          </p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen py-24" style={{fontFamily:"Playful Display"}}>
+    <div className="min-h-screen py-24" style={{fontFamily:"system-ui"}}>
       <div className="">
         {/* Header */}
         <motion.div
@@ -169,7 +124,7 @@ useEffect(() => {
         >
           <h1
             className="text-5xl md:text-6xl font-bold text-[#3F2A1D] mb-3"
-            style={{ fontFamily: "Playfair Display, serif" }}
+            style={{fontFamily:"system-ui"}}
           >
             Book Your Session
           </h1>
@@ -267,6 +222,7 @@ useEffect(() => {
                           e.preventDefault();
                           setCurrentStep(2);
                         }}
+                        style={{fontFamily:"system-ui"}}
                       >
                         <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">
                           Your Information
@@ -559,14 +515,14 @@ useEffect(() => {
                           </button>
                           <button
                             onClick={handleSubmit}
-                            disabled={status === "loading"}
+                            disabled={isSubmitting}
                             className={`px-6 py-2 rounded-md text-white flex-1 ${
-                              status === "loading"
+                              isSubmitting
                                 ? "bg-[#4E3B23]/60 cursor-not-allowed"
                                 : "bg-[#3F2A1D] hover:bg-[#4B2E16]"
                             }`}
                           >
-                            {status === "loading"
+                            {isSubmitting
                               ? "Submitting…"
                               : "Confirm Booking"}
                           </button>
@@ -579,14 +535,14 @@ useEffect(() => {
             </AnimatePresence>
           </div>
 
-          {/* Error */}
-          {error && (
+          {/* Error Display */}
+          {submitError && (
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="mt-8 text-center text-sm text-red-600 font-medium"
             >
-              {error}
+              {submitError}
             </motion.p>
           )}
         </div>

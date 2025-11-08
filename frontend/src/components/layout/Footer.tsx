@@ -46,15 +46,15 @@ const Footer = () => {
             <ul className="space-y-3 text-[#4B2E16] font-semibold">
               <li className="flex items-center gap-2 text-sm ">
                 <MapPin className="h-4 w-4 text-black" />
-                123 Wellness Ave, Serenity City
+                12-18 Theobalds Rd, London, WC1X 8SL
               </li>
               <li className="flex items-center gap-2 text-sm ">
                 <Phone className="h-4 w-4 text-black" />
-                +1 (555) 123-4567
+                +44 7770 778104
               </li>
               <li className="flex items-center gap-2 text-sm ">
                 <Mail className="h-4 w-4 text-black" />
-                hello@holisticwellness.com
+                admin@holisticwell-beingsolutions.com
               </li>
             </ul>
           </div>

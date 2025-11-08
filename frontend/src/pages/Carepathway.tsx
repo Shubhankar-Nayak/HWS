@@ -41,22 +41,6 @@ const CarePathway = () => {
 
   const [currentStep, setCurrentStep] = useState(1);
 
-
-
-
-  if (authLoading || !isAuthenticated) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FFF9E9] via-[#F7F0DD] to-[#E8D7BA]">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-14 w-14 border-4 border-[#C8A97E] border-t-transparent mb-4"></div>
-          <p className="text-[#3F2A1D] font-medium">
-            Preparing your journey...
-          </p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen py-24" style={{fontFamily:"Playful Display"}}>
       <div className="">

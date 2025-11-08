@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { useToast } from "../components/ui/use-toast"; 
+import { useToast } from "../components/ui/use-toast";
+import headquarters from "../assets/headquarters.jpg" 
 
 // Animation variants
 const fadeUpVariant = {
@@ -446,27 +447,23 @@ const Contact = () => {
                 variants={fadeUpVariant}
                 className="bg-white p-8 rounded-2xl shadow-lg border border-[#E8D7BA]"
               >
-                <h3 className="text-2xl font-serif text-[#3F2A1D] mb-6">Zurich Headquarters</h3>
+                <h3 className="text-2xl font-serif text-[#3F2A1D] mb-6">Holborn Headquarters</h3>
                 <div className="space-y-4 text-[#8B6F47]">
                   <p className="leading-relaxed">
-                    <strong className="text-[#3F2A1D]">Holistic Wellbeing Solutions AG</strong><br/>
-                    Zollikerstrasse 60<br/>
-                    8702 Zurich-Zollikon<br/>
-                    Switzerland
+                    <strong className="text-[#3F2A1D]">Holistic Well-being Services Ltd</strong><br/>
+                    12-18 Theobalds Rd,<br/>
+                    London, WC1X 8SL<br/>
+                    Holborn, United Kingdom
                   </p>
                   <div className="pt-4 border-t border-[#E8D7BA]">
                     <p className="space-y-2">
                       <span className="block">
-                        <strong className="text-[#3F2A1D]">Treatment:</strong>{' '}
-                        <a href="tel:+41435051070" className="hover:text-[#3F2A1D] transition-colors">+41 44 505 10 70</a>
-                      </span>
-                      <span className="block">
-                        <strong className="text-[#3F2A1D]">General:</strong>{' '}
-                        <a href="tel:+41435411152" className="hover:text-[#3F2A1D] transition-colors">+41 43 541 11 52</a>
+                        <strong className="text-[#3F2A1D]">Phone:</strong>{' '}
+                        <a href="tel:+41435051070" className="hover:text-[#3F2A1D] transition-colors">+44 7770 778104</a>
                       </span>
                       <span className="block">
                         <strong className="text-[#3F2A1D]">Email:</strong>{' '}
-                        <a href="mailto:info@hws.com" className="hover:text-[#3F2A1D] transition-colors">info@hws.com</a>
+                        <a href="mailto:info@hws.com" className="hover:text-[#3F2A1D] transition-colors">admin@holisticwell-beingsolutions.com</a>
                       </span>
                     </p>
                   </div>
@@ -477,25 +474,7 @@ const Contact = () => {
                 variants={fadeUpVariant}
                 className="bg-white p-8 rounded-2xl shadow-lg border border-[#E8D7BA]"
               >
-                <h3 className="text-2xl font-serif text-[#3F2A1D] mb-6">International Offices</h3>
-                <div className="space-y-6 text-[#8B6F47]">
-                  <div>
-                    <h4 className="font-semibold text-[#3F2A1D] mb-2">Geneva</h4>
-                    <p className="leading-relaxed">
-                      Quai Gustave-Ador 54 – 54A, 2nd Floor<br/>
-                      1207 Geneva<br/>
-                      Switzerland
-                    </p>
-                  </div>
-                  <div className="pt-4 border-t border-[#E8D7BA]">
-                    <h4 className="font-semibold text-[#3F2A1D] mb-2">New York</h4>
-                    <p className="leading-relaxed">
-                      4 East 70th Street - Suite 1A<br/>
-                      New York NY 10021<br/>
-                      United States
-                    </p>
-                  </div>
-                </div>
+                <img src={headquarters} alt="Headquarters" />
               </motion.div>
             </div>
           </motion.div>

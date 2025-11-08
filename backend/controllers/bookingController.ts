@@ -90,11 +90,9 @@ export const addBooking = async (req: Request, res: Response) => {
 
         // Add programme-based tag
         const tagsMap: Record<string, string> = {
-          mindfulness: 'Mindfulness & Meditation',
-          yoga: 'Yoga & Movement',
-          nutrition: 'Nutrition & Wellness',
-          breathwork: 'Breath & Energy Work',
-          complete: 'Complete Wellness Package',
+          "Mental Health": 'Mental Health',
+          "Wellness & Longevity": 'Wellness & Longevity',
+          "Holistic Wellbeing": 'Holistic Wellbeing',
         };
 
         const tagName = tagsMap[programme] || 'General Clients';

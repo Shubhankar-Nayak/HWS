@@ -115,10 +115,11 @@ const Header = () => {
       <motion.div
         className="w-full h-[32px] flex items-center justify-between px-4 bg-gradient-to-r from-white via-[#E8D7BA] to-white"
         layout
+        style={{fontFamily:"system-ui"}}
       >
         <div className="flex items-center justify-center gap-2 text-[#4B2E16] font-semibold px-2">
           <Phone className="w-4 h-4" />
-          <p className="text-xs md:text-sm pb-0.5">For Enquiries: +44 (0) XX XX XX XX</p>
+          <p className="text-xs md:text-sm pb-0.5">For Enquiries: +44 7770 778104</p>
         </div>
         {/* <p className="text-xs md:text-sm pb-0.5">Emergency Line</p> */}
       </motion.div>

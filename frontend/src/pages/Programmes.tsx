@@ -12,13 +12,26 @@ const fadeUpVariant = {
   },
 };
 
+// Define TypeScript interfaces
+interface CoreItem {
+  bolds: string;
+  para: string;
+}
+
+interface ProgrammeProps {
+  image: string;
+  title: string;
+  description: string;
+  cores: CoreItem[];
+}
+
 // Reversed Card
-const CardComponentReverse = ({ image, title, duration, description, benefits }: any) => {
+const CardComponentReverse = ({ image, title, description, cores }: ProgrammeProps) => {
   const navigate = useNavigate();
   return (
     <motion.div
       className="w-full h-full flex flex-col md:flex-row-reverse items-center bg-[#E8D7BA]/50 overflow-hidden"
-      style={{ fontFamily: "Playful Display" }}
+      style={{fontFamily:"system-ui"}}
       variants={fadeUpVariant}
       initial="hidden"
       whileInView="visible"
@@ -29,21 +42,22 @@ const CardComponentReverse = ({ image, title, duration, description, benefits }:
         className="w-full md:w-auto flex-shrink-0 md:py-5 md:pr-5"
         variants={fadeUpVariant}
       >
-        <img src={image} alt="" className="w-full md:w-[690px] h-64 md:h-auto object-cover" />
+        <img src={image} alt={title} className="w-full md:w-[690px] h-64 md:h-auto object-cover" />
       </motion.div>
 
       {/* Text */}
       <motion.div
-        className="flex flex-col justify-start p-6 md:p-10 w-full md:h-[450px]"
+        className="flex flex-col justify-start p-6 md:p-10 w-full md:h-fit"
         variants={fadeUpVariant}
       >
         <h2 className="text-2xl md:text-4xl font-bold text-[#3F2A1D] mb-2 md:mb-0">{title}</h2>
-        <p className="text-[#4E3B23] mb-2 font-medium text-lg md:text-xl">{duration}</p>
         <p className="text-[#3E2C1A] mb-4 text-lg md:text-xl">{description}</p>
 
         <ul className="list-disc list-inside text-[#3B2B1C] space-y-1 text-lg md:text-xl mb-4 md:mb-0">
-          {benefits.map((benefit: string, i: number) => (
-            <li key={i}>{benefit}</li>
+          {cores.map((core: CoreItem, i: number) => (
+            <li key={i} className="mb-2">
+              <span className="font-semibold">{core.bolds}</span> - {core.para}
+            </li>
           ))}
         </ul>
 
@@ -61,12 +75,12 @@ const CardComponentReverse = ({ image, title, duration, description, benefits }:
 };
 
 // Normal Card
-const CardComponent = ({ image, title, duration, description, benefits }: any) => {
+const CardComponent = ({ image, title, description, cores }: ProgrammeProps) => {
   const navigate = useNavigate();
   return (
     <motion.div
       className="w-full h-full flex flex-col md:flex-row items-center bg-transparent overflow-hidden"
-      style={{ fontFamily: "Playful Display" }}
+      style={{fontFamily:"system-ui"}}
       variants={fadeUpVariant}
       initial="hidden"
       whileInView="visible"
@@ -74,24 +88,25 @@ const CardComponent = ({ image, title, duration, description, benefits }: any) =
     >
       {/* Image */}
       <motion.div
-        className="w-full md:w-auto flex-shrink-0 md:py-5 md:pr-5"
+        className="w-full md:w-auto flex-shrink-0 md:py-5 md:pl-5"
         variants={fadeUpVariant}
       >
-        <img src={image} alt="" className="w-full md:w-[690px] h-64 md:h-auto object-cover" />
+        <img src={image} alt={title} className="w-full md:w-[690px] h-64 md:h-auto object-cover" />
       </motion.div>
 
       {/* Text */}
       <motion.div
-        className="flex flex-col justify-start p-6 md:p-10 w-full md:h-[450px]"
+        className="flex flex-col justify-start p-6 md:p-10 w-full md:h-fit"
         variants={fadeUpVariant}
       >
         <h2 className="text-2xl md:text-4xl font-bold text-[#3F2A1D] mb-2 md:mb-0">{title}</h2>
-        <p className="text-[#4E3B23] mb-2 font-medium text-lg md:text-xl">{duration}</p>
         <p className="text-[#3E2C1A] mb-4 text-lg md:text-xl">{description}</p>
 
         <ul className="list-disc list-inside text-[#3B2B1C] space-y-1 text-lg md:text-xl mb-4 md:mb-0">
-          {benefits.map((benefit: string, i: number) => (
-            <li key={i}>{benefit}</li>
+          {cores.map((core: CoreItem, i: number) => (
+            <li key={i} className="mb-2">
+              <span className="font-semibold">{core.bolds}</span> - {core.para}
+            </li>
           ))}
         </ul>
 
@@ -110,38 +125,106 @@ const CardComponent = ({ image, title, duration, description, benefits }: any) =
 
 const Programmes = () => {
   const programmes = [
-    { image: logo, title: "Mindfulness & Meditation", duration: "8 weeks",
-      description: "Cultivate inner peace and mental clarity through guided meditation practices and mindfulness techniques.",
-      benefits: ["Stress reduction", "Improved focus", "Emotional balance", "Better sleep quality"],
+    { 
+      image: logo, 
+      title: "Mental Health", 
+      description: "Our Mental Health programmes are designed to assess, treat, and optimise psychological wellbeing through clinically validated and personalised approaches.",
+      cores: [
+        {
+          bolds: "Psychotherapy",
+          para: "Individual, Cognitive Behavioural (CBT), Trauma Focused CBT, Integrative Counselling and Mindfulness-Based CBT, Acceptance and Commitment Therapy (ACT), Compassion Focused Therapy, DBT, EMDR, Solution-Focused Therapy, Life Coaching, Relationship Counselling, Sex Counselling and Therapy, Hypnotherapy, and Executive Coaching"
+        },
+        {
+          bolds: "Addiction and Recovery",
+          para: "Discreet screening, readiness evaluations, and integrated recovery planning."
+        },
+        {
+          bolds: "Neurodiversity",
+          para: "ADHD and Autism Spectrum assessments with tailored therapeutic interventions and functional coaching."
+        },
+        {
+          bolds: "Psychological Profiling",
+          para: "Cognitive, emotional, social, and behavioural pattern analysis to identify risk and protective factors."
+        },
+        {
+          bolds: "Psychometric Evaluations",
+          para: "Personality, leadership, and resilience profiling using validated instruments."
+        },
+      ],
     },
-    { image: logo, title: "Yoga & Movement", duration: "12 weeks",
-      description: "Strengthen your body and calm your mind with yoga practices suited for all levels.",
-      benefits: ["Increased flexibility", "Core strength", "Mind-body connection", "Pain relief"],
+    { 
+      image: logo, 
+      title: "Wellness & Longevity",
+      description: "Our Wellness & Longevity programmes combine medical insight with restorative practice.",
+      cores: [
+        {
+          bolds: "Sleep & Recovery Science",
+          para: "Sleep architecture analysis, circadian rhythm alignment, and restorative recovery planning."
+        },
+        {
+          bolds: "Mindfulness & Stress Reduction",
+          para: "Structured mindfulness courses, breathwork therapy, guided meditation, and cognitive relaxation training."
+        },
+        {
+          bolds: "Nutrition & Metabolic Health",
+          para: "Functional nutrition plans, metabolic profiling, and integrative dietetics."
+        },
+        {
+          bolds: "Movement & Fitness",
+          para: "Functional fitness assessment and personalised exercise programming."
+        },
+        {
+          bolds: "Longevity",
+          para: "Preventive health and mental health screening, well-being assessment, self care, and lifestyle optimisation."
+        },
+      ],
     },
-    { image: logo, title: "Nutrition & Wellness", duration: "6 weeks",
-      description: "Transform your relationship with food through holistic nutrition guidance and personalized meal planning.",
-      benefits: ["Sustainable eating habits", "Energy boost", "Weight management", "Gut health"],
-    },
-    { image: logo, title: "Breath & Energy Work", duration: "4 weeks",
-      description: "Harness the power of breathwork to release tension and activate your body's natural healing abilities.",
-      benefits: ["Anxiety relief", "Enhanced vitality", "Emotional release", "Immune support"],
-    },
-    { image: logo, title: "Complete Wellness Package", duration: "16 weeks",
-      description: "Our comprehensive programme combining all aspects of holistic well-being for total transformation.",
-      benefits: ["All-inclusive approach", "Personal coaching", "Community support", "Lasting results"],
+    { 
+      image: logo, 
+      title: "Holistic Wellbeing", 
+      description: "Holistic Wellbeing at HWS integrates emotional, relational, and spiritual dimensions into the continuum of health.",
+      cores: [
+        {
+          bolds: "Emotional & Cognitive Health",
+          para: "Cognitive Enhancement Workshops, Emotional Resilience Coaching – guiding graceful response to life's challenges, Art & Expressive Therapies"
+        },
+        {
+          bolds: "Relational Health",
+          para: "Guided self-awareness, communication coaching, and relationship mapping, Interpersonal relationships coaching and guidance"
+        },
+        {
+          bolds: "Spiritual & Energetic Harmony",
+          para: "Reflective practices, yoga, meditative guidance, and inner balance work, mindfulness for life."
+        },
+        {
+          bolds: "Visioning & Life Design",
+          para: "Goal setting through structured dialogue, psychometric tools, and personalised Life Design Mapping."
+        },
+        {
+          bolds: "Reflective Practices",
+          para: "Daily mindfulness rituals, monthly reviews, and quarterly wellbeing check-ins."
+        },
+        {
+          bolds: "Curated Retreats & Experiences",
+          para: "Immersive Treat and Retreat experiences in serene destinations such as Bali, Tuscany, and the Scottish Highlands for deeper renewal."
+        },
+      ],
     },
   ];
 
   return (
     <div className="min-h-screen w-full pt-20 md:pt-24 px-4 md:px-0 overflow-hidden">
       <div className="text-center mb-8 md:mb-12">
-        <h1 className="text-3xl md:text-5xl font-bold mb-4">Our Programmes</h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-          Choose the path that resonates with your wellness goals
+        <h1 className="text-3xl md:text-5xl font-bold mb-4">Domains of Care</h1>
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 mb-4">
+          Curated Programmes for Mind, Body & Spirit
+        </p>
+        <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto px-4">
+          At HWS, We integrate clinical, psychological, and holistic expertise to deliver comprehensive care pathways that address the full spectrum of wellbeing.
         </p>
       </div>
 
-      <div className=" space-y-8 md:space-y-12">
+      <div className="space-y-8 md:space-y-12">
         {programmes.map((programme, index) =>
           index % 2 === 0 ? (
             <CardComponent key={programme.title} {...programme} />

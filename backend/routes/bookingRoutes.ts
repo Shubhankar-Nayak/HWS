@@ -11,18 +11,18 @@ const router = express.Router();
 
 // Get bookings for the authenticated user (uses email from JWT token)
 router.route('/my-bookings')
-  .get(protect, getMyBookings); 
+  .get(getMyBookings); 
 
 // Get bookings by specific email (admin feature - requires email parameter)
 router.route('/email/:email')
-  .get(protect, getBookingsByEmail);
+  .get(getBookingsByEmail);
 
 // Create new booking
 router.route('/')  
-  .post(protect, addBooking);
+  .post(addBooking);
 
 // Delete booking by ID
 router.route('/:id')
-  .delete(protect, deleteBooking);    
+  .delete(deleteBooking);    
 
 export default router;

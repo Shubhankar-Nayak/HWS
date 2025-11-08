@@ -203,52 +203,6 @@ export const getMe = async (req: AuthenticatedRequest, res: Response) => {
   });
 };
 
-export const setPassword = async (req: AuthenticatedRequest, res: Response) => {
-  if (!req.user) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
-
-  const user = req.user;
-
-  if (user.password) {
-    return res.status(400).json({ message: 'Password already set' });
-  }
-
-  const { newPassword } = req.body;
-  if (!newPassword || newPassword.length < 8) {
-    return res.status(400).json({ message: 'Password must be at least 8 characters' });
-  }
-
-  user.password = newPassword;
-  await user.save();
-
-  res.status(200).json({ message: 'Password set successfully' });
-};
-
-export const changePassword = async (req: AuthenticatedRequest, res: Response) => {
-  try {
-    const { currentPassword, newPassword } = req.body;
-
-    const user = await User.findById(req.user?.id).select('+password');
-    if (!user || !user.password) {
-      return res.status(400).json({ message: 'Invalid request' });
-    }
-
-    const isMatch = await bcrypt.compare(currentPassword, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: 'Incorrect current password' });
-    }
-
-    user.password = newPassword;
-    await user.save();
-
-    res.status(200).json({ message: 'Password updated successfully' });
-  } catch (err) {
-    console.error('Error changing password:', err);
-    res.status(500).json({ message: 'Server error' });
-  }
-};
-
 const otpStore = new Map();
 
 export const sendOtpToEmail = async (req: Request, res: Response) => {

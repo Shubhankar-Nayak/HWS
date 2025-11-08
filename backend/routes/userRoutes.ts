@@ -3,8 +3,6 @@ import {
   registerUser,
   loginUser,
   getMe,
-  setPassword,
-  changePassword,
   googleLogin,
   sendOtpToEmail,
   verifyUser,
@@ -23,9 +21,6 @@ router.get('/verify', verifyUser);
 router.post('/logout', logoutUser);
 
 // Protected Routes
-router.get('/me', protect, getMe);
-
-router.post('/set-password', protect, setPassword);
-router.post('/change-password', protect, changePassword);
+router.get('/me', getMe);
 
 export default router;
