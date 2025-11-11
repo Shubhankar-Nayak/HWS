@@ -4,6 +4,7 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ArrowRight, Mail, CalendarDays } from "lucide-react";
+import {useNavigate} from "react-router-dom";
 
 const contents = [
   {
@@ -144,6 +145,7 @@ function EngagementCTA({
   secondaryHref = "/retreats-restorative",
 }: CTAProps) {
   const reduce = useReducedMotion();
+  const navigate = useNavigate()
 
   return (
     <section className="relative w-full py-20 md:py-28 overflow-hidden">
@@ -192,7 +194,7 @@ function EngagementCTA({
             <motion.a
               whileHover={reduce ? undefined : { y: -2 }}
               whileTap={reduce ? undefined : { y: 0 }}
-              href={primaryHref}
+              onClick={() => navigate("/contact")}
               className="group inline-flex items-center justify-center rounded-full px-6 py-3 bg-[#3F2A1D] text-[#F2E7D5] hover:bg-[#342318] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3F2A1D]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#EFE4D2] transition-colors"
               aria-label={primaryLabel}
             >
@@ -203,7 +205,7 @@ function EngagementCTA({
 
             {/* Secondary CTA */}
             <a
-              href={secondaryHref}
+              onClick={() => navigate("/retreats-restorative")}
               className="inline-flex items-center justify-center rounded-full px-6 py-3 border border-[#3F2A1D]/70 text-[#5A462E] hover:bg-[#3F2A1D]/5 hover:text-[#3F2A1D]  decoration-[#A48962]/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3F2A1D]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#EFE4D2]"
               aria-label={secondaryLabel}
             >
