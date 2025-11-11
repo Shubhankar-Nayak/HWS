@@ -9,11 +9,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import Layout from "./components/layout/Layout";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Programmes from "./pages/Programmes";
 import ExclusiveAccess from "./pages/ExclusiveAccess";
 import Booking from "./pages/Booking";
 import MyBookings from "./pages/MyBookings";
+import Retreats_Restoration from "./pages/Retreats_Restorative";
 import CarePathway from "./pages/Carepathway";
 import LevelsOfEngagement from "./pages/Levelofengagement";
 import Assessment from "./pages/Assessments";
@@ -28,6 +30,7 @@ const queryClient = new QueryClient();
 const AppContent = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Layout>
         <ContactButton />
         <Routes>
@@ -38,6 +41,7 @@ const AppContent = () => {
           <Route path="/carepathway" element={<CarePathway />} />
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/levels-of-engagement" element={<LevelsOfEngagement />} />
+          <Route path="/retreats-restorative" element={<Retreats_Restoration />} />
           {/* <Route path="/mybookings" element={<MyBookings />} /> */}
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />

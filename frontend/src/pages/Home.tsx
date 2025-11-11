@@ -57,7 +57,7 @@ function ProgrammesSection() {
         </div>
 
         {/* Feature cards - responsive grid */}
-        <div className="md:absolute  top-[38%] right-10  w-full lg:w-[55%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 z-10" style={{fontFamily:"Playful Display"}}>
+        <div className="md:absolute  top-[200px] right-10  w-full lg:w-[55%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 z-10" style={{fontFamily:"Playful Display"}}>
           {features.map((feature, index) => (
             <motion.div
                 key={index}
