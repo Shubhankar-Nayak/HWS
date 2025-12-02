@@ -2,8 +2,8 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, Check, CalendarDays, MapPin, Mail } from "lucide-react";
-
+import {  Check, MapPin } from "lucide-react";
+import LandingComponent from "@/components/landingComponent";
 /* ----------------------------- Motion Variants ---------------------------- */
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -42,58 +42,15 @@ const INCLUSIONS: string[] = [
   "Post-retreat integration plan",
 ];
 
+
+
 /* ------------------------------- Component -------------------------------- */
 const Retreats_Restorative: React.FC = () => {
   const reduce = useReducedMotion();
 
   return (
     <div className="min-h-screen w-full bg-[#FAF7F2] text-neutral-800">
-      {/* ================================ HERO ================================ */}
-      <motion.header
-        initial="hidden"
-        animate="visible"
-        variants={fadeUp}
-        className="relative h-[72vh] min-h-[460px] w-full overflow-hidden"
-      >
-        {/* Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center scale-105"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1556046785-90b800412d80?auto=format&fit=crop&q=80&w=2000')",
-          }}
-          aria-hidden="true"
-        />
-        {/* Vignette + warmth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/35 to-black/10" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.06),transparent_60%)]" />
-
-        {/* Titles */}
-        <div className="relative z-10 h-full flex items-center justify-center px-6">
-          <div className="max-w-5xl text-center">
-            
-
-            <h1 className="mt-4 font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
-              Retreats &amp; Restorative Escapes
-            </h1>
-
-           
-          </div>
-        </div>
-
-        {/* Scroll cue */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80">
-          <motion.div
-            initial={reduce ? {} : { y: 0, opacity: 0.8 }}
-            animate={reduce ? {} : { y: 6, opacity: 1 }}
-            transition={reduce ? {} : { repeat: Infinity, repeatType: "reverse", duration: 1.2, ease: "easeInOut" }}
-            className="inline-flex items-center gap-2 text-sm"
-          >
-            <ArrowDown className="h-4 w-4" />
-            Explore retreats
-          </motion.div>
-        </div>
-      </motion.header>
+      <LandingComponent image="https://images.unsplash.com/photo-1556046785-90b800412d80?auto=format&fit=crop&q=80&w=2000" title="Retreats &amp; Restorative Escapes"/>
 
       {/* ============================== CONTENT ============================== */}
       <main className="relative -mt-12 md:-mt-16 pb-14">

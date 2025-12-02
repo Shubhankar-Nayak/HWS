@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 interface LandingComponentProps {
     image:string;
     title:string;
-    subtitle:string;
+    subtitle?:string;
     description?:string;
     contactbutton?:boolean;
 

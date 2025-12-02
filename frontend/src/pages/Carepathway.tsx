@@ -3,7 +3,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "../hooks/useAppSelector";
-import { createBooking } from "../store/slices/bookingSlice";
+import LandingComponent from "@/components/landingComponent";
 
 // Import wellness images
 import img1 from "@/assets/landingbg1.jpg";
@@ -31,33 +31,26 @@ const rowVariants = {
 };
 
 const CarePathway = () => {
-  const dispatch = useAppDispatch();
-  const { status, error } = useAppSelector((state) => state.booking);
-  const {
-    user,
-    isAuthenticated,
-    loading: authLoading,
-  } = useAppSelector((state) => state.auth);
-
+  const navigate = useNavigate();
+  const { error } = useAppSelector((state) => state.booking);
   const [currentStep, setCurrentStep] = useState(1);
 
   return (
-    <div className="min-h-screen py-24" style={{fontFamily:"Playful Display"}}>
+    <div className="min-h-screen" style={{fontFamily:"Playful Display"}}>
       <div className="">
-        {/* Header */}
+        <LandingComponent image="https://images.unsplash.com/photo-1556046785-90b800412d80?auto=format&fit=crop&q=80&w=2000" title="Care Pathway" subtitle="The HWS client journey is structured as a progression from an initial conversation to a process of ongoing development.
+        This journey is organised through a five-step pathway that places authentic engagement at its core."/>
+
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12 px-24"
+          className="text-center my-12 px-24"
         >
-          <h1
-            className="text-5xl md:text-6xl font-bold text-[#3F2A1D] mb-3"
-            style={{ fontFamily: "Playfair Display, serif" }}
-          >
-            Care Patheway
-          </h1>
-          <p className="text-[#6B5B35]/80 text-lg  ">
-            Each HWS journey unfolds through a five-step path built on personal connection. We recognise that every individual is different in circumstance, pace, and purpose. Therefore, we tailor our services in time and method to optimise outcomes for our clients, many of whom lead complex, high-performing lives. Our process ensures that every engagement is thoughtfully designed and continually refined.
+          <p className="text-[#3f2a1d] text-lg mb-5 ">
+            We recognise that each client’s circumstances and priorities differ. Therefore, we adapt the timing, intensity, and modality of our interventions to ensure the most effective outcomes. This approach is particularly suited to individuals with demanding, high-performance lifestyles.
+          </p>
+          <p className="text-[#3f2a1d] text-lg  ">
+            Throughout each stage, the pathway remains deliberately adaptive, ensuring that every interaction is both thoughtfully planned and open to refinement. This flexibility sustains momentum and supports continued personal and professional growth.
           </p>
         </motion.div>
 
@@ -89,7 +82,7 @@ const CarePathway = () => {
                 >
                   {i + 1}
                 </div>
-                <span className="mt-1 md:mt-2 text-xs md:text-sm font-medium text-[#4E3B23]/70 whitespace-nowrap hidden sm:block">
+                <span className="mt-1 md:mt-2 text-xs md:text-base font-medium text-[#3f2a1d] whitespace-nowrap hidden sm:block">
                   {title}
                 </span>
               </motion.div>
@@ -140,9 +133,11 @@ const CarePathway = () => {
                   transition={{ delay: 0.3 }}
                   className={`order-2 lg:order-${
                     currentStep % 2 === 1 ? 2 : 1
-                  }`}
+                  }`
+                  
+                }
                 >
-                  <div className=" p-6 md:p-10">
+                  <div className=" p-6 md:p-10" style={{fontFamily:"Playful Display"}}>
                     {/* STEP 1 — Personal Info */}
                     {currentStep === 1 && (
                       <form
@@ -153,7 +148,7 @@ const CarePathway = () => {
                       >
                         <div>
                             <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Private Consultation</h2>
-                            <p>We begin with a confidential, in-depth dialogue to understand individual goals, needs, and context. This forms the foundation for truly personalised care.</p>
+                            <p>We begin with a confidential, in-depth discussion to understand your goals, needs, and context. This initial dialogue establishes the foundation for personalised care and helps us identify the most relevant areas of focus.</p>
                         </div>
                         <div className="flex justify-end mt-6">
                           <button className="bg-[#3F2A1D] text-white w-full px-6 py-2 rounded-md hover:bg-[#4B2E16] transition">
@@ -168,7 +163,7 @@ const CarePathway = () => {
                       <div>
                         <div>
                             <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Curated Assessments</h2>
-                            <p>From our three wellbeing pillars, we select a suite of advanced diagnostics to capture a complete picture of each client’s psychological, physical, and emotional profile.</p>
+                            <p>Drawing from our three wellbeing pillars, we select advanced diagnostics to build a comprehensive understanding of your psychological, physical, and emotional profile. These assessments allow us to identify key strengths, patterns, and areas for targeted support.</p>
                         </div>
                         <div className="flex gap-5 mt-8">
                           <button
@@ -194,7 +189,7 @@ const CarePathway = () => {
                       <div>
                       <div>
                             <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Personalised Care Pathway</h2>
-                            <p>We design a tailored roadmap integrating the most relevant modalities, therapies, and experts. Each element is aligned toward lasting balance and measurable outcomes.</p>
+                            <p>We develop a structured roadmap that integrates the modalities, therapies, and experts most suited to your needs. Each component is chosen to foster meaningful, measurable progress and to create balanced and sustainable change over time.</p>
                         </div>
                         <div className="flex gap-5  mt-8">
                           <button
@@ -220,7 +215,7 @@ const CarePathway = () => {
                       <div className="flex flex-col h-full min-h-[400px]">
                        <div>
                             <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Targeted Intervention & Support</h2>
-                            <p>Our multidisciplinary team delivers care with precision and compassion through a trusted network of clinicians, therapists, and specialists.</p>
+                            <p>Our multidisciplinary team delivers care with precision and empathy, coordinating expertise across clinicians, therapists, and specialists. This ensures that each intervention is coherent, aligned, and responsive to your evolving goals.</p>
                         </div>
 
                         {/* Buttons fixed at bottom */}
@@ -248,7 +243,7 @@ const CarePathway = () => {
                       <div>
                         <div>
                             <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">Ongoing Review & Evolution</h2>
-                            <p>We maintain regular follow-ups to refine and adapt each programme, ensuring progress remains aligned with evolving goals and lifestyle demands.</p>
+                            <p>We maintain regular follow-ups to refine, adjust, or deepen the programme as required. This ensures that your pathway remains aligned with shifting priorities, lifestyle demands, and personal growth.</p>
                         </div>
                         <div className="flex gap-5 mt-8">
                           <button
@@ -256,6 +251,14 @@ const CarePathway = () => {
                             className="px-6 py-2 rounded-md border border-[#C8A97E]/60 text-[#4E3B23] hover:bg-[#F8F1E2] flex-1"
                           >
                             Back
+                          </button>
+
+                          <button
+                            onClick={() => navigate("/contact")}
+                            className="px-6 py-3 rounded-md bg-[#3F2A1D] text-white hover:bg-[#4B2E16] 
+                   transition flex-1 font-medium"
+                          >
+                            Begin Your Personalised Care Pathway 
                           </button>
                           
                         </div>
@@ -279,8 +282,8 @@ const CarePathway = () => {
           )}
         </div>
         {/* Footer */}
-        <p className="mt-12 mx-auto max-w-md text-center text-base text-[#6B5B35]/70">
-          At any stage of this pathway, if new needs arise or priorities shift, we adapt accordingly, refining or reshaping the plan to address those wellbeing requirements swiftly. We recognise that life seldom presents challenges one at a time, our approach therefore remains responsive, designed to support the individual as a whole.
+        <p className="mt-12 mx-auto max-w-md text-center text-lg text-[#3f2a1d]">
+          At any point in this pathway, if new needs emerge or priorities shift, we adapt without delay, reshaping the plan to address those requirements effectively. Recognising that life rarely presents challenges in isolation, our approach remains responsive and comprehensive, designed to support the individual as a whole
         </p>
         <p className="mt-12 text-center text-xs text-[#6B5B35]/70">
           Secure • Private • Confirmation within 24 hours
