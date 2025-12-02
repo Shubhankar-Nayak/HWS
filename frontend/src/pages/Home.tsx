@@ -14,7 +14,7 @@ import heroImage2 from "@/assets/landingbg2.jpg";
 
 const heroImages = [heroImage1, heroImage2];
 
-function ProgrammesSection() {
+function WhyChoose() {
   const features = [
     {
       icon: <Heart className="w-6 h-6" />,
@@ -199,10 +199,10 @@ const Home = () => {
           style={{ fontFamily: "Playfair Display" }}
         >
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#C8A97E]">
-            Your Path to Complete <span className="">Well-Being</span>
+            HOLISTIC WELLBEING SOLUTIONS 
           </h1>
-          <p className="text-xl md:text-2xl text-[#8B6F47] mb-8 max-w-2xl mx-auto">
-            Discover holistic programmes that nurture your mind, body, and soul
+          <p className="text-xl md:text-2xl italic text-[#8B6F47] mb-8 max-w-2xl mx-auto">
+            The Art of Wellbeing 
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
             <Button
@@ -224,10 +224,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      {/* <WhyChooseUs /> */}
-      {/* Programmes Section */}
-      <ProgrammesSection />
+      <WhyChoose />
 
       {/* CTA Section */}
       <ValuesSection />
