@@ -1,7 +1,18 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-const ContentSection = ({ title, content, additionalContent, finalContent, image, reverse }: any) => {
+interface ContentSectionProps {
+  title: string;
+  content: string;
+  additionalContent?: string;
+  finalContent?: string;
+  image: string;
+  reverse?: boolean;
+  button?:string;
+}
+const ContentSection = ({ title, content, additionalContent, finalContent, image, reverse,button }: ContentSectionProps) => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -49,6 +60,13 @@ const ContentSection = ({ title, content, additionalContent, finalContent, image
               {finalContent}
             </p>
           )}
+          {button && (<Button
+            asChild
+            size="lg"
+            className="text-lg px-8 bg-[#f5f0e6] text-[#3F2A1D] hover:bg-[#bfa176] font-medium shadow-md"
+          >
+            <Link to="/contact">{button}</Link>
+          </Button>)}
         </motion.div>
       </div>
     </section>
