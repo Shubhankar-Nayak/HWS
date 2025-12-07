@@ -24,6 +24,9 @@ import Contact from "./pages/Contact";
 import About from "./pages/About"
 import NotFound from "./pages/NotFound";
 import ContactButton from "@/components/ContactButton";
+import MentalHealth from "./pages/mental_health";
+import WellnessLongevity from "./pages/wellness_longevity";
+import HolisticWellbeing from "./pages/holistic_wellbeing";
 
 const queryClient = new QueryClient();
 
@@ -35,11 +38,14 @@ const AppContent = () => {
         <ContactButton />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/programmes" element={<Programmes />} />
+          {/* <Route path="/programmes" element={<Programmes />} /> */}
+          <Route path="/programmes/mental-health" element={<MentalHealth />} />
+          <Route path="/programmes/wellness-longevity" element={<WellnessLongevity />} />
+          <Route path="/programmes/holistic-wellbeing" element={<HolisticWellbeing />} />
           {/* <Route path="/exclusive-access" element={<ExclusiveAccess />} /> */}
-          <Route path="/booking" element={<Booking />} />
+          {/* <Route path="/booking" element={<Booking />} /> */}
           <Route path="/carepathway" element={<CarePathway />} />
-          <Route path="/assessment" element={<Assessment />} />
+          {/* <Route path="/assessment" element={<Assessment />} /> */}
           <Route path="/levels-of-engagement" element={<LevelsOfEngagement />} />
           <Route path="/retreats-restorative" element={<Retreats_Restoration />} />
           {/* <Route path="/mybookings" element={<MyBookings />} /> */}

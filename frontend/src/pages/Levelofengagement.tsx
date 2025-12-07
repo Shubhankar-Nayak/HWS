@@ -87,9 +87,10 @@ const Levelofengagement: React.FC = () => {
         contactbutton={true}
       />
         <ContentSection {...contentdata[0]}/>
-        <RetreatsEscape />
+        
         <ContentSection {...contentdata[1]}/>
         <ContentSection {...contentdata[2]}/>
+        <RetreatsEscape />
 
     </div>
   );

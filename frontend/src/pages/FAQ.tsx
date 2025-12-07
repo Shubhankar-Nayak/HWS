@@ -99,7 +99,7 @@ const FAQ = () => {
             >
               <AccordionItem
                 value={`item-${index}`}
-                className="bg-white rounded-2xl overflow-hidden border border-transparent hover:border-[#C8A97E]/30 transition-all duration-300 shadow-sm hover:shadow-md"
+                className="bg-white  overflow-hidden border border-transparent hover:border-[#C8A97E]/30 transition-all duration-300 shadow-sm hover:shadow-md"
               >
                 <AccordionTrigger className="px-7 py-5 text-left hover:no-underline group">
                   <div className="flex items-center justify-between w-full pr-2">

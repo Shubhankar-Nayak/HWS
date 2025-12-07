@@ -22,6 +22,7 @@ const fadeUpVariant: Variants = {
 };
 
 function LandingComponent({ image, title, subtitle, description, contactbutton }: LandingComponentProps) {
+
   return (
     <motion.div
       className="relative h-96 md:h-[500px] flex items-center justify-center overflow-hidden"
@@ -75,7 +76,7 @@ function LandingComponent({ image, title, subtitle, description, contactbutton }
               variant="outline"
               className="text-lg px-8 bg-white/70 hover:bg-white text-[#]"
             >
-              <Link to="/programmes">Speak with Us</Link>
+              <Link to="/contact">Speak with Us</Link>
             </Button>
         </motion.div>}
       </div>

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useToast } from "../components/ui/use-toast";
 import headquarters from "../assets/headquarters.jpg" 
+import LandingComponent from "@/components/landingComponent";
 
 // Animation variants
 const fadeUpVariant = {
@@ -122,59 +123,21 @@ const Contact = () => {
   return (
     <div className="min-h-screen w-full pt-20 md:pt-24 bg-[#FAF7F2] -mt-14">
       {/* Hero Section */}
-      <motion.div 
-        className="relative h-96 md:h-[500px] flex items-center justify-center overflow-hidden"
-        initial="hidden"
-        animate="visible"
-        variants={fadeUpVariant}
-      >
-        {/* Background Image with Gradient */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80')`,
-          }}
+      <LandingComponent image={headquarters} title="Contact" description="complete confidentiality. Every enquiry is handled discreetly, ensuring your privacy from the first point of contact. " />
+
+      <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center my-12 px-24"
         >
-        </div>
-
-        <div className="relative z-10 text-center text-white px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">Contact HWS</h1>
-          <p className="text-xl md:text-2xl text-white max-w-3xl mx-auto">
-            Begin Your Journey to Lasting Wellbeing
+          <p className="text-[#3f2a1d] text-lg mb-5 ">
+           We offer a brief initial consultation to help clarify your needs and determine the most suitable way forward. From there, we tailor every aspect of engagement to your personal circumstances and preferences.
           </p>
-        </div>
-      </motion.div>
+          <p className="text-[#3f2a1d] text-lg  ">
+            A private appointment can be arranged at your convenience.
+          </p>
+        </motion.div>
 
-      {/* Discretion Section */}
-      <section className="py-20 bg-gradient-to-br from-[#3F2A1D] to-[#8B6F47] text-white">
-        <div className="max-w-4xl mx-auto px-4 md:px-8 text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-          >
-            <motion.p 
-              variants={fadeUpVariant}
-              className="text-xl text-[#E8D7BA] leading-relaxed mb-8 max-w-3xl mx-auto"
-            >
-              Whether you are beginning your wellbeing journey or seeking ongoing support, our team is here to assist with complete confidentiality and care. Every enquiry is handled with absolute discretion, ensuring your privacy and comfort from the first exchange onward.
-            </motion.p>
-            <motion.p 
-              variants={fadeUpVariant}
-              className="text-xl text-[#E8D7BA] leading-relaxed mb-8 max-w-3xl mx-auto"
-            >
-              We understand that each individual's circumstances are unique. Our approach is therefore entirely personalised.
-            </motion.p>
-            <motion.p 
-              variants={fadeUpVariant}
-              className="text-xl text-[#E8D7BA] leading-relaxed mb-12 max-w-3xl mx-auto"
-            >
-              A private consultation can be arranged at your convenience.
-            </motion.p>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Contact Form Section */}
       <section className="py-20 bg-white">
