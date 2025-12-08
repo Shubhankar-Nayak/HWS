@@ -58,6 +58,7 @@ const Header = () => {
   ];
 
   const navLinksRight = [
+    { name: "FAQ", path: "/faq" },
     { name: "Contact", path: "/contact" },
     
     { name: "Levels of Engagement", path: "/levels-of-engagement" },

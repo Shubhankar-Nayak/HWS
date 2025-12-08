@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook,Mail, Phone, MapPin } from 'lucide-react';
 import logo2 from "../../assets/logo.png"
+import whatsapp from "../../assets/whatsapp.svg"
+import linkedin from "../../assets/linkedin.svg"
 
 const Footer = () => {
   return (
@@ -18,23 +20,23 @@ const Footer = () => {
             <h4 className="font-bold mb-4">Quick Links</h4>
             <ul className="space-y-1 text-[#4B2E16] font-semibold">
               <li>
-                <Link to="/programmes" className="text-sm hover:text-[#E8D7BA] transition-smooth">
-                  Programmes
+                <Link to="/programmes/mental-health" className="text-sm hover:text-[#E8D7BA] transition-smooth">
+                  Mental Health
                 </Link>
               </li>
               <li>
-                <Link to="/exclusive-access" className="text-sm hover:text-[#E8D7BA] transition-smooth">
-                  Exclusive Access
+                <Link to="/programmes/wellness-longevity" className="text-sm hover:text-[#E8D7BA] transition-smooth">
+                  Wellness & Longevity
                 </Link>
               </li>
               <li>
-                <Link to="/booking" className="text-sm  hover:text-[#E8D7BA] transition-smooth">
-                  Book Now
+                <Link to="/programmes/holistic-wellbeing" className="text-sm  hover:text-[#E8D7BA] transition-smooth">
+                  Holistic Wellbeing
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="text-sm hover:text-[#E8D7BA] transition-smooth">
-                  FAQ
+                <Link to="/privacy-notice" className="text-sm hover:text-[#E8D7BA] transition-smooth">
+                  Privacy Notice
                 </Link>
               </li>
             </ul>
@@ -67,25 +69,25 @@ const Footer = () => {
                 href="#"
                 className="h-10 w-10 rounded-full bg-muted flex items-center justify-center hover:bg-[#E8D7BA] hover:text-[#E8D7BA]-foreground transition-smooth"
               >
-                <Facebook className="h-5 w-5" />
+                <Facebook className="size-6"  />
               </a>
               <a
                 href="#"
                 className="h-10 w-10 rounded-full bg-muted flex items-center justify-center hover:bg-[#E8D7BA] hover:text-[#E8D7BA]-foreground transition-smooth"
               >
-                <Instagram className="h-5 w-5" />
+                <img src={whatsapp} alt="" className='size-6' />
               </a>
               <a
                 href="#"
                 className="h-10 w-10 rounded-full bg-muted flex items-center justify-center hover:bg-[#E8D7BA] hover:text-[#E8D7BA]-foreground transition-smooth"
               >
-                <Twitter className="h-5 w-5" />
+                <img src={linkedin} alt="" className='size-6' />
               </a>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
+        <div className=" mt-8 pt-8 text-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} Holistic Wellness. All rights reserved.</p>
         </div>
       </div>

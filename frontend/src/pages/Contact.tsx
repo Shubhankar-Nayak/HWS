@@ -123,7 +123,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen w-full pt-20 md:pt-24 bg-[#FAF7F2] -mt-14">
       {/* Hero Section */}
-      <LandingComponent image={headquarters} title="Contact" description="complete confidentiality. Every enquiry is handled discreetly, ensuring your privacy from the first point of contact. " />
+      <LandingComponent image="https://images.unsplash.com/photo-1759782527358-24534a90ac80?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" title="Contact" description="complete confidentiality. Every enquiry is handled discreetly, ensuring your privacy from the first point of contact. " />
 
       <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -410,7 +410,7 @@ const Contact = () => {
                 variants={fadeUpVariant}
                 className="bg-white p-8 rounded-2xl shadow-lg border border-[#E8D7BA]"
               >
-                <h3 className="text-2xl font-serif text-[#3F2A1D] mb-6">Holborn Headquarters</h3>
+                <h3 className="text-2xl font-serif text-[#3F2A1D] mb-6">Holborn</h3>
                 <div className="space-y-4 text-[#8B6F47]">
                   <p className="leading-relaxed">
                     <strong className="text-[#3F2A1D]">Holistic Well-being Services Ltd</strong><br/>

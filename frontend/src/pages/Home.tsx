@@ -6,7 +6,6 @@ import yoga from "@/assets/landingbg1.jpg";
 import { motion} from "framer-motion";
 import heroImage1 from "@/assets/landingbg1.jpg";
 import heroImage2 from "@/assets/landingbg2.jpg";
-import { S } from "node_modules/framer-motion/dist/types.d-BJcRxCew";
 
 
 const heroImages = [heroImage1, heroImage2];
@@ -38,7 +37,7 @@ function WhyChoose() {
         {/* Mobile: Stack vertically, Desktop: Side by side */}
         <div className="flex flex-col lg:flex-row items-center w-full">
           <div className="w-full lg:flex-1 lg:p-10 mb-8 lg:mb-0">
-            <img src={yoga} alt="Yoga and wellness" className="w-full h-64 md:h-80 lg:h-auto object-cover r hidden md:flex" />
+            <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=1174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Yoga and wellness" className="w-full h-64 md:h-80 lg:h-auto object-cover r hidden md:flex" />
           </div>
           <div className="w-full lg:flex-1 lg:h-[400px] flex flex-col ">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#3F2A1D] dark:text-foreground font-serif text-center lg:text-left mb-8">
@@ -76,7 +75,7 @@ const panels = [
     title: "Mental Health",
     description:"We explore psychological, neurological, and behavioural patterns to create personalised pathways that protect, strengthen, and enhance mental resilience.",
     list:["Psychotherapy","Neurodiversity","Psychometric Evaluations","Addiction Support","Psychological Profiling and Mental Health Check Ups"],
-    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1710322144652-bcea73280334?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     link:"programmes/mental-health",
   },
   {
@@ -84,7 +83,7 @@ const panels = [
     title: "Wellness and Longevity",
     description:"We assess and support mental vitality and overall wellness, building integrated pathways that promote healthy ageing and long term performance.",
     list:["Mindfulness","Sleep and Recovery","Nutrition and Fitness"],
-    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     link:"programmes/wellness-longevity",
   },
   {
@@ -92,7 +91,7 @@ const panels = [
     title: "Holistic Wellbeing",
     description:"This pillar brings together a considered set of approaches that foster harmony across the key dimensions of wellbeing. By supporting alignment between the emotional, social, spiritual, and physical spheres of life, it helps individuals cultivate a sustained and deeper sense of fulfilment.",
     list:["Holistic Wellbeing Journey","Visioning and Goal Setting","Curated Review Circle","HWS Signature Features","Retreat Experiences in serene and restorative settings around the world"],
-    img:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    img:"https://images.unsplash.com/photo-1444312645910-ffa973656eba?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     link:"programmes/holistic-wellbeing",
   }
 ]

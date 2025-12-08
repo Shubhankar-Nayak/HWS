@@ -49,7 +49,7 @@ const ContentSection = ({
       <div
         className={`relative z-10 w-full md:w-1/2 ${
           reverse ? "mr-auto" : "ml-auto"
-        } bg-white/90 backdrop-blur-sm p-8 md:p-16 lg:p-20 lg:pb-5`}
+        } bg-white/90 backdrop-blur-sm p-8 md:p-16 my-5 md:my-10 lg:p-20 lg:my-20 lg:pb-5`}
       >
         <motion.div
           initial={{ opacity: 0, x: reverse ? -60 : 60 }}

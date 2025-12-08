@@ -80,7 +80,7 @@ const Levelofengagement: React.FC = () => {
   return (
     <div className="min-h-screen w-full flex flex-col ">
       <LandingComponent
-        image="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+        image="https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         title="Levels of Engagement"
         subtitle="For those who require flexibility in how they work with us, HWS offers three distinct ways to engage. Each reflects a different degree of depth and access, allowing our approach to adapt to your individual needs, lifestyle, and goals."
         description="Furthermore Immersive retreats extend our approach into private, restorative settings where therapeutic insight is combined with intentional practice. "

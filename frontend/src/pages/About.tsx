@@ -31,7 +31,7 @@ const About = () => {
   return (
     <div className="min-h-screen w-full pt-20 md:pt-24 overflow-hidden -mt-14">
       {/* Hero Section */}
-      <LandingComponent image="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" title="About HWS" subtitle="Precision Care, Personal Transformation, Lasting Wellbeing"/>
+      <LandingComponent image="https://plus.unsplash.com/premium_photo-1669613233557-1676c121fe73?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" title="About HWS" subtitle="Precision Care, Personal Transformation, Lasting Wellbeing"/>
 
       {/* Main Content */}
       <motion.div
