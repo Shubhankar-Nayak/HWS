@@ -29,7 +29,7 @@ const staggerContainer: Variants = {
 
 const About = () => {
   return (
-    <div className="min-h-screen w-full pt-20 md:pt-24 overflow-hidden -mt-14">
+    <div className="min-h-screen w-full md:pt-24 overflow-hidden mt-[49px] md:-mt-14">
       {/* Hero Section */}
       <LandingComponent image="https://plus.unsplash.com/premium_photo-1669613233557-1676c121fe73?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" title="About HWS" subtitle="Precision Care, Personal Transformation, Lasting Wellbeing"/>
 

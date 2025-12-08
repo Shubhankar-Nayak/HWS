@@ -25,7 +25,7 @@ function LandingComponent({ image, title, subtitle, description, contactbutton }
 
   return (
     <motion.div
-      className="relative h-96 md:h-[500px] flex items-center justify-center overflow-hidden"
+      className="relative h-150 md:h-[600px] flex items-center justify-center overflow-hidden"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
@@ -74,7 +74,7 @@ function LandingComponent({ image, title, subtitle, description, contactbutton }
               asChild
               size="lg"
               variant="outline"
-              className="text-lg px-8 bg-white/70 hover:bg-white text-[#]"
+              className="text-lg px-8 my-5 bg-white/70 hover:bg-white text-[#]"
             >
               <Link to="/contact">Speak with Us</Link>
             </Button>

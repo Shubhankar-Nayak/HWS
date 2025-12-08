@@ -5,10 +5,6 @@ import HoverExpandPanels from "@/components/HoveredPanels";
 
 // Import wellness images
 import img1 from "@/assets/landingbg1.jpg";
-import img2 from "@/assets/landingbg1.jpg";
-import img3 from "@/assets/landingbg1.jpg";
-import img4 from "@/assets/landingbg1.jpg";
-import img5 from "@/assets/landingbg1.jpg";
 
 const panels = [
     {
@@ -55,14 +51,14 @@ const CarePathway = () => {
 
   return (
     <div className="min-h-screen" style={{fontFamily:"Playful Display"}}>
-      <div className="">
+      <div className="mt-[50px]">
         <LandingComponent image="https://images.unsplash.com/photo-1505028106030-e07ea1bd80c3?q=80&w=1019&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" title="Care Pathway" subtitle="The HWS client journey is structured as a progression from an initial conversation to a process of ongoing development.
         This journey is organised through a five-step pathway that places authentic engagement at its core."/>
 
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center my-12 px-24"
+          className="text-center my-12 px-5 md:px-24"
         >
           <p className="text-[#3f2a1d] text-lg mb-5 ">
             We recognise that each client’s circumstances and priorities differ. Therefore, we adapt the timing, intensity, and modality of our interventions to ensure the most effective outcomes. This approach is particularly suited to individuals with demanding, high-performance lifestyles.
@@ -75,7 +71,7 @@ const CarePathway = () => {
         <HoverExpandPanels panels={panels} />
 
         {/* Footer */}
-        <p className="mt-12 mx-auto max-w-md text-center text-lg text-[#3f2a1d]">
+        <p className="mt-12 px-5 md:px-0 md:mx-auto md:max-w-md text-center text-lg text-[#3f2a1d]">
           At any point in this pathway, if new needs emerge or priorities shift, we adapt without delay, reshaping the plan to address those requirements effectively. Recognising that life rarely presents challenges in isolation, our approach remains responsive and comprehensive, designed to support the individual as a whole
         </p>
         <p className="mt-12 text-center text-xs text-[#6B5B35]/70">

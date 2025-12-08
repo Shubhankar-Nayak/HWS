@@ -88,7 +88,7 @@ const panels2 = [
 
 const holistic_wellbeing = () => {
   return (
-    <motion.div>
+    <motion.div className='mt-[49px]'>
         <LandingComponent image="https://images.unsplash.com/photo-1484402628941-0bb40fc029e7?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" title="Holistic Wellbeing" subtitle='Holistic wellbeing at HWS is understood as an elevated and integrated model of health. Beyond the absence of illness, it reflects a state of balance and fulfilment shaped by the alignment of physical, mental, emotional, social, spiritual, and financial realms.' />
         <HoverExpandPanels panels={panels}/>
 

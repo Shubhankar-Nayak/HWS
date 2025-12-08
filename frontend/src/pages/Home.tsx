@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
+import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { Heart, Sparkles, Users, Leaf } from "lucide-react";
-import yoga from "@/assets/landingbg1.jpg";
 import { motion} from "framer-motion";
 import heroImage1 from "@/assets/landingbg1.jpg";
 import heroImage2 from "@/assets/landingbg2.jpg";
@@ -101,105 +101,177 @@ const HoverExpandPanels: React.FC<{
     id: number;
     title: string;
     description: string;
-    list: string[];
+    list?: string[];
     img: string;
     link?: string;
-  }[];}> = ({ panels }) => {
+  }[];
+}> = ({ panels }) => {
   const [hovered, setHovered] = useState<number | null>(null);
+  const [openMobile, setOpenMobile] = useState<number | null>(0);
   const navigate = useNavigate();
-  const total = panels.length;
-  const defaultW = 100 / total;         // width when no hover
-  const expandedW = 70;                 // width for hovered panel
-  const remainingW = (100 - expandedW) / (total - 1); // remaining sections
+
+  // 🔥 Enforce exactly 3 items, just like your working 3-panel version
+  const visiblePanels = panels.slice(0, 3);
+
+  const total = visiblePanels.length; // always 3
+  const defaultW = 100 / total; // ~33.33%
+  const expandedW = 70; // hovered panel width
+  const remainingW = (100 - expandedW) / (total - 1); // ~15% each
 
   return (
-    <div className="w-full h-[500px] flex overflow-hidden">
-      {panels.map((panel, index) => {
-        const isHovered = hovered === index;
+    <div className="w-full">
 
-        return (
-          <div
-            key={panel.id}
-            onMouseEnter={() => setHovered(index)}
-            onMouseLeave={() => setHovered(null)}
-            className="
-              h-full transition-all duration-500 ease-in-out relative
-              border-r last:border-r-0 border-[#c4b08f]
-            "
-            style={{
-              width:
-                hovered === null
-                  ? `${defaultW}%`
-                  : isHovered
-                  ? `${expandedW}%`
-                  : `${remainingW}%`,
-              backgroundImage: `url(${panel.img})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            {/* DARK OVERLAY */}
-            <div className="absolute inset-0 bg-black/30"></div>
+      {/* 🖥️ DESKTOP VERSION */}
+      <div className="hidden lg:flex w-full h-[500px] overflow-hidden">
+        {visiblePanels.map((panel, index) => {
+          const isHovered = hovered === index;
 
-            {/* CONTENT */}
-            <div className="relative h-full flex flex-col justify-center items-center text-center p-6 text-white">
+          return (
+            <div
+              key={panel.id}
+              onMouseEnter={() => setHovered(index)}
+              onMouseLeave={() => setHovered(null)}
+              className="
+                h-full transition-all duration-500 ease-in-out relative
+                border-r last:border-r-0 border-[#c4b08f]
+              "
+              style={{
+                width:
+                  hovered === null
+                    ? `${defaultW}%`
+                    : isHovered
+                    ? `${expandedW}%`
+                    : `${remainingW}%`,
+                backgroundImage: `url(${panel.img})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              <div className="absolute inset-0 bg-black/30"></div>
 
-              {/* TITLE */}
-              <h2
-                className={`text-xl font-semibold transition-opacity duration-300
-                  ${isHovered ? "opacity-100" : "opacity-90"}
-                `}
+              <div className="relative h-full flex flex-col justify-center items-center text-center p-6 text-white">
+
+                {/* TITLE */}
+                <h2
+                  className={`text-xl font-semibold transition-opacity duration-300 
+                    ${isHovered ? "opacity-100" : "opacity-90"}`}
+                >
+                  {panel.title}
+                </h2>
+
+                {/* DESCRIPTION */}
+                <p
+                  className={`
+                    mt-4 text-sm leading-relaxed transition-all duration-500
+                    ${isHovered ? "opacity-100 max-h-40" : "opacity-0 max-h-0"}
+                  `}
+                >
+                  {panel.description}
+                </p>
+
+                {/* LIST + BUTTON (only if hovered) */}
+                <div
+                  className={`
+                    mt-6 transition-all duration-500 text-left
+                    ${isHovered ? "opacity-100 max-h-64" : "opacity-0 max-h-0"}
+                  `}
+                  style={{ width: "80%" }}
+                >
+                  {isHovered && panel.list && (
+                    <>
+                      <h3 className="text-md font-semibold mb-2 text-[#f0e6d2]">
+                        Focus Areas
+                      </h3>
+
+                      <ul className="space-y-1 text-sm text-[#f4f4f4]">
+                        {panel.list.map((item, idx) => (
+                          <li key={idx}>• {item}</li>
+                        ))}
+                      </ul>
+
+                      {panel.link && (
+                        <button
+                          onClick={() => navigate(`/${panel.link}`)}
+                          className="
+                            mt-4 px-4 py-2 rounded-md border border-white 
+                            hover:bg-white hover:text-black transition-all duration-300
+                          "
+                        >
+                          Explore More
+                        </button>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* 📱 MOBILE ACCORDION VERSION */}
+      <div className="lg:hidden flex flex-col w-full">
+        {visiblePanels.map((panel, index) => {
+          const isOpen = openMobile === index;
+
+          return (
+            <div key={panel.id} className="w-full border-b border-[#c4b08f]">
+              <button
+                onClick={() => setOpenMobile(isOpen ? null : index)}
+                className="w-full flex items-center justify-between p-4 bg-[#f5f0e6]"
               >
-                {panel.title}
-              </h2>
+                <h2 className="text-lg font-semibold text-[#3F2A1D]">
+                  {panel.title}
+                </h2>
 
-              {/* DESCRIPTION */}
-              <p
-                className={`
-                  mt-4 text-sm leading-relaxed transition-all duration-500
-                  ${isHovered ? "opacity-100 max-h-40" : "opacity-0 max-h-0"}
-                `}
-              >
-                {panel.description}
-              </p>
+                <ChevronDown
+                  className={`
+                    w-5 h-5 text-[#C8A97E]
+                    transition-transform duration-300
+                    ${isOpen ? "rotate-180" : ""}
+                  `}
+                />
+              </button>
 
-              {/* FOCUS AREAS LIST */}
               <div
-                className={`
-                  mt-6 transition-all duration-500 text-left
-                  ${isHovered ? "opacity-100 max-h-64" : "opacity-0 max-h-0"}
-                `}
-                style={{ width: "80%" }}
+                className={`overflow-hidden transition-all duration-500 
+                ${isOpen ? "max-h-[650px]" : "max-h-0"}`}
               >
-                {isHovered && (
-                  <>
-                    <h3 className="text-md font-semibold mb-2 text-[#f0e6d2]">
-                      Focus Areas
-                    </h3>
+                <div
+                  className="w-full h-48 sm:h-64 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${panel.img})` }}
+                ></div>
 
-                    <ul className="space-y-1 text-sm text-[#f4f4f4]">
+                <div className="p-4 bg-white">
+                  <p className="text-[#6B5B35] text-sm leading-relaxed">
+                    {panel.description}
+                  </p>
+
+                  {panel.list && (
+                    <ul className="mt-3 space-y-1 text-sm text-[#6B5B35]">
                       {panel.list.map((item, idx) => (
                         <li key={idx}>• {item}</li>
                       ))}
                     </ul>
+                  )}
 
-                    {/* EXPLORE MORE BUTTON */}
+                  {panel.link && (
                     <button
-                    onClick={() => navigate(`/${panel.link}`)}
+                      onClick={() => navigate(`/${panel.link}`)}
                       className="
-                        mt-4 px-4 py-2 rounded-md border border-white 
-                        hover:bg-white hover:text-black transition-all duration-300
+                        mt-4 px-4 py-2 rounded-md border border-black 
+                        hover:bg-black hover:text-white transition-all duration-300
                       "
                     >
                       Explore More
                     </button>
-                  </>
-                )}
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };

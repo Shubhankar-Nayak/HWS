@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className="bg-[linear-gradient(to_right,#BFA585,#D8C6A0,#EAD9B0)]">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid items-center justify-center grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
             <img src={logo2} alt="Holistic Wellness Logo" className='w-32 md:w-64'/>

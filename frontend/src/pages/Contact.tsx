@@ -121,14 +121,14 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen w-full pt-20 md:pt-24 bg-[#FAF7F2] -mt-14">
+    <div className="min-h-screen w-full md:pt-24 bg-[#FAF7F2] mt-[48px] md:-mt-14">
       {/* Hero Section */}
       <LandingComponent image="https://images.unsplash.com/photo-1759782527358-24534a90ac80?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" title="Contact" description="complete confidentiality. Every enquiry is handled discreetly, ensuring your privacy from the first point of contact. " />
 
       <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center my-12 px-24"
+          className="text-center my-12 px-5 md:px-24"
         >
           <p className="text-[#3f2a1d] text-lg mb-5 ">
            We offer a brief initial consultation to help clarify your needs and determine the most suitable way forward. From there, we tailor every aspect of engagement to your personal circumstances and preferences.

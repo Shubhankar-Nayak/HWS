@@ -8,6 +8,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { ChevronDown } from 'lucide-react';
+import LandingComponent from '@/components/landingComponent';
 
 const FAQ = () => {
   const faqs = [
@@ -36,6 +37,10 @@ const FAQ = () => {
       answer:
         'For most sessions, wear comfortable clothing that allows freedom of movement. For yoga and movement classes, bring a mat if you have one (we also provide mats). A water bottle and open mind are always recommended!',
     },
+    
+  ];
+
+  const faqs2 = [
     {
       question: 'Are sessions available online?',
       answer:
@@ -61,32 +66,16 @@ const FAQ = () => {
       answer:
         'We combine ancient wisdom with modern science, offering evidence-based practices delivered by experienced practitioners. Our holistic approach addresses all aspects of well-being, and we create personalized pathways that honor your unique journey.',
     },
-  ];
-
+  ]
   return (
     <section
-      className="py-20 md:py-28 bg-[#E8D7BA] overflow-hidden"
+      className="mt-[48px] md:mt-15  bg-[#E8D7BA] overflow-hidden"
       style={{ fontFamily: 'Merriweather, serif' }}
     >
-      <div className="container mx-auto px-6 md:px-12 max-w-3xl">
+      <LandingComponent image='https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' title='Frequently Asked Questions' subtitle='Everything you need to know about your journey with us'/>
+      <div className="container mx-auto px-6 md:px-12  mt-10 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-10  ">
         
-        {/* === Header === */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold text-[#3F2A1D] dark:text-foreground tracking-tight mb-3">
-            Frequently Asked Questions
-          </h1>
-          <div className="w-20 h-px bg-gradient-to-r from-transparent via-[#C8A97E] to-transparent mx-auto mb-5" />
-          <p className="text-lg text-[#8B6F47] dark:text-[#A67C52] leading-relaxed max-w-xl mx-auto">
-            Everything you need to know about your journey with us
-          </p>
-        </motion.div>
-
+        
         {/* === Accordion === */}
         <Accordion type="single" collapsible className="space-y-3">
           {faqs.map((faq, index) => (
@@ -101,7 +90,7 @@ const FAQ = () => {
                 value={`item-${index}`}
                 className="bg-white  overflow-hidden border border-transparent hover:border-[#C8A97E]/30 transition-all duration-300 shadow-sm hover:shadow-md"
               >
-                <AccordionTrigger className="px-7 py-5 text-left hover:no-underline group">
+                <AccordionTrigger className="px-7 py-5 text-left hover:no-underline group [&>svg]:hidden">
                   <div className="flex items-center justify-between w-full pr-2">
                     <span className="font-medium text-lg text-[#3F2A1D] dark:text-foreground leading-snug">
                       {faq.question}
@@ -116,7 +105,35 @@ const FAQ = () => {
             </motion.div>
           ))}
         </Accordion>
-
+        
+        <Accordion type="single" collapsible className="space-y-3">
+          {faqs2.map((faq, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.06 }}
+              viewport={{ once: true }}
+            >
+              <AccordionItem
+                value={`item-${index}`}
+                className="bg-white  overflow-hidden border border-transparent hover:border-[#C8A97E]/30 transition-all duration-300 shadow-sm hover:shadow-md"
+              >
+                <AccordionTrigger className="px-7 py-5 text-left hover:no-underline group [&>svg]:hidden">
+                  <div className="flex items-center justify-between w-full pr-2">
+                    <span className="font-medium text-lg text-[#3F2A1D] dark:text-foreground leading-snug">
+                      {faq.question}
+                    </span>
+                    <ChevronDown className="w-5 h-5 text-[#C8A97E] transition-transform duration-300 group-data-[state=open]:rotate-180" />
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-7 pb-6 pt-1 text-[#6B5B35] dark:text-[#8B6F47] text-base leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            </motion.div>
+          ))}
+        </Accordion>
         
       </div>
     </section>

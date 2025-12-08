@@ -64,12 +64,14 @@ const ContentSection = ({
           <p className="text-lg text-[#8B6F47] leading-relaxed mb-6">
             {content}
           </p>
-          <CircularTimeline
+          <div className="w-full">
+            <CircularTimeline
             interval={2500}
             centerText=""
             items={timelineItems}
             
           />
+          </div>
           {button && (
             <Button
               asChild
