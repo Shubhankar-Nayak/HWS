@@ -118,7 +118,7 @@ const ContactButton = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 250, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-full sm:w-[740px] max-w-[95vw] overflow-y-auto z-50
+              className="fixed top-0 right-0 h-full w-full sm:w-[540px] max-w-[75vw] overflow-y-auto z-50
                          bg-gradient-to-br from-[#FFF9E9]/95 via-[#F7F0DD]/95 to-[#E8D7BA]/95 
                          backdrop-blur-xl border-l border-[#C8A97E]/40 shadow-2xl"
             >
@@ -158,7 +158,7 @@ const ContactButton = () => {
                   </div>
 
                   <h3 className="uppercase tracking-[0.25em] text-[#3F2A1D]/80 text-sm">
-                    Treatment Enquiries Form
+                     Enquiries Form
                   </h3>
                 </motion.div>
 
@@ -234,7 +234,7 @@ const ContactButton = () => {
                           </div>
                           <div>
                             <label className="block text-xs uppercase tracking-wide text-[#3F2A1D]/80 mb-2">
-                              Subject*
+                              Subject
                             </label>
                             <select
                               value={formData.subject}
@@ -243,7 +243,7 @@ const ContactButton = () => {
                               }
                               className="w-full h-10 rounded bg-[#FAF6EE]/80 border border-[#C8A97E]/40 text-[#3F2A1D] px-3 focus:ring-1 focus:ring-[#C8A97E]/70 hover:shadow-[0_0_12px_#C8A97E40] transition-all"
                             >
-                              <option value="">Subject*</option>
+                              <option value="">Subject</option>
                               <option>General enquiry</option>
                               <option>Treatment enquiry</option>
                               <option>Booking availability</option>
@@ -256,14 +256,14 @@ const ContactButton = () => {
                       {i === 3 && (
                         <div className="col-span-2">
                           <label className="block text-xs uppercase tracking-wide text-[#3F2A1D]/80 mb-2">
-                            Message*
+                            Message
                           </label>
                           <Textarea
                             name="message"
                             value={formData.message}
                             onChange={handleChange}
                             rows={6}
-                            placeholder="Message*"
+                            placeholder="Message"
                             className="w-full bg-[#FAF6EE]/80 border border-[#C8A97E]/40 text-[#3F2A1D] placeholder:text-[#3F2A1D]/30 focus:ring-1 focus:ring-[#C8A97E]/70 hover:shadow-[0_0_12px_#C8A97E40] transition-all"
                           />
                         </div>
@@ -303,6 +303,7 @@ const ContactButton = () => {
                       Thank you! Your message has been sent.
                     </motion.div>
                   )}
+                  <p className='text-xs italic text-[#3F2A1D]/80'>Every enquiry is handled discreetly, ensuring your privacy from the first point of contact.</p>
                 </motion.form>
               </div>
             </motion.aside>

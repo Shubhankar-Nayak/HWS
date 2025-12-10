@@ -95,7 +95,7 @@ const Header = () => {
       </div>
 
       {/* MAIN BAR */}
-      <div className="h-[96px] w-full bg-[#E8D7BA] px-4 md:px-8 flex items-center text-[#2E2E2E]">
+      <div className="h-[100px] w-full bg-[#176a79] px-4 md:px-8 flex items-center text-[#2E2E2E]">
 
         {/* LEFT NAV (Desktop) */}
         <div className="hidden md:flex flex-1 items-center justify-center gap-8">
@@ -137,7 +137,7 @@ const Header = () => {
                     <Link
                       key={item.path}
                       to={item.path}
-                      className="block px-4 py-2 hover:bg-[#E8D7BA]/40 text-[#4B2E16]"
+                      className="block px-4 py-2 hover:bg-[#E8D7BA]/40 text-[#997851]"
                     >
                       {item.name}
                     </Link>
@@ -153,7 +153,7 @@ const Header = () => {
               key={link.path}
               to={link.path}
               className={`hover:text-[#4B2E16] ${
-                location.pathname === link.path ? "text-[#4B2E16]" : "text-[#2E2E2E]/80"
+                location.pathname === link.path ? "text-white" : "text-[#2E2E2E]/80"
               }`}
             >
               {link.name}

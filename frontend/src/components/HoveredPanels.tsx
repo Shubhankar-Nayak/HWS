@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";   // ← make sure this import exist
 import {useState} from "react";
 
 const HoverExpandPanels: React.FC<{
-  panels: { id: number; title: string; description: string; img: string }[];
+  panels: { id: number; title: string; description: string; img: string; toptitle?:string }[];
 }> = ({ panels }) => {
   const [hovered, setHovered] = useState<number | null>(null);
   const [openMobile, setOpenMobile] = useState<number | null>(0);
@@ -34,6 +34,12 @@ const HoverExpandPanels: React.FC<{
               <div className="absolute inset-0 bg-black/30"></div>
 
               <div className="relative h-full flex flex-col justify-center items-center text-center p-6 text-white">
+                <h2
+                  className={`text-xl font-semibold transition-opacity duration-300 
+                  ${isHovered ? "opacity-100" : "opacity-90"}`}
+                >
+                  {panel.toptitle}
+                </h2>
                 <h2
                   className={`text-xl font-semibold transition-opacity duration-300 
                   ${isHovered ? "opacity-100" : "opacity-90"}`}

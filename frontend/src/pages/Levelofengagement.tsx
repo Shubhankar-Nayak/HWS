@@ -28,10 +28,15 @@ const RetreatsEscape: React.FC = () => {
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
       variants={fadeUpVariants}
-      className="bg-[#f5f0e6] px-6 sm:px-12 py-16"
+      className="relative bg-[#f5f0e6] px-6 sm:px-12 py-16"
+      style={{
+        backgroundImage: `url('https://images.unsplash.com/photo-1611530624100-5fc87c9d5baa?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`, 
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
     >
       <motion.div
-        className="bg-[#f5f0e6] border-4 border-[#3F2A1D] rounded-3xl shadow-2xl mx-auto max-w-5xl p-10 sm:p-14 flex flex-col items-center justify-center gap-8 text-center"
+        className="bg-[#f5f0e6] border-4 border-[#3F2A1D] shadow-2xl mx-auto max-w-5xl p-10 sm:p-14 flex flex-col items-center justify-center gap-8 text-center"
         style={{ fontFamily: "Playfair Display, serif" }}
       >
         {/* Title */}
@@ -66,7 +71,7 @@ const RetreatsEscape: React.FC = () => {
           <Button
             asChild
             size="lg"
-            className="text-lg px-10 py-6 bg-[#bfa176] hover:bg-[#d6cabe] text-[#3F2A1D] font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+            className="text-lg px-10 py-6 bg-[#bfa176] hover:bg-[#d6cabe] text-[#3F2A1D] font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
           >
             <Link to="/retreats-restorative">Learn About Our Retreats</Link>
           </Button>
@@ -80,16 +85,18 @@ const Levelofengagement: React.FC = () => {
   return (
     <div className="min-h-screen mt-[48px] md:mt-0 w-full flex flex-col ">
       <LandingComponent
-        image="https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        image="https://images.unsplash.com/photo-1611420890968-c87853bfa973?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         title="Levels of Engagement"
         subtitle="For those who require flexibility in how they work with us, HWS offers three distinct ways to engage. Each reflects a different degree of depth and access, allowing our approach to adapt to your individual needs, lifestyle, and goals."
         description="Furthermore Immersive retreats extend our approach into private, restorative settings where therapeutic insight is combined with intentional practice. "
         contactbutton={true}
+        textcolor="text-[#ebf0f2]"
       />
         <ContentSection {...contentdata[0]}/>
         
         <ContentSection {...contentdata[1]}/>
         <ContentSection {...contentdata[2]}/>
+        
         <RetreatsEscape />
 
     </div>

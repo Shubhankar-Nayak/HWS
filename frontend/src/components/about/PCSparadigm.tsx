@@ -1,4 +1,3 @@
-import yoga from "@/assets/landingbg1.jpg";
 import { motion } from "framer-motion";
 
 function PCSParadigm() {
@@ -31,7 +30,12 @@ function PCSParadigm() {
           items-center w-full 
           bg-[#f5f0e6]
           relative
-        ">
+        "
+        style={{
+        backgroundImage: `url('https://images.unsplash.com/photo-1694758110913-29a08297fbb1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`, 
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}>
 
           {/* Image Background on Mobile */}
           <div
@@ -40,21 +44,19 @@ function PCSParadigm() {
               absolute inset-0 
               bg-cover bg-center
             "
-            style={{ backgroundImage: `url(${yoga})` }}
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1694758110913-29a08297fbb1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
+            }}
+          
           ></div>
 
-          {/* Image Side-by-Side on Desktop */}
-          <img
-            src={yoga}
-            alt="Yoga wellness"
-            className="hidden xl:block w-1/2 h-full object-cover"
-          />
+          
 
           {/* Content */}
           <div
             className="
               w-full lg:flex-1 
-              flex flex-col gap-10 
+              flex flex-row items-center justify-center gap-10 
               px-6 md:px-10 pb-10 pt-10
               relative z-10
             "
@@ -62,7 +64,7 @@ function PCSParadigm() {
             {/* Gradient overlay for mobile readability */}
             <div className="absolute lg:hidden inset-0 bg-black/20 backdrop-blur-[1px] -z-10"></div>
 
-            <div>
+            <div className="flex flex-col items-center justify-center">
               <h2 className="
                 text-3xl md:text-4xl lg:text-5xl 
                 font-bold 
@@ -76,7 +78,7 @@ function PCSParadigm() {
 
               <p className="
                 text-base md:text-lg 
-                text-[#6B5B35] dark:text-[#8B6F47] 
+                text-[#ebf0f2] dark:text-[#8B6F47] 
                 text-center lg:text-left 
                 leading-relaxed
               ">
@@ -103,7 +105,7 @@ function PCSParadigm() {
                     shadow-sm hover:shadow-xl 
                     transition-all duration-300 
                     border border-[#E8D5A3]/30 hover:border-[#C8A97E]/50 
-                    md:min-h-[220px] 
+                    md:min-h-[240px] 
                     md:min-w-[180px]
                     rounded
                   "

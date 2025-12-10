@@ -8,7 +8,7 @@ import heroImage1 from "@/assets/landingbg1.jpg";
 import heroImage2 from "@/assets/landingbg2.jpg";
 
 
-const heroImages = [heroImage1, heroImage2];
+const heroImages = ["https://images.unsplash.com/photo-1760523374204-11d15f40c384?q=80&w=1076&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "https://images.unsplash.com/photo-1540277584993-3d4c0c3a51b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"];
 
 function WhyChoose() {
   const features = [
@@ -299,32 +299,7 @@ const Home = () => {
     }, 2000);
     return () => clearInterval(interval);
   }, []);
-  const features = [
-    {
-      icon: Heart,
-      title: "Mind & Body Balance",
-      description:
-        "Harmonize your physical and mental well-being through our integrated approach.",
-    },
-    {
-      icon: Sparkles,
-      title: "Personalized Journey",
-      description:
-        "Tailored programmes designed to meet your unique wellness goals.",
-    },
-    {
-      icon: Users,
-      title: "Expert Guidance",
-      description:
-        "Learn from experienced practitioners dedicated to your transformation.",
-    },
-    {
-      icon: Leaf,
-      title: "Natural Healing",
-      description:
-        "Embrace holistic methods rooted in ancient wisdom and modern science.",
-    },
-  ];
+  
   return (
     <div>
       {/* Hero Section */}
@@ -386,7 +361,7 @@ const Home = () => {
             <Button
               asChild
               size="lg"
-              className="text-lg px-8 bg-[#C8A97E] hover:bg-[#bfa176]"
+              className="text-lg md:px-8 bg-[#C8A97E] hover:bg-[#bfa176]"
             >
               <Link to="/about">Learn More About Our Principles and Approach</Link>
             </Button>
@@ -394,7 +369,7 @@ const Home = () => {
               asChild
               size="lg"
               variant="outline"
-              className="text-lg px-8 bg-white/70 hover:bg-white"
+              className="text-lg md:px-8 bg-white/70 hover:bg-white"
             >
               <Link to="/levels-of-engagement">Discover Your Engagement Path</Link>
             </Button>

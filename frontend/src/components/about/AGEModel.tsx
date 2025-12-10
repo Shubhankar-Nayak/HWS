@@ -29,7 +29,7 @@ const StepProcess = ({ step, heading, description, index }: { step: string; head
         ease: "easeOut"
       }}
       viewport={{ once: true, margin: "-100px" }}
-      className="group relative bg-white rounded-3xl border-4 border-[#3F2A1D] shadow-xl hover:shadow-2xl transition-all duration-500 p-6 sm:p-8 flex flex-col w-full max-w-sm mx-auto"
+      className="group relative bg-white  border-4 border-[#3F2A1D] shadow-xl hover:shadow-2xl transition-all duration-500 p-6 sm:p-8 flex flex-col w-full max-w-sm mx-auto"
       style={{ fontFamily: "Playfair Display" }}
     >
       {/* Step Circle */}
@@ -67,12 +67,10 @@ function AGEModel() {
           className="text-center mb-16 sm:mb-20 lg:mb-24"
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#3F2A1D] font-serif mb-6 leading-tight">
-            The PCS Paradigm
+            The AGE Model <br /> Awareness, Grace, Energy
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-[#6B5B35] max-w-4xl mx-auto leading-relaxed px-4">
-            The Personalised, Customised, Sustainable (PCS) Paradigm shapes every aspect of care at HWS. 
-            It ensures that each journey, from assessment through long-term support, is developed as a thoughtful 
-            and evolving partnership — transforming care into a continuous and adaptive relationship.
+            The AGE Model reflects the philosophy at the heart of HWS. It offers a practical and lifelong framework that guides clients toward vitality and purposeful living. Awareness, Grace, and Energy form a continuous cycle of renewal and create an approach to longevity where well-being becomes not a destination, but a way of being.
           </p>
         </motion.div>
 

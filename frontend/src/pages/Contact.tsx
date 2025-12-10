@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useToast } from "../components/ui/use-toast";
-import headquarters from "../assets/headquarters.jpg" 
+import headquarters from "../assets/headquarters.jpg"
 import LandingComponent from "@/components/landingComponent";
 
 // Animation variants
@@ -123,7 +123,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen w-full md:pt-24 bg-[#FAF7F2] mt-[48px] md:-mt-14">
       {/* Hero Section */}
-      <LandingComponent image="https://images.unsplash.com/photo-1759782527358-24534a90ac80?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" title="Contact" description="complete confidentiality. Every enquiry is handled discreetly, ensuring your privacy from the first point of contact. " />
+      <LandingComponent image="https://images.unsplash.com/photo-1759782527358-24534a90ac80?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" title="Contact" />
 
       <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -131,7 +131,7 @@ const Contact = () => {
           className="text-center my-12 px-5 md:px-24"
         >
           <p className="text-[#3f2a1d] text-lg mb-5 ">
-           We offer a brief initial consultation to help clarify your needs and determine the most suitable way forward. From there, we tailor every aspect of engagement to your personal circumstances and preferences.
+            We offer a brief initial consultation to help clarify your needs and determine the most suitable way forward. From there, we tailor every aspect of engagement to your personal circumstances and preferences.
           </p>
           <p className="text-[#3f2a1d] text-lg  ">
             A private appointment can be arranged at your convenience.
@@ -152,14 +152,14 @@ const Contact = () => {
               variants={fadeUpVariant}
               className="text-4xl md:text-5xl font-serif text-[#3F2A1D] text-center mb-16"
             >
-              TREATMENT ENQUIRIES FORM
+              ENQUIRIES FORM
             </motion.h2>
 
             {isSubmitted ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="text-center bg-green-50 border border-green-200 rounded-2xl p-12"
+                className="text-center bg-green-50 border border-green-200  p-12"
               >
                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,7 +172,7 @@ const Contact = () => {
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
-                  className="mt-6 bg-[#3F2A1D] text-white px-6 py-3 rounded-lg hover:bg-[#8B6F47] transition-colors"
+                  className="mt-6 bg-[#3F2A1D] text-white px-6 py-3 hover:bg-[#8B6F47] transition-colors"
                 >
                   Send Another Message
                 </button>
@@ -181,7 +181,7 @@ const Contact = () => {
               <motion.form 
                 variants={fadeUpVariant}
                 onSubmit={handleSubmit} 
-                className="bg-[#FAF7F2] p-8 md:p-12 rounded-2xl border border-[#E8D7BA] shadow-lg"
+                className="bg-[#FAF7F2] p-8 md:p-12 border border-[#E8D7BA] shadow-lg"
               >
                 <div className="space-y-8">
                   {/* Name Row */}
@@ -196,7 +196,7 @@ const Contact = () => {
                         id="firstName" 
                         value={formData.firstName}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border bg-white rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                        className={`w-full px-4 py-3 border bg-white focus:outline-none focus:ring-2 transition-all ${
                           errors.firstName 
                             ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
                             : 'border-[#E8D7BA] focus:border-[#8B6F47] focus:ring-[#8B6F47]/20'
@@ -218,7 +218,7 @@ const Contact = () => {
                         id="lastName" 
                         value={formData.lastName}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border bg-white rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                        className={`w-full px-4 py-3 border bg-white focus:outline-none focus:ring-2 transition-all ${
                           errors.lastName 
                             ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
                             : 'border-[#E8D7BA] focus:border-[#8B6F47] focus:ring-[#8B6F47]/20'
@@ -244,7 +244,7 @@ const Contact = () => {
                         id="email" 
                         value={formData.email}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border bg-white rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                        className={`w-full px-4 py-3 border bg-white focus:outline-none focus:ring-2 transition-all ${
                           errors.email 
                             ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
                             : 'border-[#E8D7BA] focus:border-[#8B6F47] focus:ring-[#8B6F47]/20'
@@ -266,7 +266,7 @@ const Contact = () => {
                         id="phone" 
                         value={formData.phone}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border bg-white rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                        className={`w-full px-4 py-3 border bg-white focus:outline-none focus:ring-2 transition-all ${
                           errors.phone 
                             ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
                             : 'border-[#E8D7BA] focus:border-[#8B6F47] focus:ring-[#8B6F47]/20'
@@ -289,7 +289,7 @@ const Contact = () => {
                         id="country" 
                         value={formData.country}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border bg-white rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                        className={`w-full px-4 py-3 border bg-white focus:outline-none focus:ring-2 transition-all ${
                           errors.country 
                             ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
                             : 'border-[#E8D7BA] focus:border-[#8B6F47] focus:ring-[#8B6F47]/20'
@@ -314,7 +314,7 @@ const Contact = () => {
                         id="subject" 
                         value={formData.subject}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border bg-white rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                        className={`w-full px-4 py-3 border bg-white focus:outline-none focus:ring-2 transition-all ${
                           errors.subject 
                             ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
                             : 'border-[#E8D7BA] focus:border-[#8B6F47] focus:ring-[#8B6F47]/20'
@@ -344,7 +344,7 @@ const Contact = () => {
                       id="message" 
                       value={formData.message}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 border bg-white rounded-lg focus:outline-none focus:ring-2 transition-all resize-vertical min-h-[120px] ${
+                      className={`w-full px-4 py-3 border bg-white focus:outline-none focus:ring-2 transition-all resize-vertical min-h-[120px] ${
                         errors.message 
                           ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
                           : 'border-[#E8D7BA] focus:border-[#8B6F47] focus:ring-[#8B6F47]/20'
@@ -359,17 +359,13 @@ const Contact = () => {
                   </div>
 
                   {/* Submit Section */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                    <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                      <p className="text-gray-600 text-sm text-center">
-                        All enquiries are handled with strict confidentiality
-                      </p>
-                    </div>
+                  <div className="grid grid-cols-1 gap-4 items-center">
+                    
                     <div>
                       <button 
                         type="submit" 
                         disabled={isSubmitting}
-                        className="w-full bg-[#3F2A1D] text-white py-4 rounded-lg hover:bg-[#8B6F47] transition-colors font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:hover:shadow-lg"
+                        className="w-full bg-[#3F2A1D] text-white py-4 hover:bg-[#8B6F47] transition-colors font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:hover:shadow-lg"
                       >
                         {isSubmitting ? (
                           <div className="flex items-center justify-center gap-2">
@@ -381,6 +377,13 @@ const Contact = () => {
                         )}
                       </button>
                     </div>
+                    
+                    {/* --- ADDED DISCLAIMER TEXT HERE --- */}
+                    <p className="text-center text-xs text-[#8B6F47] mt-2 italic">
+                      Your privacy is paramount. All information submitted is held in **strict confidence** and will not be shared with any third party.
+                    </p>
+                    {/* ------------------------------------- */}
+                    
                   </div>
                 </div>
               </motion.form>
@@ -390,6 +393,7 @@ const Contact = () => {
       </section>
 
       {/* Address Section */}
+
       <section className="py-20 bg-[#FAF7F2]">
         <div className="max-w-6xl mx-auto px-4 md:px-8">
           <motion.div
@@ -405,10 +409,11 @@ const Contact = () => {
               OUR LOCATIONS
             </motion.h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch"> 
+              
               <motion.div 
                 variants={fadeUpVariant}
-                className="bg-white p-8 rounded-2xl shadow-lg border border-[#E8D7BA]"
+                className="bg-white p-8 shadow-lg border border-[#E8D7BA] h-full"
               >
                 <h3 className="text-2xl font-serif text-[#3F2A1D] mb-6">Holborn</h3>
                 <div className="space-y-4 text-[#8B6F47]">
@@ -435,9 +440,13 @@ const Contact = () => {
 
               <motion.div 
                 variants={fadeUpVariant}
-                className="bg-white p-8 rounded-2xl shadow-lg border border-[#E8D7BA]"
+                className="h-full" 
               >
-                <img src={headquarters} alt="Headquarters" />
+                <img 
+                    src={headquarters} 
+                    alt="Headquarters" 
+                    className="h-full w-full object-cover" 
+                />
               </motion.div>
             </div>
           </motion.div>

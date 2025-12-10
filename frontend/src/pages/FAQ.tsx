@@ -30,14 +30,13 @@ const FAQ = () => {
     {
       question: 'Can I switch programmes?',
       answer:
-        "Yes, you can switch between programmes. We understand that your wellness journey may evolve, and we're here to support you. Contact our team to discuss programme changes and we'll help you transition smoothly.",
+      "Yes, you can switch between programmes. We understand that your wellness journey may evolve, and we're here to support you. Contact our team to discuss programme changes and we'll help you transition smoothly.",
     },
     {
       question: 'What should I bring to sessions?',
       answer:
         'For most sessions, wear comfortable clothing that allows freedom of movement. For yoga and movement classes, bring a mat if you have one (we also provide mats). A water bottle and open mind are always recommended!',
     },
-    
   ];
 
   const faqs2 = [
@@ -69,72 +68,78 @@ const FAQ = () => {
   ]
   return (
     <section
-      className="mt-[48px] md:mt-15  bg-[#E8D7BA] overflow-hidden"
+      className="mt-[48px] md:mt-15 pb-16  bg-[#E8D7BA] overflow-hidden"
       style={{ fontFamily: 'Merriweather, serif' }}
     >
-      <LandingComponent image='https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' title='Frequently Asked Questions' subtitle='Everything you need to know about your journey with us'/>
-      <div className="container mx-auto px-6 md:px-12  mt-10 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-10  ">
-        
-        
-        {/* === Accordion === */}
-        <Accordion type="single" collapsible className="space-y-3">
-          {faqs.map((faq, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.06 }}
-              viewport={{ once: true }}
-            >
-              <AccordionItem
-                value={`item-${index}`}
-                className="bg-white  overflow-hidden border border-transparent hover:border-[#C8A97E]/30 transition-all duration-300 shadow-sm hover:shadow-md"
+      <LandingComponent image='https://images.unsplash.com/photo-1722449304159-95aa3684c415?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' title='Frequently Asked Questions' subtitle='Everything you need to know about your journey with us'/>
+      
+      {/* --- MODIFIED CONTAINER CLASS --- */}
+      <div className="container mx-auto px-6 md:px-12 mt-10 max-w-6xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-20">
+      {/* --- END MODIFIED CONTAINER CLASS --- */}
+          
+          {/* === Accordion Column 1 === */}
+          <Accordion type="single" collapsible className="space-y-3">
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.06 }}
+                viewport={{ once: true }}
               >
-                <AccordionTrigger className="px-7 py-5 text-left hover:no-underline group [&>svg]:hidden">
-                  <div className="flex items-center justify-between w-full pr-2">
-                    <span className="font-medium text-lg text-[#3F2A1D] dark:text-foreground leading-snug">
-                      {faq.question}
-                    </span>
-                    <ChevronDown className="w-5 h-5 text-[#C8A97E] transition-transform duration-300 group-data-[state=open]:rotate-180" />
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="px-7 pb-6 pt-1 text-[#6B5B35] dark:text-[#8B6F47] text-base leading-relaxed">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            </motion.div>
-          ))}
-        </Accordion>
-        
-        <Accordion type="single" collapsible className="space-y-3">
-          {faqs2.map((faq, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.06 }}
-              viewport={{ once: true }}
-            >
-              <AccordionItem
-                value={`item-${index}`}
-                className="bg-white  overflow-hidden border border-transparent hover:border-[#C8A97E]/30 transition-all duration-300 shadow-sm hover:shadow-md"
+                <AccordionItem
+                  value={`item-${index}`}
+                  className="bg-white  overflow-hidden border border-transparent hover:border-[#C8A97E]/30 transition-all duration-300 shadow-sm hover:shadow-md"
+                >
+                  <AccordionTrigger className="px-7 py-5 text-left hover:no-underline group [&>svg]:hidden">
+                    {/* Kept inner structure to show the ChevronDown icon */}
+                    <div className="flex items-center justify-between w-full pr-2">
+                      <span className="font-medium text-lg text-[#3F2A1D] dark:text-foreground leading-snug">
+                        {faq.question}
+                      </span>
+                      <ChevronDown className="w-5 h-5 text-[#C8A97E] transition-transform duration-300 group-data-[state=open]:rotate-180" />
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-7 pb-6 pt-1 text-[#6B5B35] dark:text-[#8B6F47] text-base leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </motion.div>
+            ))}
+          </Accordion>
+          
+          {/* === Accordion Column 2 === */}
+          <Accordion type="single" collapsible className="space-y-3">
+            {faqs2.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.06 }}
+                viewport={{ once: true }}
               >
-                <AccordionTrigger className="px-7 py-5 text-left hover:no-underline group [&>svg]:hidden">
-                  <div className="flex items-center justify-between w-full pr-2">
-                    <span className="font-medium text-lg text-[#3F2A1D] dark:text-foreground leading-snug">
-                      {faq.question}
-                    </span>
-                    <ChevronDown className="w-5 h-5 text-[#C8A97E] transition-transform duration-300 group-data-[state=open]:rotate-180" />
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="px-7 pb-6 pt-1 text-[#6B5B35] dark:text-[#8B6F47] text-base leading-relaxed">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            </motion.div>
-          ))}
-        </Accordion>
-        
+                <AccordionItem
+                  value={`item-${index}`}
+                  className="bg-white  overflow-hidden border border-transparent hover:border-[#C8A97E]/30 transition-all duration-300 shadow-sm hover:shadow-md"
+                >
+                  <AccordionTrigger className="px-7 py-5 text-left hover:no-underline group [&>svg]:hidden">
+                    <div className="flex items-center justify-between w-full pr-2">
+                      <span className="font-medium text-lg text-[#3F2A1D] dark:text-foreground leading-snug">
+                        {faq.question}
+                      </span>
+                      <ChevronDown className="w-5 h-5 text-[#C8A97E] transition-transform duration-300 group-data-[state=open]:rotate-180" />
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-7 pb-6 pt-1 text-[#6B5B35] dark:text-[#8B6F47] text-base leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </motion.div>
+            ))}
+          </Accordion>
+          
+        </div>
       </div>
     </section>
   );

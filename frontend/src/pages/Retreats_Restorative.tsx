@@ -207,36 +207,36 @@ const HoverExpandPanels: React.FC<{
 const Retreats_Restorative: React.FC = () => {
 
   return (
-    <div className="min-h-screen w-full mt-[48px] md:mt-0 bg-[#FAF7F2] text-neutral-800">
+    <div className="min-h-screen w-full mt-[48px] md:mt-0  text-neutral-800">
       <LandingComponent
         image="https://images.unsplash.com/photo-1556046785-90b800412d80?auto=format&fit=crop&q=80&w=2000"
         title="Retreats &amp; Restorative Escapes"
       />
       <div
         className="flex flex-col items-center justify-center gap-5 w-full text-[#3F2A1D]
-      bg-[#faf7f2] p-12"
+      bg-[#faf7f2] p-12 bg-[#FAF7F2] text-base"
         style={{ fontFamily: "Playfair Display" }}
       >
         <p className="text-3xl font-bold w-full text-center md:px-10">
           The HWS Retreat Experience
         </p>
-        <p className="max-w-5xl text-lg text-center">
+        <p className="max-w-4xl  text-left">
           Our retreats offer an immersive expression of the HWS philosophy,
           designed for those seeking space and renewal away from daily demands.
           Each experience blends clinical insight with restorative practices in
           settings chosen for their privacy and natural beauty.{" "}
         </p>
-        <p className="max-w-5xl text-lg text-center">
+        <p className="max-w-4xl  text-left">
           Designed as tailored extensions of your wellbeing journey, retreats
           integrate therapeutic dialogue, mindfulness, restorative movement,
           nutrition, and guided reflection into a cohesive programme shaped
           around your intentions.
         </p>
-        <p className="max-w-5xl text-lg text-center">
+        <p className="max-w-4xl  text-left">
           They can be arranged as part of any engagement level or undertaken as
           a focused period of renewal.
         </p>
-        <p className="max-w-5xl text-lg text-center">
+        <p className="max-w-4xl  text-left">
           Every retreat begins with a private consultation. From there, we
           design a personalised itinerary that aligns body, mind, and spirit.
         </p>
@@ -252,8 +252,8 @@ const Retreats_Restorative: React.FC = () => {
       </div>
 
       <div
-        className="flex flex-col items-center justify-center gap-5 w-full text-[#3F2A1D]
-      bg-[#faf7f2]"
+        className="flex flex-col items-center justify-center py-10   gap-5 w-full text-[#3F2A1D]
+      "
         style={{ fontFamily: "Playfair Display" }}
       >
         <p className="text-3xl font-bold w-full text-center px-10">

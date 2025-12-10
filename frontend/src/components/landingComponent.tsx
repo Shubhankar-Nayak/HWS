@@ -4,10 +4,11 @@ import { Button } from "@/components/ui/button";
 
 interface LandingComponentProps {
     image:string;
-    title:string;
+    title?:string;
     subtitle?:string;
     description?:string;
     contactbutton?:boolean;
+    textcolor?:string;
 
 }
 
@@ -21,7 +22,7 @@ const fadeUpVariant: Variants = {
   },
 };
 
-function LandingComponent({ image, title, subtitle, description, contactbutton }: LandingComponentProps) {
+function LandingComponent({ image, title, subtitle, description, contactbutton, textcolor }: LandingComponentProps) {
 
   return (
     <motion.div
@@ -45,17 +46,17 @@ function LandingComponent({ image, title, subtitle, description, contactbutton }
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="text-5xl md:text-7xl font-bold mb-6 font-serif"
+          className="text-5xl md:text-6xl font-bold mb-6 font-serif"
         >
           {title}
         </motion.h1>
-        <motion.div className="flex items-start gap-5 mb-10">
+        <motion.div className="flex  flex-col items-start gap-5 mb-10">
             <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
-          className="text-xl md:text-2xl text-[#E8D7BA] max-w-3xl mx-auto"
+          className={`text-2xl md:text-xl ${textcolor ? textcolor : "text-[#E8D7BA]"} max-w-3xl mx-auto`}
         >
           {subtitle}
         </motion.p>
@@ -64,7 +65,7 @@ function LandingComponent({ image, title, subtitle, description, contactbutton }
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
-          className="text-xl md:text-2xl text-[#E8D7BA] max-w-3xl mx-auto"
+          className={`text-2xl md:text-xl ${textcolor ? textcolor : "text-[#E8D7BA]"} max-w-3xl mx-auto`}
         >
           {description}
         </motion.p>}
