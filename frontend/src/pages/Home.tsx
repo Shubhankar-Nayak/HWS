@@ -40,7 +40,7 @@ function WhyChoose() {
             <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=1174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Yoga and wellness" className="w-full h-64 md:h-80 lg:h-auto object-cover r hidden md:flex" />
           </div>
           <div className="w-full lg:flex-1 lg:h-[400px] flex flex-col ">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#3F2A1D] dark:text-foreground font-serif text-center lg:text-left mb-8">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#053d57] dark:text-foreground font-serif text-center lg:text-left mb-8">
               Our Philosophy:<br /> The Art of Wellbeing
             </h2>
           </div>
@@ -59,7 +59,7 @@ function WhyChoose() {
                 <h3 className="text-lg md:text-xl font-semibold text-[#3F2A1D] dark:text-foreground mb-2 text-center">
                   {feature.title}
                 </h3>
-                <p className="text-base md:text-lg text-[#6B5B35] dark:text-[#8B6F47] text-center leading-relaxed">
+                <p className="text-base md:text-lg text-[#053d57] dark:text-[#8B6F47] text-center leading-relaxed">
                   {feature.description}
                 </p>
             </motion.div>))}
@@ -280,9 +280,9 @@ const HoverExpandPanels: React.FC<{
 
 const Pillars = () => {
   return (
-    <div className="w-full flex flex-col items-center justify-center  bg-[#faf7f2]">
-      <p className="font-bold w-full text-[#3F2A1D] text-5xl text-center py-10"  style={{ fontFamily: "Playfair Display" }}>​The Three Pillars of HWS</p>
-      <p className="px-20 w-full text-center text-xl text-[#3F2A1D] pb-10 ">Our work rests on three interconnected pillars. Each pillar brings together advanced assessments, proven therapeutic approaches, and tailored interventions. These are woven into the HWS Care Pathway, ensuring a seamless and adaptive journey for you.</p>
+    <div className="w-full flex flex-col items-center justify-center ">
+      <p className="font-bold w-full text-[#053d57] text-5xl text-center py-10"  style={{ fontFamily: "Playfair Display" }}>​The Three Pillars of HWS</p>
+      <p className="px-20 w-full text-center text-xl text-[#053d57] pb-10 ">Our work rests on three interconnected pillars. Each pillar brings together advanced assessments, proven therapeutic approaches, and tailored interventions. These are woven into the HWS Care Pathway, ensuring a seamless and adaptive journey for you.</p>
       <HoverExpandPanels panels={panels} />
 
     </div>
@@ -301,9 +301,9 @@ const Home = () => {
   }, []);
   
   return (
-    <div>
+    <div className="bg-gradient-to-b from-white via-[#176a79]/20 to-white">
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[80vh]  flex items-center justify-center overflow-hidden">
         {/* === Sliding Background Images with Fade === */}
         <div className="absolute inset-0">
           {heroImages.map((image, index) => (
@@ -325,17 +325,17 @@ const Home = () => {
           className="relative z-10 container mx-auto px-4 text-center"
           style={{ fontFamily: "Playfair Display" }}
         >
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#C8A97E]">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#ebf0f2]">
             HOLISTIC WELLBEING SOLUTIONS 
           </h1>
-          <p className="text-xl md:text-2xl italic text-[#8B6F47] mb-8 max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl italic text-[#ebf0f2] mb-8 max-w-2xl mx-auto">
             The Art of Wellbeing 
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
             <Button
               asChild
               size="lg"
-              className="text-lg px-8 bg-[#C8A97E] hover:bg-[#bfa176]"
+              className="text-lg px-8 bg-[#053d57]/70 hover:bg-[#053d57]"
             >
               <Link to="/booking">Start Your Journey</Link>
             </Button>
@@ -354,14 +354,14 @@ const Home = () => {
 
       <WhyChoose />
 
-      <div className="flex flex-col items-center justify-center gap-10 w-full text-[#3F2A1D]
-      bg-[#faf7f2] p-12" style={{ fontFamily: "Playfair Display" }}>
+      <div className="flex flex-col items-center justify-center gap-10 w-full text-[#053d57] bg-transparent
+       p-12" style={{ fontFamily: "Playfair Display" }}>
         <p className="text-3xl font-bold w-full text-center px-10">Our practice is guided by our PCS Paradigm and the AGE Model. Together they support every stage of care, shaping an experience that is personalised, coherent, and designed to evolve over time.</p>
         <div className="flex flex-col md:flex-row gap-4 justify-center">
             <Button
               asChild
               size="lg"
-              className="text-lg md:px-8 bg-[#C8A97E] hover:bg-[#bfa176]"
+              className="text-lg md:px-8 bg-[#053d57]/70 hover:bg-[#053d57]"
             >
               <Link to="/about">Learn More About Our Principles and Approach</Link>
             </Button>
@@ -378,8 +378,8 @@ const Home = () => {
 
       <Pillars />
 
-      <div className="flex flex-col items-center justify-center gap-3 w-full text-[#3F2A1D]
-      bg-[#faf7f2] p-12" style={{ fontFamily: "Playfair Display" }}>
+      <div className="flex flex-col items-center justify-center gap-3 w-full text-[#053d57]
+       p-12" style={{ fontFamily: "Playfair Display" }}>
         <p className="text-3xl font-bold pb-5">Values & Principals</p>
         <p className="text-xl">Confidentiality, scientific integrity, and discretion are central to our ethos. We believe luxury lies in precision and excellence, where every detail supports your wellbeing journey. Every engagement is guided by empathy and expertise, combining rigorous methods with genuine human understanding. </p>
         <p className="text-xl">Our commitment is to create an environment where clients feel safe, understood, and deeply cared for, allowing transformation to unfold with confidence.</p>

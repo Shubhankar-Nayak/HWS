@@ -84,9 +84,9 @@ const Header = () => {
       style={{ fontFamily: "Playfair Display" }}
     >
       {/* TOP STRIP */}
-      <div className="w-full h-[32px] flex items-center justify-between px-4 bg-gradient-to-r from-white via-[#E8D7BA] to-white"
+      <div className="w-full h-[32px] flex items-center justify-between px-4 bg-gradient-to-r from-[#719fbd] via-[#176a79] to-[#719fbd]"
         style={{ fontFamily: "system-ui" }}>
-        <div className="flex items-center gap-2 text-[#4B2E16] font-semibold px-2">
+        <div className="flex items-center gap-2 text-black font-semibold px-2">
           <Phone className="w-4 h-4" />
           <p className="text-xs md:text-sm pb-0.5">
             For Enquiries: +44 7770 778104
@@ -107,11 +107,7 @@ const Header = () => {
             onMouseLeave={() => setIsProgrammesHover(false)}
           >
             <button
-              className={`flex items-center gap-1 transition-smooth hover:text-[#4B2E16] ${
-                location.pathname.includes("/programmes")
-                  ? "text-[#4B2E16]"
-                  : "text-[#2E2E2E]/80"
-              }`}
+              className={`flex items-center gap-1 transition-smooth hover:text-[#4B2E16] text-white`}
             >
               Programmes
               {/* DROPDOWN ARROW */}
@@ -152,9 +148,7 @@ const Header = () => {
             <Link
               key={link.path}
               to={link.path}
-              className={`hover:text-[#4B2E16] ${
-                location.pathname === link.path ? "text-white" : "text-[#2E2E2E]/80"
-              }`}
+              className={`hover:text-[#4B2E16] text-white`}
             >
               {link.name}
             </Link>
@@ -166,7 +160,7 @@ const Header = () => {
           <img
             src={logo}
             alt="Logo"
-            className="w-28 md:w-32 cursor-pointer"
+            className="w-28 md:w-30 cursor-pointer"
             onClick={() => navigate("/")}
           />
         </div>
@@ -177,9 +171,7 @@ const Header = () => {
             <Link
               key={link.path}
               to={link.path}
-              className={`hover:text-[#4B2E16] ${
-                location.pathname === link.path ? "text-[#4B2E16]" : "text-[#2E2E2E]/80"
-              }`}
+              className={`hover:text-[#4B2E16] text-white`}
             >
               {link.name}
             </Link>
@@ -193,7 +185,7 @@ const Header = () => {
         {/* MOBILE BUTTONS */}
         <div className="md:hidden flex items-center gap-2 ml-auto">
           <button onClick={() => setIsSearchOpen((v) => !v)} className="p-2 rounded-md hover:bg-white/40">
-            {isSearchOpen ? <X /> : <Search />}
+            {isSearchOpen ? <X /> : <Search color="white"/>}
           </button>
 
           <button onClick={() => setIsMobileMenuOpen((v) => !v)} className="p-2 rounded-md hover:bg-white/40">
