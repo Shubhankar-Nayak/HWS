@@ -1,6 +1,5 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import connectDB from './config/db';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
@@ -10,7 +9,6 @@ import bookingRoutes from "./routes/bookingRoutes";
 import path from 'path';
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
