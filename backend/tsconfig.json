@@ -9,6 +9,6 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
   },
-  "include": ["server.ts", "types", "controllers", "models", "middleware", "routes"],
+  "include": ["**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
