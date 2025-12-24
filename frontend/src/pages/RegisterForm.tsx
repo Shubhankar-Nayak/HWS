@@ -53,13 +53,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center py-8 md:py-10 lg:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-6 md:space-y-8">
         <div className="text-center">
-          <div className="mx-auto w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-4">
-            <TrendingUp className="w-8 h-8 text-white" />
+          <div className="mx-auto w-14 h-14 md:w-16 md:h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-3 md:mb-4">
+            <TrendingUp className="w-7 h-7 md:w-8 md:h-8 text-white" />
           </div>
-          <h2 className="text-3xl font-bold text-gray-900">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
             Create your account
           </h2>
           <p className="mt-2 text-sm text-gray-600">
@@ -67,8 +67,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
           </p>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div className="space-y-4">
+        <form className="mt-6 md:mt-8 space-y-5 md:space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <div className="space-y-3 md:space-y-4">
             <div>
               <label htmlFor="name" className="sr-only">Full name</label>
               <div className="relative">

@@ -108,6 +108,78 @@ export const searchData: SearchItem[] = [
     keywords: ["complete", "wellness", "package", "comprehensive", "holistic", "transformation", "total"]
   },
 
+  // Mental Health page sections
+  {
+    id: "mh-psychotherapy",
+    title: "PSYCOTHAREPY",
+    description: "Our psychotherapy offering spans evidence-based approaches including CBT, DBT, EMDR, and integrative counselling.",
+    path: "/programmes/mental-health",
+    category: "Mental Health",
+    keywords: [
+      "psychotherapy",
+      "psycotherapy",
+      "psycotharepy",
+      "therapy",
+      "cbt",
+      "dbt",
+      "emdr",
+      "counselling",
+      "integrated psychotherapy",
+      "mindfulness",
+      "acceptance and commitment therapy",
+      "act",
+      "compassion focused",
+      "trauma focused"
+    ]
+  },
+  {
+    id: "mh-addiction-recovery",
+    title: "Addiction and Recovery",
+    description: "Discreet, structured support for dependency or early recovery with integrated planning and therapy support.",
+    path: "/programmes/mental-health",
+    category: "Mental Health",
+    keywords: [
+      "addiction",
+      "recovery",
+      "dependency",
+      "integrated planning",
+      "therapy support",
+      "screening",
+      "risk evaluation"
+    ]
+  },
+  {
+    id: "mh-neurodiversity",
+    title: "Neurodiversity",
+    description: "Sensitive assessments and tailored support for ADHD or Autism Spectrum presentations.",
+    path: "/programmes/mental-health",
+    category: "Mental Health",
+    keywords: [
+      "adhd",
+      "autism",
+      "spectrum",
+      "executive functioning",
+      "assessment",
+      "support"
+    ]
+  },
+  {
+    id: "mh-psychometrics",
+    title: "Psychological Profiling & Psychometrics",
+    description: "Detailed evaluations across cognitive, emotional, social, and behavioural domains.",
+    path: "/programmes/mental-health",
+    category: "Mental Health",
+    keywords: [
+      "psychometrics",
+      "profiling",
+      "cognitive",
+      "emotional",
+      "behavioural",
+      "resilience",
+      "screening"
+    ]
+  },
+
   // FAQ
   {
     id: "faq-main",
@@ -186,32 +258,94 @@ export const searchData: SearchItem[] = [
     keywords: ["elite", "membership", "private", "sessions", "personalized", "programme", "vip", "event", "access"]
   },
 
-  // Booking
+  // Navbar: Care Pathway
   {
-    id: "booking-main",
-    title: "Book a Session",
-    description: "Schedule your wellness session with our expert practitioners",
-    path: "/booking",
-    category: "Booking",
-    keywords: ["booking", "session", "schedule", "wellness", "practitioners"]
+    id: "carepathway-main",
+    title: "Care Pathway",
+    description: "Explore our structured care pathway for personalised, step-by-step wellbeing support.",
+    path: "/carepathway",
+    category: "Care Pathway",
+    keywords: ["care", "pathway", "structured", "support", "assessment", "programme"]
   },
 
-  // My Bookings
+  // Navbar: About
   {
-    id: "mybookings-main",
-    title: "My Bookings",
-    description: "View and manage your upcoming wellness sessions",
-    path: "/mybookings",
-    category: "My Bookings",
-    keywords: ["my", "bookings", "view", "manage", "upcoming", "sessions"]
-  }
+    id: "about-main",
+    title: "About",
+    description: "Learn about HWS and our holistic approach to wellbeing.",
+    path: "/about",
+    category: "About",
+    keywords: ["about", "hws", "holistic", "approach", "mission"]
+  },
+
+  // Navbar: Levels of Engagement
+  {
+    id: "levels-main",
+    title: "Levels of Engagement",
+    description: "Understand our engagement levels to find the right depth of support.",
+    path: "/levels-of-engagement",
+    category: "Levels",
+    keywords: ["levels", "engagement", "depth", "support"]
+  },
+
+  // Navbar: HWS Retreats
+  {
+    id: "retreats-main",
+    title: "HWS Retreat",
+    description: "Discover restorative retreats designed for deep rejuvenation.",
+    path: "/retreats-restorative",
+    category: "Retreats",
+    keywords: ["retreat", "restorative", "rejuvenation", "wellbeing", "programme"]
+  },
 ];
 
-// Fuzzy search function
+// Only show pages that exist in the navbar
+export const NAVBAR_PATHS: string[] = [
+  "/carepathway",
+  "/about",
+  "/faq",
+  "/contact",
+  "/levels-of-engagement",
+  "/retreats-restorative",
+  "/programmes/mental-health",
+  "/programmes/wellness-longevity",
+  "/programmes/holistic-wellbeing",
+];
+
+// Simple normalization helper
+const normalize = (s: string) => s.toLowerCase().trim();
+
+// Levenshtein distance for typo tolerance
+const levenshtein = (a: string, b: string): number => {
+  const s = a.toLowerCase();
+  const t = b.toLowerCase();
+  const m = s.length;
+  const n = t.length;
+  if (m === 0) return n;
+  if (n === 0) return m;
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let i = 0; i <= m; i++) dp[i][0] = i;
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      const cost = s[i - 1] === t[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(
+        dp[i - 1][j] + 1, // deletion
+        dp[i][j - 1] + 1, // insertion
+        dp[i - 1][j - 1] + cost // substitution
+      );
+    }
+  }
+  return dp[m][n];
+};
+
+// Fuzzy search function (with typo tolerance)
 export const searchItems = (query: string): SearchItem[] => {
   if (!query.trim()) return [];
 
-  const lowerQuery = query.toLowerCase();
+  const lowerQuery = normalize(query);
+
+  const allowed = new Set(NAVBAR_PATHS);
 
   return searchData
     .map(item => {
@@ -219,24 +353,24 @@ export const searchItems = (query: string): SearchItem[] => {
       let score = 0;
 
       // Exact title match gets highest score
-      if (item.title.toLowerCase().includes(lowerQuery)) {
+      if (normalize(item.title).includes(lowerQuery)) {
         score += 10;
       }
 
       // Description match
-      if (item.description.toLowerCase().includes(lowerQuery)) {
+      if (normalize(item.description).includes(lowerQuery)) {
         score += 5;
       }
 
       // Keyword matches
       const keywordMatches = item.keywords.filter(keyword =>
-        keyword.toLowerCase().includes(lowerQuery)
+        normalize(keyword).includes(lowerQuery)
       ).length;
       score += keywordMatches * 3;
 
       // Partial matches in title/description
-      const titleWords = item.title.toLowerCase().split(' ');
-      const descWords = item.description.toLowerCase().split(' ');
+      const titleWords = normalize(item.title).split(' ');
+      const descWords = normalize(item.description).split(' ');
 
       titleWords.forEach(word => {
         if (word.startsWith(lowerQuery)) score += 2;
@@ -248,9 +382,30 @@ export const searchItems = (query: string): SearchItem[] => {
         if (word.includes(lowerQuery)) score += 0.5;
       });
 
+      // Typo tolerance using Levenshtein distance across title words and keywords
+      const allCandidateWords = [
+        ...titleWords,
+        ...item.keywords.map(k => normalize(k))
+      ];
+
+      let bestDist = Infinity;
+      for (const w of allCandidateWords) {
+        bestDist = Math.min(bestDist, levenshtein(lowerQuery, w));
+      }
+      // Scoring based on distance (0 is exact)
+      if (bestDist === 0) {
+        score += 6; // reinforce exact word match
+      } else if (bestDist === 1) {
+        score += 4; // single typo
+      } else if (bestDist === 2) {
+        score += 3; // minor typo tolerance
+      } else if (bestDist === 3) {
+        score += 1; // weak match
+      }
+
       return { ...item, score };
     })
-    .filter(item => item.score > 0)
+    .filter(item => item.score > 0 && allowed.has(item.path))
     .sort((a, b) => b.score - a.score)
     .slice(0, 8); // Limit to top 8 results
 };

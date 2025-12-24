@@ -94,10 +94,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center py-8 md:py-10 lg:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-6 md:space-y-8">
         <div className="text-center">
-          <div className="mx-auto w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-4">
+          <div className="mx-auto w-14 h-14 md:w-16 md:h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-3 md:mb-4">
             <TrendingUp className="w-8 h-8 text-white" />
           </div>
           <h2 className="text-3xl font-bold text-gray-900">

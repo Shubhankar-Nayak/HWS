@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { Toaster } from "@/components/ui/toaster";
@@ -31,20 +31,21 @@ import HolisticWellbeing from "./pages/holistic_wellbeing";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
+  const [isProgrammesHover, setIsProgrammesHover] = useState(false);
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Layout>
+      <Layout setIsProgrammesHover={setIsProgrammesHover} isProgrammesHover={isProgrammesHover}>
         <ContactButton />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home setIsProgrammesHover={setIsProgrammesHover} isProgrammesHover={isProgrammesHover} />} />
           {/* <Route path="/programmes" element={<Programmes />} /> */}
           <Route path="/programmes/mental-health" element={<MentalHealth />} />
           <Route path="/programmes/wellness-longevity" element={<WellnessLongevity />} />
           <Route path="/programmes/holistic-wellbeing" element={<HolisticWellbeing />} />
           {/* <Route path="/exclusive-access" element={<ExclusiveAccess />} /> */}
           {/* <Route path="/booking" element={<Booking />} /> */}
-          <Route path="/carepathway" element={<CarePathway />} />
+          <Route path="/carepathway" element={<CarePathway setIsProgrammesHover={setIsProgrammesHover} isProgrammesHover={isProgrammesHover}  />} />
           {/* <Route path="/assessment" element={<Assessment />} /> */}
           <Route path="/levels-of-engagement" element={<LevelsOfEngagement />} />
           <Route path="/retreats-restorative" element={<Retreats_Restoration />} />

@@ -7,6 +7,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import PrivacyPolicy from "../assets/PrivacyPolicy.pdf";
+import TermsofService from "../assets/PrivacyPolicy.pdf";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 15 },
@@ -85,16 +87,26 @@ const ContactButton = () => {
     }
   };
 
+  const handleDownload = (file, filename) => {
+    console.log("Downloading:", filename);
+    const link = document.createElement("a");
+    link.href = file;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <>
       {/* Floating Button */}
       <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50">
         <button
           onClick={() => setIsContactFormOpen(true)}
-          className="group bg-gradient-to-b from-[#C8A97E]/20 to-[#B89463]/20 backdrop-blur-md text-[#3F2A1D] py-14 hover:from-[#C8A97E]/30 hover:to-[#B89463]/30 transition-all duration-300 flex flex-col items-center justify-center shadow-xl border border-white/20"
+          className="group bg-gradient-to-b from-[#176a79]/20 to-[#176a79]/20 backdrop-blur-md text-[#053d57] py-14 w-20  hover:from-[#176a79]/30 hover:to-[#176a79]/30 transition-all duration-300 flex flex-col items-center justify-center shadow-xl "
         >
           <div className="rotate-[-90deg] flex items-center gap-2">
-            <ChevronRight className="h-5 text-[#3F2A1D] group-hover:translate-x-1 transition-transform" />
+            <ChevronRight className="h-5 text-[#053d57] group-hover:translate-x-1 transition-transform" />
             <span className="text-xs uppercase tracking-widest font-semibold whitespace-nowrap">
               Contact
             </span>
@@ -112,22 +124,23 @@ const ContactButton = () => {
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
               onClick={() => setIsContactFormOpen(false)}
+              style={{fontFamily:"Josefin Sans"}}
             />
             <motion.aside
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 250, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-full sm:w-[740px] max-w-[95vw] overflow-y-auto z-50
-                         bg-gradient-to-br from-[#FFF9E9]/95 via-[#F7F0DD]/95 to-[#E8D7BA]/95 
-                         backdrop-blur-xl border-l border-[#C8A97E]/40 shadow-2xl"
+              className="fixed top-0 right-0 h-full w-full sm:w-[540px] max-w-[75vw] overflow-y-auto z-50
+                         bg-[#053d57]/80
+                         backdrop-blur-xl  shadow-2xl"
             >
               <div className="relative p-6 sm:p-10 space-y-6 sm:space-y-10">
                 <button
                   onClick={() => setIsContactFormOpen(false)}
                   className="absolute top-6 right-6 text-[#3F2A1D] hover:text-[#C8A97E] transition-colors"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-6 h-6" color='#ebf0f2' />
                 </button>
 
                 {/* Header */}
@@ -136,29 +149,26 @@ const ContactButton = () => {
                   initial="hidden"
                   animate="visible"
                   className="text-center"
+                  style={{fontFamily:"Josefin Sans"}}
                 >
                   <h2
-                    className="text-sm uppercase tracking-[0.2em] text-[#3F2A1D]/80 mb-8"
-                    style={{ fontFamily: 'Playfair Display, serif' }}
+                    className="text-sm uppercase tracking-[0.2em] text-[#ebf0f2] mb-8"
+                  
                   >
                     How Can We Help?
                   </h2>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-3xl mx-auto mb-10">
+                  <div className="flex justify-center  gap-10 max-w-3xl mx-auto mb-10">
                     <div>
-                      <p className="text-[#3F2A1D]/90 font-medium">General Enquiries</p>
-                      <p className="text-2xl font-bold text-[#3F2A1D]">+41 43 541 11 52</p>
-                      <p className="text-[#3F2A1D]/80">info@holisticwellness.com</p>
+                      <p className="text-[#ebf0f2]/90 font-medium">General Enquiries</p>
+                      <p className="text-2xl font-bold text-[#ebf0f2]">+44 7770 778104</p>
+                      <p className="text-[#ebf0f2]">admin@holisticwell-beingsolutions.com</p>
                     </div>
-                    <div>
-                      <p className="text-[#3F2A1D]/90 font-medium">Treatment Enquiries</p>
-                      <p className="text-2xl font-bold text-[#3F2A1D]">+41 44 505 10 70</p>
-                      <p className="text-[#3F2A1D]/80">treatment@holisticwellness.com</p>
-                    </div>
+                    
                   </div>
 
-                  <h3 className="uppercase tracking-[0.25em] text-[#3F2A1D]/80 text-sm">
-                    Treatment Enquiries Form
+                  <h3 className="uppercase tracking-[0.25em] text-[#ebf0f2] text-sm">
+                     Enquiries Form
                   </h3>
                 </motion.div>
 
@@ -168,6 +178,7 @@ const ContactButton = () => {
                   className="space-y-6"
                   initial="hidden"
                   animate="visible"
+                  style={{fontFamily:"Josefin Sans"}}
                 >
                   {[
                     ['firstName', 'lastName'],
@@ -184,7 +195,7 @@ const ContactButton = () => {
                       {i === 0 && (
                         <>
                           <div>
-                            <label className="block text-xs uppercase tracking-wide text-[#3F2A1D]/80 mb-2">
+                            <label className="block text-xs uppercase tracking-wide text-[#ebf0f2] mb-2">
                               Name*
                             </label>
                             <Input
@@ -192,15 +203,15 @@ const ContactButton = () => {
                               value={formData.firstName}
                               onChange={handleChange}
                               placeholder="Name"
-                              className={`w-full bg-[#FAF6EE]/80 border border-[#C8A97E]/40 text-[#3F2A1D]
-                              placeholder:text-[#3F2A1D]/30 focus:ring-1 focus:ring-[#C8A97E]/70
-                              hover:shadow-[0_0_12px_#C8A97E40] transition-all ${
+                              className={`w-full bg-white/70 hover:bg-white text-[#0b343b]
+                              placeholder:text-[#0b343b] focus:bg-white
+                              transition-all ${
                                 errors.firstName ? 'border-red-500' : ''
                               }`}
                             />
                           </div>
                           <div>
-                            <label className="block text-xs uppercase tracking-wide text-[#3F2A1D]/80 mb-2">
+                            <label className="block text-xs uppercase tracking-wide text-[#ebf0f2] mb-2">
                               Last Name*
                             </label>
                             <Input
@@ -208,9 +219,8 @@ const ContactButton = () => {
                               value={formData.lastName}
                               onChange={handleChange}
                               placeholder="Last Name"
-                              className={`w-full bg-[#FAF6EE]/80 border border-[#C8A97E]/40 text-[#3F2A1D]
-                              placeholder:text-[#3F2A1D]/30 focus:ring-1 focus:ring-[#C8A97E]/70
-                              hover:shadow-[0_0_12px_#C8A97E40] transition-all ${
+                              className={`w-full bg-white/70 hover:bg-white text-[#0b343b]
+                              placeholder:text-[#0b343b] focus:bg-white transition-all ${
                                 errors.lastName ? 'border-red-500' : ''
                               }`}
                             />
@@ -220,7 +230,7 @@ const ContactButton = () => {
                       {i === 1 && (
                         <>
                           <div>
-                            <label className="block text-xs uppercase tracking-wide text-[#3F2A1D]/80 mb-2">
+                            <label className="block text-xs uppercase tracking-wide text-[#ebf0f2] mb-2">
                               Mail*
                             </label>
                             <Input
@@ -229,21 +239,23 @@ const ContactButton = () => {
                               value={formData.email}
                               onChange={handleChange}
                               placeholder="Mail"
-                              className="w-full bg-[#FAF6EE]/80 border border-[#C8A97E]/40 text-[#3F2A1D] placeholder:text-[#3F2A1D]/30 focus:ring-1 focus:ring-[#C8A97E]/70 hover:shadow-[0_0_12px_#C8A97E40] transition-all"
+                              className="w-full bg-white/70 hover:bg-white text-[#0b343b]
+                              placeholder:text-[#0b343b] focus:bg-white transition-all"
                             />
                           </div>
                           <div>
-                            <label className="block text-xs uppercase tracking-wide text-[#3F2A1D]/80 mb-2">
-                              Subject*
+                            <label className="block text-xs uppercase tracking-wide text-[#ebf0f2] mb-2">
+                              Subject
                             </label>
                             <select
                               value={formData.subject}
                               onChange={(e) =>
                                 setFormData({ ...formData, subject: e.target.value })
                               }
-                              className="w-full h-10 rounded bg-[#FAF6EE]/80 border border-[#C8A97E]/40 text-[#3F2A1D] px-3 focus:ring-1 focus:ring-[#C8A97E]/70 hover:shadow-[0_0_12px_#C8A97E40] transition-all"
+                              className="w-full h-10 bg-white/70 hover:bg-white text-[#0b343b]
+                              placeholder:text-[#0b343b] focus:bg-white px-3 transition-all"
                             >
-                              <option value="">Subject*</option>
+                              <option value="">Subject</option>
                               <option>General enquiry</option>
                               <option>Treatment enquiry</option>
                               <option>Booking availability</option>
@@ -255,16 +267,17 @@ const ContactButton = () => {
                       
                       {i === 3 && (
                         <div className="col-span-2">
-                          <label className="block text-xs uppercase tracking-wide text-[#3F2A1D]/80 mb-2">
-                            Message*
+                          <label className="block text-xs uppercase tracking-wide text-[#ebf0f2] mb-2">
+                            Message
                           </label>
                           <Textarea
                             name="message"
                             value={formData.message}
                             onChange={handleChange}
                             rows={6}
-                            placeholder="Message*"
-                            className="w-full bg-[#FAF6EE]/80 border border-[#C8A97E]/40 text-[#3F2A1D] placeholder:text-[#3F2A1D]/30 focus:ring-1 focus:ring-[#C8A97E]/70 hover:shadow-[0_0_12px_#C8A97E40] transition-all"
+                            placeholder="Message"
+                            className="w-full bg-white/70 hover:bg-white text-[#0b343b]
+                              placeholder:text-[#0b343b] focus:bg-white transition-all"
                           />
                         </div>
                       )}
@@ -274,12 +287,12 @@ const ContactButton = () => {
                   <motion.div
                     variants={fadeUp}
                     custom={4}
-                    className="flex items-start gap-3 text-[#3F2A1D]/80 text-sm"
+                    className="flex items-start gap-3 text-[#ebf0f2] text-sm"
                   >
-                    <input type="checkbox" className="mt-1 accent-[#3F2A1D]" />
+                    <input type="checkbox" className="mt-1 accent-[#ebf0f2]" />
                     <span>
-                      I agree to <a className="underline">Terms of Service</a> and{' '}
-                      <a className="underline">Privacy Policy</a>.
+                      I agree to <a className="underline cursor-pointer" onClick={() => handleDownload(TermsofService, "HWS Terms of Service.pdf")}>Terms of Service</a> and{' '}
+                      <a className="underline cursor-pointer" onClick={() => handleDownload(PrivacyPolicy, "HWS Privacy Policy.pdf")}>Privacy Policy</a>.
                     </span>
                   </motion.div>
 
@@ -288,7 +301,7 @@ const ContactButton = () => {
                       type="submit"
                       disabled={isSubmitting}
                       onClick={handleSubmit}
-                      className="w-full h-12 bg-[#3F2A1D] hover:bg-[#4B2E16] text-white font-medium rounded shadow-lg shadow-[#C8A97E]/20 hover:shadow-[#C8A97E]/40 transition-all"
+                      className="w-full h-12 bg-white/70 hover:bg-white text-[#0b343b] font-medium  transition-all"
                     >
                       {isSubmitting ? 'Sending…' : 'Submit'}
                     </Button>
@@ -298,11 +311,12 @@ const ContactButton = () => {
                     <motion.div
                       variants={fadeUp}
                       custom={6}
-                      className="text-center mt-4 p-4 rounded-lg bg-[#C8A97E]/10 border border-[#C8A97E]/40 text-[#3F2A1D]"
+                      className="text-center mt-4 p-4 rounded-lg bg-[#C8A97E]/10 border border-[#C8A97E]/40 text-[#ebf0f2]"
                     >
                       Thank you! Your message has been sent.
                     </motion.div>
                   )}
+                  <p className='text-xs italic text-[#ebf0f2]'>Every enquiry is handled discreetly, ensuring your privacy from the first point of contact.</p>
                 </motion.form>
               </div>
             </motion.aside>

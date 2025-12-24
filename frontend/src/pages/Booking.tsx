@@ -114,27 +114,27 @@ const Booking = () => {
   });
 
   return (
-    <div className="min-h-screen py-24" style={{fontFamily:"system-ui"}}>
+    <div className="min-h-screen py-16 md:py-20 lg:py-24 px-4 md:px-6" style={{fontFamily:"system-ui"}}>
       <div className="">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-10 lg:mb-12"
         >
           <h1
-            className="text-5xl md:text-6xl font-bold text-[#3F2A1D] mb-3"
+            className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#3F2A1D] mb-2 md:mb-3"
             style={{fontFamily:"system-ui"}}
           >
             Book Your Session
           </h1>
-          <p className="text-[#6B5B35]/80 text-lg">
+          <p className="text-[#6B5B35]/80 text-base md:text-lg">
             Begin your path to complete well-being
           </p>
         </motion.div>
 
         {/* Stepper */}
-        <div className="mb-8 md:mb-16 relative px-4 md:px-8 lg:px-48">
+        <div className="mb-6 md:mb-12 lg:mb-16 relative px-4 md:px-8 lg:px-24 xl:px-48">
           <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-[#C8A97E]/40 to-transparent"></div>
           <div className="relative flex justify-between">
             {[
@@ -184,7 +184,7 @@ const Booking = () => {
                   stiffness: 130,
                   damping: 22,
                 }}
-                className=" w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+                className=" w-full grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center"
               >
                 {/* Image Side */}
                 <motion.div
@@ -214,7 +214,7 @@ const Booking = () => {
                     currentStep % 2 === 1 ? 2 : 1
                   }`}
                 >
-                  <div className=" p-6 md:p-10">
+                  <div className=" p-4 md:p-6 lg:p-10">
                     {/* STEP 1 — Personal Info */}
                     {currentStep === 1 && (
                       <form
@@ -224,7 +224,7 @@ const Booking = () => {
                         }}
                         style={{fontFamily:"system-ui"}}
                       >
-                        <h2 className="text-3xl font-semibold text-[#3E2C1A] mb-6 font-serif">
+                        <h2 className="text-2xl md:text-3xl font-semibold text-[#3E2C1A] mb-4 md:mb-6 font-serif">
                           Your Information
                         </h2>
                         <div className="flex flex-col flex-wrap  gap-6">

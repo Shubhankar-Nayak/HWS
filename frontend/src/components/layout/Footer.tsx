@@ -1,93 +1,161 @@
-import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
-import logo2 from "../../assets/logo.png"
+import { useNavigate } from "react-router-dom";
+import { Facebook } from "lucide-react";
+import logo2 from "../../assets/logo.png";
+import whatsapp from "../../assets/whatsapp.svg";
+import linkedin from "../../assets/linkedin.svg";
+import PrivacyPolicy from "../../assets/PrivacyPolicy.pdf";
 
 const Footer = () => {
+  const navigate = useNavigate();
+    const handleDownload = (file, filename) => {
+    console.log("Downloading:", filename);
+    const link = document.createElement("a");
+    link.href = file;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
-    <footer className="bg-[linear-gradient(to_right,#BFA585,#D8C6A0,#EAD9B0)]">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand */}
-          <div>
-            <img src={logo2} alt="Holistic Wellness Logo" className='w-32 md:w-64'/>
-            
+    <footer className="w-full flex flex-col items-center justify-center">
+      <div className="bg-[#053d57] flex flex-col w-full">
+        <div
+          className="
+            text-[#ebf0f2]
+            grid grid-cols-1
+            md:grid-cols-2
+            lg:grid-cols-[1fr_1fr_1fr_1fr_2fr]
+            gap-6 md:gap-8
+            px-6 md:px-12 lg:px-[100px]
+            py-8 md:py-10
+          "
+          style={{ fontFamily: "Josefin Sans" }}
+        >
+          {/* Logo */}
+          <div className="flex items-center justify-center md:justify-start" onClick={() => (navigate("/"))}>
+            <img
+              src={logo2}
+              alt="Logo"
+              className="size-32 md:size-36 lg:size-40"
+            />
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-bold mb-4">Quick Links</h4>
-            <ul className="space-y-1 text-[#4B2E16] font-semibold">
-              <li>
-                <Link to="/programmes" className="text-sm hover:text-[#E8D7BA] transition-smooth">
-                  Programmes
-                </Link>
-              </li>
-              <li>
-                <Link to="/exclusive-access" className="text-sm hover:text-[#E8D7BA] transition-smooth">
-                  Exclusive Access
-                </Link>
-              </li>
-              <li>
-                <Link to="/booking" className="text-sm  hover:text-[#E8D7BA] transition-smooth">
-                  Book Now
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="text-sm hover:text-[#E8D7BA] transition-smooth">
-                  FAQ
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {/* Links */}
+          {[
+            [
+              { text: "Mental Health", link: "/programmes/mental-health" },
+              { text: "Wellness & Longevity", link: "/programmes/wellness-longevity" },
+              { text: "Holistic Wellbeing", link: "/programmes/holistic-wellbeing" },
+            ],
+            [
+              { text: "Care Pathway", link: "/carepathway" },
+              { text: "Levels of Engagement", link: "/levels-of-engagement" },
+              { text: "About", link: "/about" },
+            ],
+            [
+              { text: "Contact", link: "/contact" },
+              { text: "FAQ", link: "/faq" },
+              { text: "Privacy Policy", onclick: () => handleDownload(PrivacyPolicy, "HWS Privacy Policy.pdf")  },
+            ],
+          ].map((group, idx) => (
+            <div
+              key={idx}
+              className="
+                flex flex-col
+                items-center md:items-start
+                justify-center
+                gap-2 md:gap-3
+                text-xs md:text-sm
+              "
+            >
+              {group.map(({ text, link,onclick }, i) => (
+                <p
+                  key={i}
+                  onClick={() => {
+                    if (onclick) {
+                      onclick();
+                    } else {
+                      navigate(link);
+                    }
+                  }}
+                  className="
+                    relative cursor-pointer
+                    after:absolute after:left-0 after:bottom-0
+                    after:h-[2px] after:w-full after:bg-[#ebf0f2]
+                    after:origin-left after:scale-x-0
+                    after:transition-transform after:duration-300
+                    hover:after:scale-x-100
+                    hover:text-[#ebf0f2]/50
+                  "
+                >
+                  {text}
+                </p>
+              ))}
+            </div>
+          ))}
 
           {/* Contact Info */}
-          <div>
-            <h4 className="font-bold mb-4">Contact Us</h4>
-            <ul className="space-y-3 text-[#4B2E16] font-semibold">
-              <li className="flex items-center gap-2 text-sm ">
-                <MapPin className="h-4 w-4 text-black" />
+          <div className="flex flex-col items-center md:items-center lg:items-start justify-center w-full">
+            <ul className="space-y-2 md:space-y-3 text-center md:text-left text-xs md:text-sm">
+              <li>
+                <span>Address: </span>
                 12-18 Theobalds Rd, London, WC1X 8SL
               </li>
-              <li className="flex items-center gap-2 text-sm ">
-                <Phone className="h-4 w-4 text-black" />
+              <li>
+                <span>Phone: </span>
                 +44 7770 778104
               </li>
-              <li className="flex items-center gap-2 text-sm ">
-                <Mail className="h-4 w-4 text-black" />
+              <li>
+                <span>Email: </span>
                 admin@holisticwell-beingsolutions.com
               </li>
             </ul>
           </div>
+        </div>
 
-          {/* Social Media */}
-          <div>
-            <h4 className="font-bold mb-4">Follow Us</h4>
-            <div className="flex gap-4">
-              <a
-                href="#"
-                className="h-10 w-10 rounded-full bg-muted flex items-center justify-center hover:bg-[#E8D7BA] hover:text-[#E8D7BA]-foreground transition-smooth"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="h-10 w-10 rounded-full bg-muted flex items-center justify-center hover:bg-[#E8D7BA] hover:text-[#E8D7BA]-foreground transition-smooth"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="h-10 w-10 rounded-full bg-muted flex items-center justify-center hover:bg-[#E8D7BA] hover:text-[#E8D7BA]-foreground transition-smooth"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-            </div>
+        {/* Social Icons */}
+        <div
+          className="
+            flex items-center justify-center
+            md:justify-end
+            w-full gap-3 md:gap-4
+            pb-4 md:pb-5
+            px-4 md:pr-[100px] lg:pr-[380px]
+          "
+        >
+          <div className="cursor-pointer rounded-full size-8 md:size-10 flex items-center justify-center bg-[#ebf0f2] hover:bg-[#ebf0f2]/50">
+            <Facebook
+              size={20}
+              className="md:w-[25px] md:h-[25px]"
+              color="black"
+            />
+          </div>
+          <div className="cursor-pointer rounded-full size-8 md:size-10 flex items-center justify-center bg-[#ebf0f2] hover:bg-[#ebf0f2]/50">
+            <img src={whatsapp} alt="WhatsApp" className="size-4 md:size-5" />
+          </div>
+          <div className="cursor-pointer rounded-full size-8 md:size-10 flex items-center justify-center bg-[#ebf0f2] hover:bg-[#ebf0f2]/50">
+            <img src={linkedin} alt="LinkedIn" />
           </div>
         </div>
+      </div>
 
-        <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Holistic Wellness. All rights reserved.</p>
-        </div>
+      {/* Copyright */}
+      <div
+        className="
+          bg-[#053d57]
+          w-full
+          text-[#ebf0f2]
+          text-xs
+          py-2
+          text-center md:text-left
+          px-4 md:pl-[100px] lg:pl-[300px]
+        "
+        style={{ fontFamily: "Josefin Sans" }}
+      >
+        <p>
+          &copy; {new Date().getFullYear()} Holistic Well-being Solutions Ltd. All
+          rights reserved.
+        </p>
       </div>
     </footer>
   );

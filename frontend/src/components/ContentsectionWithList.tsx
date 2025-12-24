@@ -17,6 +17,8 @@ interface ContentSectionProps {
   descriptionSize?: string;
   headingSize?: string;
   link?: string;
+  timelineItems?: string[];
+  paddingX?: string;
 }
 
 const ContentSection = ({
@@ -31,46 +33,49 @@ const ContentSection = ({
   imageWidth = "50%",
   textWidth = "50%",
   imagePositionX = "50%",
+  paddingX = "px-44",
   descriptionSize = "text-lg",
   headingSize = "text-3xl md:text-4xl",
+  timelineItems,
 }: ContentSectionProps) => {
   const boxRef = useRef<HTMLDivElement>(null);
   const [boxHeight, setBoxHeight] = useState<number | null>(null);
 
-  // Measure text box height (desktop behavior preserved)
   useLayoutEffect(() => {
     if (boxRef.current) {
       setBoxHeight(boxRef.current.offsetHeight);
     }
-  }, [content, additionalContent, finalContent]);
+  }, [content, additionalContent, finalContent, timelineItems]);
 
   return (
-    <section className="relative w-full bg-[#176a79]/10 pb-20 md:py-8 lg:py-10">
+    <section className="relative w-full bg-[#176a79]/10 pb-20">
       <div
         className={`
-          w-full flex  items-center
+          w-full flex flex-col items-center
           lg:flex-row
-          ${reverse ? " flex-col-reverse lg:flex-row-reverse" : "flex-col"}
+          ${reverse ? "lg:flex-row-reverse" : ""}
         `}
         style={{ fontFamily: "Josefin Sans" }}
       >
         {/* IMAGE AREA */}
         <motion.div
           className="
-            w-full
-            shadow-lg overflow-hidden
-            order-1
-            lg:order-none
+            w-full shadow-lg overflow-hidden
+            h-[240px] md:h-[320px]
+            lg:h-auto lg:w-auto
           "
           style={{
-            height:
-              boxHeight && typeof window !== "undefined" && window.innerWidth >= 1024
-                ? `${boxHeight * 1.1}px`
-                : "240px",
-            ...(typeof window !== "undefined" &&
-              window.innerWidth >= 1024 && {
-                width: imageWidth,
-              }),
+            width: "100%",
+            ...(boxHeight && {
+              height: undefined,
+            }),
+            ...(boxHeight && {
+              ...(typeof window !== "undefined" &&
+                window.innerWidth >= 1024 && {
+                  height: `${boxHeight * 1.1}px`,
+                  width: imageWidth,
+                }),
+            }),
           }}
           initial={{ opacity: 0, scale: 1.1 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -89,13 +94,13 @@ const ContentSection = ({
         {/* TEXT AREA */}
         <div
           ref={boxRef}
-          className="
+          className={`
             bg-white/90 backdrop-blur-sm shadow-lg
-            w-full
-            px-10
-            py-12
-            lg:px-32 lg:py-20
-          "
+            w-full text-sm
+            px-6 md:px-12
+            py-10 md:py-16
+            lg:w-auto lg:${paddingX} lg:py-20
+          `}
           style={{
             width:
               typeof window !== "undefined" && window.innerWidth >= 1024
@@ -108,7 +113,7 @@ const ContentSection = ({
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.3 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="max-w-xl"
+            className="max-w-xl text-sm"
           >
             <h2
               className={`${headingSize} text-[#0b343b] font-bold mb-4 md:mb-6 tracking-tight`}
@@ -122,27 +127,31 @@ const ContentSection = ({
               {content}
             </p>
 
-            {additionalContent && (
-              <p
-                className={`${descriptionSize} text-[#053d57] leading-relaxed mb-4 md:mb-6`}
-              >
-                {additionalContent}
-              </p>
-            )}
-
-            {finalContent && (
-              <p
-                className={`${descriptionSize} text-[#053d57] leading-relaxed mb-4 md:mb-6`}
-              >
-                {finalContent}
-              </p>
+            {timelineItems && (
+              <ul className="space-y-3 md:space-y-4 mb-4 md:mb-6">
+                {timelineItems.map((item, index) => (
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="flex items-start gap-3"
+                  >
+                    <span className="mt-1 h-2 w-2 rounded-full bg-[#053d57]" />
+                    <span className="text-[#053d57] text-sm leading-relaxed">
+                      {item}
+                    </span>
+                  </motion.li>
+                ))}
+              </ul>
             )}
 
             {button && (
               <Button
                 asChild
                 size="lg"
-                className="text-base md:text-lg px-6 md:px-8 text-[#ebf0f2] bg-[#053d57]/70 hover:bg-[#053d57] font-medium shadow-md"
+                className="text-sm md:text-base px-6 md:px-8 text-[#ebf0f2] bg-[#053d57]/70 hover:bg-[#053d57] font-medium shadow-md"
               >
                 <Link to={link}>{button}</Link>
               </Button>

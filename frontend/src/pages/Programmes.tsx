@@ -42,18 +42,18 @@ const CardComponentReverse = ({ image, title, description, cores }: ProgrammePro
         className="w-full md:w-auto flex-shrink-0 md:py-5 md:pr-5"
         variants={fadeUpVariant}
       >
-        <img src={image} alt={title} className="w-full md:w-[690px] h-64 md:h-auto object-cover" />
+        <img src={image} alt={title} className="w-full md:w-[600px] lg:w-[690px] h-60 md:h-72 lg:h-auto object-cover" />
       </motion.div>
 
       {/* Text */}
       <motion.div
-        className="flex flex-col justify-start p-6 md:p-10 w-full md:h-fit"
+        className="flex flex-col justify-start p-5 md:p-8 lg:p-10 w-full md:h-fit"
         variants={fadeUpVariant}
       >
-        <h2 className="text-2xl md:text-4xl font-bold text-[#3F2A1D] mb-2 md:mb-0">{title}</h2>
-        <p className="text-[#3E2C1A] mb-4 text-lg md:text-xl">{description}</p>
+        <h2 className="text-xl md:text-3xl lg:text-4xl font-bold text-[#3F2A1D] mb-2 md:mb-0">{title}</h2>
+        <p className="text-[#3E2C1A] mb-3 md:mb-4 text-base md:text-lg lg:text-xl">{description}</p>
 
-        <ul className="list-disc list-inside text-[#3B2B1C] space-y-1 text-lg md:text-xl mb-4 md:mb-0">
+        <ul className="list-disc list-inside text-[#3B2B1C] space-y-1 text-base md:text-lg lg:text-xl mb-3 md:mb-4">
           {cores.map((core: CoreItem, i: number) => (
             <li key={i} className="mb-2">
               <span className="font-semibold">{core.bolds}</span> - {core.para}
@@ -91,18 +91,18 @@ const CardComponent = ({ image, title, description, cores }: ProgrammeProps) => 
         className="w-full md:w-auto flex-shrink-0 md:py-5 md:pl-5"
         variants={fadeUpVariant}
       >
-        <img src={image} alt={title} className="w-full md:w-[690px] h-64 md:h-auto object-cover" />
+        <img src={image} alt={title} className="w-full md:w-[600px] lg:w-[690px] h-60 md:h-72 lg:h-auto object-cover" />
       </motion.div>
 
       {/* Text */}
       <motion.div
-        className="flex flex-col justify-start p-6 md:p-10 w-full md:h-fit"
+        className="flex flex-col justify-start p-5 md:p-8 lg:p-10 w-full md:h-fit"
         variants={fadeUpVariant}
       >
-        <h2 className="text-2xl md:text-4xl font-bold text-[#3F2A1D] mb-2 md:mb-0">{title}</h2>
-        <p className="text-[#3E2C1A] mb-4 text-lg md:text-xl">{description}</p>
+        <h2 className="text-xl md:text-3xl lg:text-4xl font-bold text-[#3F2A1D] mb-2 md:mb-0">{title}</h2>
+        <p className="text-[#3E2C1A] mb-3 md:mb-4 text-base md:text-lg lg:text-xl">{description}</p>
 
-        <ul className="list-disc list-inside text-[#3B2B1C] space-y-1 text-lg md:text-xl mb-4 md:mb-0">
+        <ul className="list-disc list-inside text-[#3B2B1C] space-y-1 text-base md:text-lg lg:text-xl mb-3 md:mb-4">
           {cores.map((core: CoreItem, i: number) => (
             <li key={i} className="mb-2">
               <span className="font-semibold">{core.bolds}</span> - {core.para}
@@ -113,7 +113,7 @@ const CardComponent = ({ image, title, description, cores }: ProgrammeProps) => 
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-[#3F2A1D] text-white py-3 px-6 rounded mt-4 md:mt-5 shadow-md hover:bg-[#4B2E16] transition w-full md:w-auto"
+          className="bg-[#3F2A1D] text-white py-2 md:py-3 px-5 md:px-6 text-sm md:text-base rounded mt-3 md:mt-4 lg:mt-5 shadow-md hover:bg-[#4B2E16] transition w-full md:w-auto"
           onClick={() => navigate("/booking")}
         >
           Book This Programme
